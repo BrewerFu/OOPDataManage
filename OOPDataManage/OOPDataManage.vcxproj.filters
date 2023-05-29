@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Source Files\GeomertyFile">
+      <UniqueIdentifier>{cff03a76-865d-4aeb-b1f7-80d228117d97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GeometryFile">
+      <UniqueIdentifier>{11ea42c4-6470-48ba-808a-7d68ef86986e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="FileReadWindow.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <QtUic Include="FileReadWindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtMoc Include="FileReadWindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClCompile Include="FileReadWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CBitMap.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CCircle.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CFeature.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CGeometry.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CPoint.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CPolyGon.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CPolyLine.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CRectAngle.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CSection.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CStyle.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\CText.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\FileManager.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GeomertyFile\TextFile.cpp">
+      <Filter>Source Files\GeomertyFile</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeomertyFile\CBitMap.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CCircle.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CFeature.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CGeometry.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CPoint.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CPolyGon.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CPolyLine.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CRectAngle.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CSection.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CStyle.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CText.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\FileManager.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\TextFile.h">
+      <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

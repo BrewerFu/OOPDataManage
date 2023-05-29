@@ -1,17 +1,21 @@
-#include "CCircle.h"
+ï»¿#include "CCircle.h"
 
-//Í¨¹ıÔ²ĞÄºÍ°ë¾¶¹¹Ôì
+//é€šè¿‡åœ†å¿ƒå’ŒåŠå¾„æ„é€ 
 CCircle::CCircle(CPoint c, float r):m_C(c),m_R(r)
 {
 }
 
-//»ñÈ¡Ô²ĞÄ
+CCircle::CCircle(float x, float y, float r):m_C(x, y), m_R(r)
+{
+}
+
+//è·å–åœ†å¿ƒ
 CPoint CCircle::GetC()
 {
     return m_C;
 }
 
-//»ñÈ¡¼¸ºÎÀàĞÍ
+//è·å–å‡ ä½•ç±»å‹
 const char* CCircle::GetType()
 {
     return "Circle";
@@ -20,41 +24,41 @@ const char* CCircle::GetType()
 //TODO
 const char* CCircle::ToWKT()
 {
-
+    return "TODO";
 }
 
 //TODO
 const char* CCircle::ToGeojson()
 {
-
+    return "TODO";
 }
 
-//¼ÆËãÖÜ³¤
+//è®¡ç®—å‘¨é•¿
 float CCircle::Circum()
 {
     return 2*std::acos(-1)*m_R;
 }
 
-//¼ÆËãÃæ»ı
+//è®¡ç®—é¢ç§¯
 float CCircle::Area()
 {
     return std::acos(-1)*m_R*m_R;
 }
 
 
-//»ñÈ¡°ë¾¶
+//è·å–åŠå¾„
 float CCircle::GetR()
 {
     return m_R;
 }
 
-//ÉèÖÃÔ²ĞÄ
+//è®¾ç½®åœ†å¿ƒ
 void CCircle::C(CPoint c)
 {
     m_C = c;
 }
 
-//ÉèÖÃ°ë¾¶
+//è®¾ç½®åŠå¾„
 void CCircle::R(float r)
 {
     m_R = r;

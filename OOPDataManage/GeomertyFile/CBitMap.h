@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include"CPoint.h"
 
 class CBitMap 

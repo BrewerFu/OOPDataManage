@@ -1,52 +1,52 @@
-#pragma once
+ï»¿#pragma once
 #include<vector>
 #include<string>
 #include"CStyle.h"
 
-//Íâ°ü¾ØĞÎ
+//å¤–åŒ…çŸ©å½¢
 struct BBox
 {
-	//×óÉÏ
+	//å·¦ä¸Š
 	float LT;
-	//ÓÒÏÂ
+	//å³ä¸‹
 	float RB;
 };
 
-//³éÏó¼¸ºÎ
+//æŠ½è±¡å‡ ä½•
 class CGeometry
 {
 public:
-	//¼¸ºÎ±ß½ç
+	//å‡ ä½•è¾¹ç•Œ
 	BBox BoundingBox;
 
 	int id;
 
-	//ÊÇ·ñ±»É¾³ı
+	//æ˜¯å¦è¢«åˆ é™¤
 	bool isDelete;
 
-	//»ñÈ¡¼¸ºÎÀàĞÍ
+	//è·å–å‡ ä½•ç±»å‹
 	virtual const char* GetType()=0;
 
-	//»ñÈ¡WKTĞÎÊ½¼¸ºÎ
+	//è·å–WKTå½¢å¼å‡ ä½•
 	virtual const char* ToWKT() = 0;
 	
-	//»ñÈ¡GeoJsonÀàĞÍ¼¸ºÎ
+	//è·å–GeoJsonç±»å‹å‡ ä½•
 	virtual const char* ToGeojson() = 0;
 	
-	//±ß¿òÑÕÉ«
+	//è¾¹æ¡†é¢œè‰²
 	CColor BorderColor;
 	
-	//Ìî³äÑÕÉ«
+	//å¡«å……é¢œè‰²
 	CColor FillColor;
 	
-	//±ß¿òÑùÊ½
+	//è¾¹æ¡†æ ·å¼
 	CBorStyle BorderStyle;
 	
-	//Ìî³äÑùÊ½
+	//å¡«å……æ ·å¼
 	CFilStyle FillStyle;
 
-	//ĞéÎö¹¹º¯Êı
-	virtual ~CGeometry();
+	//è™šææ„å‡½æ•°
+	virtual ~CGeometry() {};
 };
 
 

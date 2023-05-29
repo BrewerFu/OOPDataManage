@@ -1,4 +1,4 @@
-#include "CSection.h"
+ï»¿#include "CSection.h"
 
 CSection::CSection(CPoint c, float r, float startangle, float endangle):CCircle(c,r),StartAngle(startangle),EndAngle(endangle)
 {
@@ -26,12 +26,12 @@ const char* CSection::ToGeojson()
 
 float CSection::Circum()
 {
-    return CCircle::Circum() * (EndAngle - StartAngle) / (2 * acos(-1));
+    return (float) CCircle::Circum() * (double)fabs(EndAngle - StartAngle) / (360);
 }
 
 float CSection::Area()
 {
-    return  CCircle::Area() * (EndAngle - StartAngle) / (2 * acos(-1));
+    return  (float)CCircle::Area() * (double)fabs(EndAngle - StartAngle) / (360);
 }
 
 void CSection::SAngle(float startangle)
@@ -56,7 +56,7 @@ float CSection::EAngle()
     return EndAngle;
 }
 
-//¼ì²é½Ç¶ÈÊÇ·ñÔÚ0-360Ö®¼ä
+//æ£€æŸ¥è§’åº¦æ˜¯å¦åœ¨0-360ä¹‹é—´
 void CSection::CheckAngle()
 {
     while (StartAngle <= 0 || StartAngle > 360)
@@ -88,9 +88,9 @@ CSectionPoly CSection::ToPolyGon(int n)
     CSectionPoly sectionpoly;
     sectionpoly.prt = this;
     sectionpoly.polygon = CPolyGon();
-    //¼ÆËãÎ¢·Ö½Ç¶È
+    //è®¡ç®—å¾®åˆ†è§’åº¦
     float dangle = (EndAngle - StartAngle) / n;
-    //¼ÆËãÎ¢·Öµã
+    //è®¡ç®—å¾®åˆ†ç‚¹
     for (int i = 0; i < n; i++)
     {
         CPoint point;
@@ -98,7 +98,7 @@ CSectionPoly CSection::ToPolyGon(int n)
         point.y(m_C.y() + m_R * sin((StartAngle + dangle * i) * acos(-1) / 180));
         sectionpoly.polygon.AppendPoint(point);
     }
-    //Ìí¼ÓÔ²ĞÄ
+    //æ·»åŠ åœ†å¿ƒ
     sectionpoly.polygon.AppendPoint(m_C);
     return sectionpoly; 
 }

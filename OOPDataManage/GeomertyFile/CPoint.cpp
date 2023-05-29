@@ -1,4 +1,4 @@
-#include "CPoint.h"
+﻿#include "CPoint.h"
 
 const char* CPoint::GetType()
 {
@@ -31,6 +31,13 @@ CPoint& CPoint::operator+=(CPoint c)
 	return *this;
 }
 
+CPoint& CPoint::operator-=(CPoint c)
+{
+	this->m_X -= c.m_X;
+	this->m_Y -= c.m_Y;
+	return *this;
+}
+
 float CPoint::operator*(CPoint c)
 {
 	return this->m_X * c.m_X + this->m_Y * c.m_Y;
@@ -59,7 +66,9 @@ bool CPoint::operator!=(CPoint c)
 
 float CPoint_Distance(CPoint c1, CPoint c2)
 {
-	return sqrt(pow((c1.x() - c2.x()), 2) + pow((c1.y(), c2.y()), 2));
+	float dx = c1.x() - c2.x();
+	float dy = c1.y()- c2.y();
+	return sqrt(dx*dx+dy*dy);
 }
 
 const char* CPoint::ToWKT()
@@ -70,5 +79,5 @@ const char* CPoint::ToWKT()
 //TODO
 const char* CPoint::ToGeojson()
 {
-	return "{\"type\":\""
+	return " TODO";
 }

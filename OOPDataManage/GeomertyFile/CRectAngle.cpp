@@ -1,4 +1,4 @@
-#include "CRectAngle.h"
+﻿#include "CRectAngle.h"
 
 //通过两个点构造
 CRectAngle::CRectAngle(CPoint lefttop, CPoint rightbottom):m_LT(lefttop),m_RB(rightbottom)
@@ -23,12 +23,12 @@ const char* CRectAngle::GetType()
 //TODO
 const char* CRectAngle::ToWKT()
 {
-
+	return "TODO";
 }
 //TODO
 const char* CRectAngle::ToGeojson()
 {
-
+	return "TODO";
 }
 
 //计算周长

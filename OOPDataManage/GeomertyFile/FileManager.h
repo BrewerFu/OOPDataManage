@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include"CFeature.h"
 
 class FileManager
 {
 public:
-	//´ò¿ªÎÄ¼þ
-	bool Open();
+	//æ‰“å¼€æ–‡ä»¶
+	bool Open(const char FileName);
 	
-	//¹Ø±ÕÎÄ¼þ
+	//å…³é—­æ–‡ä»¶
 	void Close();
 
-	
+
 
 };
 

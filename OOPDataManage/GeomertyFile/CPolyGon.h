@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include"CPolyLine.h"
 
-//¼¸ºÎ¶à±ßÐÎ
+//å‡ ä½•å¤šè¾¹å½¢
 class CPolyGon :public CPolyLine
 {
 public:
-	//Ä¬ÈÏ¹¹Ôìº¯Êý
+	//é»˜è®¤æž„é€ å‡½æ•°
 	CPolyGon() {};
 
 	virtual const char* GetType();

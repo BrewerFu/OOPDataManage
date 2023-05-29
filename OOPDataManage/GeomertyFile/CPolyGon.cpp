@@ -1,4 +1,4 @@
-#include "CPolyGon.h"
+﻿#include "CPolyGon.h"
 
 const char* CPolyGon::GetType()
 {
@@ -8,20 +8,20 @@ const char* CPolyGon::GetType()
 //TODO
 const char* CPolyGon::ToWKT()
 {
-
+	return "TODO";
 }
 
 //TODO
 const char* CPolyGon::ToGeojson()
 {
-
+	return "TODO";
 }
 
 
 float CPolyGon::Circum()
 {
 	float sum = CPolyLine::Circum();
-	sum += CPoint_Distance(m_Pois[0], m_Pois[m_Pois.size()]);
+	sum += CPoint_Distance(m_Pois[0], m_Pois[m_Pois.size()-1]);
 	return sum;
 }
 float CPolyGon::Area()
@@ -31,6 +31,6 @@ float CPolyGon::Area()
 	{
 		sum += *iter ^ *(iter + 1);
 	}
-	sum += m_Pois[m_Pois.size()] ^ m_Pois[0];
+	sum += m_Pois[m_Pois.size()-1] ^ m_Pois[0];
 	return 0.5 * sum;
 }

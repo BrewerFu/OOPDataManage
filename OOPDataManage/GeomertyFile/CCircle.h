@@ -1,53 +1,57 @@
-#pragma once
+ï»¿#pragma once
 #include"CGeometry.h"
 #include"CPoint.h"
 #include"CPolyGon.h"
 #include<cmath>
 
-//¼¸ºÎÔ²
+//å£°æ˜åœ†
+class CCircle;
+
+//åœ†å¤šè¾¹å½¢
+struct CCirclePoly
+{
+	//æŒ‡å‘åœ†çš„æŒ‡é’ˆ
+	CCircle* prt;
+	//å¤šè¾¹å½¢
+	CPolyGon polygon;
+};
+
+//å‡ ä½•åœ†
 class CCircle :public CGeometry
 {
 public:
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
-	CCircle() {};
-	//Í¨¹ıÔ²ĞÄºÍ°ë¾¶¹¹Ôì
+	//é»˜è®¤æ„é€ å‡½æ•°
+	CCircle():m_R(0){};
+	//é€šè¿‡åœ†å¿ƒå’ŒåŠå¾„æ„é€ 
 	CCircle(CPoint c, float r);
-
-	//»ñÈ¡Ô²ĞÄ
+	//é€šè¿‡xã€yåæ ‡å’ŒåŠå¾„æ„é€ 
+	CCircle(float x, float y, float r);
+	//è·å–åœ†å¿ƒ
 	CPoint GetC();
-	//»ñÈ¡°ë¾¶
+	//è·å–åŠå¾„
 	float GetR();
 
-	//ÉèÖÃÔ²ĞÄ
+	//è®¾ç½®åœ†å¿ƒ
 	void C(CPoint c);
-	//ÉèÖÃ°ë¾¶
+	//è®¾ç½®åŠå¾„
 	void R(float r);
 	
 	virtual const char* GetType();
 	virtual const char* ToWKT();
 	virtual const char* ToGeojson();
-	//¼ÆËãÖÜ³¤
+	//è®¡ç®—å‘¨é•¿
 	virtual float Circum();
-	//¼ÆËãÃæ»ı
+	//è®¡ç®—é¢ç§¯
 	virtual float Area();
 
-	//×ª»»Îª¶à±ßĞÎ
-	//@param n:¶à±ßĞÎ±ßÊı
-	//@return:°üº¬¶à±ßĞÎºÍÔ²µÄ½á¹¹Ìå
+	//è½¬æ¢ä¸ºå¤šè¾¹å½¢
+	//@param n:å¤šè¾¹å½¢è¾¹æ•°
+	//@return:åŒ…å«å¤šè¾¹å½¢å’Œåœ†çš„ç»“æ„ä½“
 	CCirclePoly ToPolyGon(int n);
 
 protected:
-	//Ô²ĞÄ
+	//åœ†å¿ƒ
 	CPoint m_C;
-	//°ë¾¶
+	//åŠå¾„
 	float m_R;
-};
-
-//Ô²¶à±ßĞÎ
-struct CCirclePoly
-{
-	//Ö¸ÏòÔ²µÄÖ¸Õë
-	CCircle* prt;
-	//¶à±ßĞÎ
-	CPolyGon polygon;
 };

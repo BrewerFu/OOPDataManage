@@ -1,32 +1,32 @@
-#pragma once
+ï»¿#pragma once
 #include<string>
 
-//ÑÕÉ«Àà
+//é¢œè‰²ç±»
 class CColor
 {
 public:
-	//»ñÈ¡ÑÕÉ«Ãû³Æ
+	//è·å–é¢œè‰²åç§°
 	const char* GetColor();
-	//´ÓRGBAÉèÖÃÑÕÉ«
+	//ä»RGBAè®¾ç½®é¢œè‰²
 	void SetColorFromRGBA(int R, int G, int B, int A);
-	//»ñµÃÑÕÉ«µÄRGBA
+	//è·å¾—é¢œè‰²çš„RGBA
 	void GetColorRGBA(int &R,int &G,int *B,int &A);
 
 private:
-	//RºìÉ«Öµ
+	//Rçº¢è‰²å€¼
 	int R;
-	//GÂÌÉ«Öµ
+	//Gç»¿è‰²å€¼
 	int G;
-	//BÀ¶É«Öµ
+	//Bè“è‰²å€¼
 	int B;
-	//AÍ¸Ã÷¶È
+	//Aé€æ˜åº¦
 	int Alpha;
-	//Ãû³Æ
+	//åç§°
 	char* name;
 };
 
 
-//ÏßÌõÑùÊ½¿ÉÑ¡Ïî
+//çº¿æ¡æ ·å¼å¯é€‰é¡¹
 enum LineStyle
 {
 	SolidLine,
@@ -36,19 +36,19 @@ enum LineStyle
 	DashDotDotLine
 };
 
-//±ß¿òÑùÊ½
+//è¾¹æ¡†æ ·å¼
 class CBorStyle
 {
 public:
-	//¿í¶È
+	//å®½åº¦
 	int m_Width;
-	//ÏßÌõÑùÊ½
+	//çº¿æ¡æ ·å¼
 	LineStyle m_Style;
-	//ÏßÌõĞÎ×´
+	//çº¿æ¡å½¢çŠ¶
 
 };
 
-//Ìî³äÑùÊ½
+//å¡«å……æ ·å¼
 class CFilStyle
 {
 

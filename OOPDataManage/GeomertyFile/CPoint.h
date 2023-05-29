@@ -1,50 +1,52 @@
-#pragma once
+ï»¿#pragma once
 #include"CGeometry.h"
 
-//¼¸ºÎµã
+//å‡ ä½•ç‚¹
 class CPoint :public CGeometry
 {
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	CPoint(float x, float y);
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
+	//é»˜è®¤æ„é€ å‡½æ•°
 	CPoint();
 
-	//»ñÈ¡x
+	//è·å–x
 	float x() { return m_X; };
-	//»ñÈ¡y
+	//è·å–y
 	float y() { return m_Y; };
 
-	//ÉèÖÃx
+	//è®¾ç½®x
 	void x(float x) { m_X = x; };
-	//ÉèÖÃy
+	//è®¾ç½®y
 	void y(float y) { m_Y = y; };
 
 	virtual const char* GetType();
 	virtual const char* ToWKT();
 	virtual const char* ToGeojson();
 	
-	//ÖØÔØ+ÔËËã
+	//é‡è½½+è¿ç®—
 	CPoint operator +(CPoint c);
-	//ÖØÔØ+=ÔËËã
+	//é‡è½½+=è¿ç®—
 	CPoint& operator +=(CPoint c);
-	//ÖØÔØ-ÔËËã
+	//-=è¿ç®—
+	CPoint& operator -=(CPoint c);
+	//é‡è½½-è¿ç®—
 	CPoint operator - (CPoint);
-	//ÖØÔØ*µã»ıÔËËã
+	//é‡è½½*ç‚¹ç§¯è¿ç®—
 	float operator*(CPoint c);
-	//ÖØÔØ^²æ»ıÔËËã
+	//é‡è½½^å‰ç§¯è¿ç®—
 	float operator ^ (CPoint c);
-	//ÅĞ¶ÏµãX¡¢YÖµÊÇ·ñÏàµÈ
+	//åˆ¤æ–­ç‚¹Xã€Yå€¼æ˜¯å¦ç›¸ç­‰
 	bool operator==(CPoint c);
-	//ÅĞ¶ÏµãX¡¢YÖµÊÇ·ñ²»µÈ
+	//åˆ¤æ–­ç‚¹Xã€Yå€¼æ˜¯å¦ä¸ç­‰
 	bool operator!=(CPoint);
 
 private:
-	//x×ø±ê
+	//xåæ ‡
 	float m_X;
-	//y×ø±ê
+	//yåæ ‡
 	float m_Y;
 };
 
-//ÇóÁ½¸öµãÖ®¼äµÄ¾àÀë
+//æ±‚ä¸¤ä¸ªç‚¹ä¹‹é—´çš„è·ç¦»
 float CPoint_Distance(CPoint c1, CPoint c2);

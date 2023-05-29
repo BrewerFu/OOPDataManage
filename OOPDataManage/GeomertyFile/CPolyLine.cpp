@@ -1,4 +1,4 @@
-#include "CPolyLine.h"
+ï»¿#include "CPolyLine.h"
 
 CPolyLine::CPolyLine(const CPolyLine& c):m_Pois(c.m_Pois)
 {
@@ -13,12 +13,13 @@ const char* CPolyLine::GetType()
 //TODO
 const char* CPolyLine::ToWKT()
 {
+	return "TODO";
 }
 
 //TODO
 const char* CPolyLine::ToGeojson()
 {
-
+	return "TODO";
 }
 
 float CPolyLine::Circum()
@@ -79,7 +80,7 @@ bool CPolyLine::DeletePoint(int pos)
 CPoint CPolyLine::QureyPoint(int pos)
 {
 	if (pos<0 || pos>m_Pois.size())
-		throw std::exception("pos³¬³ö·¶Î§!");
+		throw std::range_error("posè¶…å‡ºèŒƒå›´! ");
 	else
 	{
 		return m_Pois[pos];
@@ -89,9 +90,13 @@ CPoint CPolyLine::QureyPoint(int pos)
 void CPolyLine::AlterPoint(int pos, CPoint c)
 {
 	if (pos<0 || pos>m_Pois.size())
-		throw std::exception("pos³¬³ö·¶Î§!");
+	{
+		throw std::range_error("posè¶…å‡ºèŒƒå›´! ");
+	}
 	else if (CheckDuplicate(c))
-		throw std::exception("ÒÑ¾­´æÔÚ¸Ãµã!");
+	{
+		throw std::logic_error("å·²ç»å­˜åœ¨è¯¥ç‚¹! ");
+	}
 	else
 	{
 		m_Pois[pos] = c;
@@ -110,6 +115,18 @@ CPolyLine CPolyLine::operator - (CPoint c)
 	CPolyLine copy(*this);
 	copy.DeletePoint(c);
 	return copy;
+}
+
+CPolyLine& CPolyLine::operator+=(CPoint c)
+{
+	this->AppendPoint(c);
+	return *this;
+}
+
+CPolyLine& CPolyLine::operator -=(CPoint c)
+{
+	this->DeletePoint(c);
+	return *this;
 }
 
 bool CPolyLine::CheckDuplicate(CPoint c)

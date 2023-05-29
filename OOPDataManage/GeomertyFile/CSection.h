@@ -1,26 +1,35 @@
-#pragma once
+ï»¿#pragma once
 #include"CCircle.h"
 
-//¼¸ºÎÉÈĞÎ
+class CSection;
+
+//å‡ ä½•æ‰‡å½¢å¤šè¾¹å½¢
+struct CSectionPoly
+{
+	CSection* prt;
+	CPolyGon polygon;
+};
+
+//å‡ ä½•æ‰‡å½¢
 class CSection :public CCircle
 {
 public:
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
-	CSection(){};
+	//é»˜è®¤æ„é€ å‡½æ•°
+	CSection():StartAngle(0),EndAngle(360){};
 
-	//¹¹Ôìº¯Êı
-	//@param startangle ½Ç¶È,¿ªÊ¼½Ç¶È
-	//@param endangle ½Ç¶È,½áÊø½Ç¶È
+	//æ„é€ å‡½æ•°
+	//@param startangle è§’åº¦,å¼€å§‹è§’åº¦
+	//@param endangle è§’åº¦,ç»“æŸè§’åº¦
 	CSection(CPoint c, float r, float startangle, float endangle);
 
-	//»ñÈ¡¿ªÊ¼½Ç¶È
+	//è·å–å¼€å§‹è§’åº¦
 	void SAngle(float startangle);
-	//»ñÈ¡½áÊø½Ç¶È
+	//è·å–ç»“æŸè§’åº¦
 	void EAngle(float endangle);
 
-	//ÉèÖÃ¿ªÊ¼½Ç¶È
+	//è®¾ç½®å¼€å§‹è§’åº¦
 	float SAngle();
-	//ÉèÖÃ½áÊø½Ç¶È
+	//è®¾ç½®ç»“æŸè§’åº¦
 	float EAngle();
 
 	virtual const char* GetType();
@@ -32,19 +41,12 @@ public:
 	CSectionPoly ToPolyGon(int n);
 
 protected:
-	//¿ªÊ¼½Ç¶È
+	//å¼€å§‹è§’åº¦
 	float StartAngle;
-	//½áÊø½Ç¶È
+	//ç»“æŸè§’åº¦
 	float EndAngle;
-	//¿ØÖÆ½Ç¶ÈÔÚ0-360Ö®¼ä
+	//æ§åˆ¶è§’åº¦åœ¨0-360ä¹‹é—´
 	void CheckAngle();
-};
-
-//¼¸ºÎÉÈĞÎ¶à±ßĞÎ
-struct CSectionPoly
-{
-	CSection* prt;
-	CPolyGon polygon;
 };
 
 

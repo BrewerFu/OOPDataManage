@@ -1,51 +1,52 @@
-#pragma once
+ï»¿#pragma once
 #include"CGeometry.h"
 #include"CPoint.h"
 #include<stdexcept>
 
-//¼¸ºÎ¾ØĞÎ
+//å‡ ä½•çŸ©å½¢
 class CRectAngle :public CGeometry
 {
 public:
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
+	//é»˜è®¤æ„é€ å‡½æ•°
 	CRectAngle() {};
 
-	//Í¨¹ıÁ½¸öµã¹¹Ôì
+	//é€šè¿‡ä¸¤ä¸ªç‚¹æ„é€ 
 	CRectAngle(CPoint lefttop, CPoint rightbottom);
 
-	//Í¨¹ıÒ»¸öµãºÍ³¤¿í¹¹Ôì
+	//é€šè¿‡ä¸€ä¸ªç‚¹å’Œé•¿å®½æ„é€ 
 	CRectAngle(CPoint lefttop, float width, float height);
 
 
-	//»ñÈ¡¿í¶È
+
+	//è·å–å®½åº¦
 	float GetWidth();
-	//»ñÈ¡¸ß¶È
+	//è·å–é«˜åº¦
 	float GetHeight();
 
-	//»ñÈ¡×óÉÏ½Ç¶¥µã
+	//è·å–å·¦ä¸Šè§’é¡¶ç‚¹
 	CPoint GetLT();
-	//»ñÈ¡ÓÒÏÂ½Ç¶¥µã
+	//è·å–å³ä¸‹è§’é¡¶ç‚¹
 	CPoint GetRB();
 
-	//ÉèÖÃ×óÉÏ½Ç¶¥µã
+	//è®¾ç½®å·¦ä¸Šè§’é¡¶ç‚¹
 	void LT(CPoint c);
-	//ÉèÖÃÓÒÏÂ½Ç¶¥µã
+	//è®¾ç½®å³ä¸‹è§’é¡¶ç‚¹
 	void RB(CPoint c);
 
 
 	virtual const char* GetType();
 	virtual const char* ToWKT();
 	virtual const char* ToGeojson();
-	//¼ÆËãÖÜ³¤
+	//è®¡ç®—å‘¨é•¿
 	virtual float Circum();
-	//¼ÆËãÃæ»ı
+	//è®¡ç®—é¢ç§¯
 	virtual float Area();
 
 private:
-	//×óÉÏ½Ç¶¥µã
+	//å·¦ä¸Šè§’é¡¶ç‚¹
 	CPoint m_LT;
-	//ÓÒÏÂ½Ç¶¥µã
+	//å³ä¸‹è§’é¡¶ç‚¹
 	CPoint m_RB;
-	//¼ì²éÊÇ·ñµßµ¹
+	//æ£€æŸ¥æ˜¯å¦é¢ å€’
 	bool CheckReverse();
 };

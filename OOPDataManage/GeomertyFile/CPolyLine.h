@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include"CGeometry.h"
 #include"CPoint.h"
-#include<exception>
+#include<stdexcept>;
 
-//¼¸ºÎÕÛÏß
+//å‡ ä½•æŠ˜çº¿
 class CPolyLine :public CGeometry
 {
 public:
-	//Ä¬ÈÏ¹¹Ôìº¯Êı
+	//é»˜è®¤æ„é€ å‡½æ•°
 	CPolyLine() {};
-	//¸´ÖÆ¹¹Ôìº¯Êı
+	//å¤åˆ¶æ„é€ å‡½æ•°
 	CPolyLine(const CPolyLine& c);
 
 	std::vector<CPoint> m_Pois;
@@ -18,34 +18,37 @@ public:
 	virtual const char* ToGeojson();
 	virtual float Circum();
 	
-	//»ñÈ¡ÕÛÏßµãÊı
+	//è·å–æŠ˜çº¿ç‚¹æ•°
 	int GetCount() { return m_Pois.size(); };
 
-	//ÔÚ×îºóÌí¼Óµã
+	//åœ¨æœ€åæ·»åŠ ç‚¹
 	void AppendPoint(CPoint c);
 
-	//ÔÚÎ»ÖÃpos²åÈëÒ»¸öµã
+	//åœ¨ä½ç½®posæ’å…¥ä¸€ä¸ªç‚¹
 	bool InsertPoint(int pos, CPoint c);
 
-	//É¾³ıµãc
+	//åˆ é™¤ç‚¹c
 	bool DeletePoint(CPoint c);
 
-	//É¾³ıÎ»ÖÃÔÚposµÄµã
+	//åˆ é™¤ä½ç½®åœ¨posçš„ç‚¹
 	bool DeletePoint(int pos);
 
-	//²éÑ¯Î»ÖÃÔÚpos´¦µÄµã
+	//æŸ¥è¯¢ä½ç½®åœ¨poså¤„çš„ç‚¹
 	CPoint QureyPoint(int pos);
 
-	//¸Ä±äÎ»ÖÃÔÚpos´¦µÄµã
+	//æ”¹å˜ä½ç½®åœ¨poså¤„çš„ç‚¹
 	void AlterPoint(int pos,CPoint c);
 
-	//ÖØÔØ+ÔËËã
+	//é‡è½½+è¿ç®—
 	CPolyLine operator +(CPoint c);
-	//ÖØÔØ-ÔËËã
+	//é‡è½½-è¿ç®—
 	CPolyLine operator - (CPoint c);
-
+	//é‡è½½+=è¿ç®—
+	CPolyLine& operator +=(CPoint c);
+	//é‡è½½-=è¿ç®—
+	CPolyLine& operator -=(CPoint c);
 protected:
-	//¼ì²éÊÇ·ñÓĞÖØ¸´
+	//æ£€æŸ¥æ˜¯å¦æœ‰é‡å¤
 	bool CheckDuplicate(CPoint c);
 
 };

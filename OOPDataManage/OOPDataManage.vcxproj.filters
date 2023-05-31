@@ -27,6 +27,12 @@
     <Filter Include="Header Files\GeometryFile">
       <UniqueIdentifier>{11ea42c4-6470-48ba-808a-7d68ef86986e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FileReader">
+      <UniqueIdentifier>{a4a337e4-af21-46d9-b523-48b361f924d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileReader">
+      <UniqueIdentifier>{afe271a4-2c68-42db-a172-b81de2f84b20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FileReadWindow.qrc">
@@ -55,9 +61,6 @@
     <ClCompile Include="GeomertyFile\CFeature.cpp">
       <Filter>Source Files\GeomertyFile</Filter>
     </ClCompile>
-    <ClCompile Include="GeomertyFile\CGeometry.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
-    </ClCompile>
     <ClCompile Include="GeomertyFile\CPoint.cpp">
       <Filter>Source Files\GeomertyFile</Filter>
     </ClCompile>
@@ -79,11 +82,14 @@
     <ClCompile Include="GeomertyFile\CText.cpp">
       <Filter>Source Files\GeomertyFile</Filter>
     </ClCompile>
-    <ClCompile Include="GeomertyFile\FileManager.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+    <ClCompile Include="FileReader\FileReader.cpp">
+      <Filter>Source Files\FileReader</Filter>
     </ClCompile>
-    <ClCompile Include="GeomertyFile\TextFile.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader\ShapeFileReader.cpp">
+      <Filter>Source Files\FileReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,11 +126,14 @@
     <ClInclude Include="GeomertyFile\CText.h">
       <Filter>Header Files\GeometryFile</Filter>
     </ClInclude>
-    <ClInclude Include="GeomertyFile\FileManager.h">
-      <Filter>Header Files\GeometryFile</Filter>
+    <ClInclude Include="FileReader\FileReader.h">
+      <Filter>Header Files\FileReader</Filter>
     </ClInclude>
-    <ClInclude Include="GeomertyFile\TextFile.h">
-      <Filter>Header Files\GeometryFile</Filter>
+    <ClInclude Include="FileManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader\ShapeFileReader.h">
+      <Filter>Header Files\FileReader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

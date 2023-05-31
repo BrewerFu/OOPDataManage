@@ -32,9 +32,9 @@ public:
 	//设置结束角度
 	float EAngle();
 
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType()override;
+	const char* ToWKT()override;
+	const char* ToGeojson() override;
 	virtual float Circum();
 	virtual float Area();
 

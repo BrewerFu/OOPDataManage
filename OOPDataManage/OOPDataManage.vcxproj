@@ -86,11 +86,13 @@
     <QtRcc Include="FileReadWindow.qrc" />
     <QtUic Include="FileReadWindow.ui" />
     <QtMoc Include="FileReadWindow.h" />
+    <ClCompile Include="FileManager.cpp" />
+    <ClCompile Include="FileReader\FileReader.cpp" />
+    <ClCompile Include="FileReader\ShapeFileReader.cpp" />
     <ClCompile Include="FileReadWindow.cpp" />
     <ClCompile Include="GeomertyFile\CBitMap.cpp" />
     <ClCompile Include="GeomertyFile\CCircle.cpp" />
     <ClCompile Include="GeomertyFile\CFeature.cpp" />
-    <ClCompile Include="GeomertyFile\CGeometry.cpp" />
     <ClCompile Include="GeomertyFile\CPoint.cpp" />
     <ClCompile Include="GeomertyFile\CPolyGon.cpp" />
     <ClCompile Include="GeomertyFile\CPolyLine.cpp" />
@@ -98,11 +100,12 @@
     <ClCompile Include="GeomertyFile\CSection.cpp" />
     <ClCompile Include="GeomertyFile\CStyle.cpp" />
     <ClCompile Include="GeomertyFile\CText.cpp" />
-    <ClCompile Include="GeomertyFile\FileManager.cpp" />
-    <ClCompile Include="GeomertyFile\TextFile.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileManager.h" />
+    <ClInclude Include="FileReader\FileReader.h" />
+    <ClInclude Include="FileReader\ShapeFileReader.h" />
     <ClInclude Include="GeomertyFile\CBitMap.h" />
     <ClInclude Include="GeomertyFile\CCircle.h" />
     <ClInclude Include="GeomertyFile\CFeature.h" />
@@ -114,8 +117,6 @@
     <ClInclude Include="GeomertyFile\CSection.h" />
     <ClInclude Include="GeomertyFile\CStyle.h" />
     <ClInclude Include="GeomertyFile\CText.h" />
-    <ClInclude Include="GeomertyFile\FileManager.h" />
-    <ClInclude Include="GeomertyFile\TextFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

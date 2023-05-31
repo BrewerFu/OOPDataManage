@@ -6,13 +6,13 @@ class CColor
 {
 public:
 	//获取颜色名称
-	const char* GetColor();
+	const char* GetColorName();
 	//从RGBA设置颜色
 	void SetColorFromRGBA(int R, int G, int B, int A);
 	//获得颜色的RGBA
-	void GetColorRGBA(int &R,int &G,int *B,int &A);
+	void GetColorRGBA(int &R,int &G,int &B,int &A);
 
-private:
+protected:
 	//R红色值
 	int R;
 	//G绿色值
@@ -44,12 +44,12 @@ public:
 	int m_Width;
 	//线条样式
 	LineStyle m_Style;
-	//线条形状
 
 };
 
 //填充样式
 class CFilStyle
 {
-
+public:
+	
 };

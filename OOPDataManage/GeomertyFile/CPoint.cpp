@@ -1,8 +1,8 @@
 ﻿#include "CPoint.h"
 
-const char* CPoint::GetType()
+GeometryType CPoint::GetType()
 {
-	return "Point";
+	return GeometryType::Point;
 }
 
 CPoint::CPoint(float x, float y):m_X(x),m_Y(y)

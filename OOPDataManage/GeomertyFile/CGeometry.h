@@ -12,6 +12,19 @@ struct BBox
 	float RB;
 };
 
+enum class GeometryType:int
+{
+	Undefined,
+	Point,
+	PolyLine,
+	PolyGon,
+	RectAngle,
+	CirCle,
+	Section,
+	Text,
+	BitMap
+};
+
 //抽象几何
 class CGeometry
 {
@@ -25,7 +38,7 @@ public:
 	bool isDelete;
 
 	//获取几何类型
-	virtual const char* GetType()=0;
+	virtual GeometryType GetType()=0;
 
 	//获取WKT形式几何
 	virtual const char* ToWKT() = 0;

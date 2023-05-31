@@ -36,9 +36,9 @@ public:
 	//设置半径
 	void R(float r);
 	
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType();
+	const char* ToWKT()override;
+	const char* ToGeojson()override;
 	//计算周长
 	virtual float Circum();
 	//计算面积

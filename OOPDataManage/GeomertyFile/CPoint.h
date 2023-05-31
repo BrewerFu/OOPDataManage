@@ -20,9 +20,9 @@ public:
 	//设置y
 	void y(float y) { m_Y = y; };
 
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType() override;
+	const char* ToWKT()override;
+	const char* ToGeojson() override;
 	
 	//重载+运算
 	CPoint operator +(CPoint c);

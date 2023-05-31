@@ -16,9 +16,9 @@ CPoint CCircle::GetC()
 }
 
 //获取几何类型
-const char* CCircle::GetType()
+GeometryType CCircle::GetType()
 {
-    return "Circle";
+    return GeometryType::CirCle;
 }
 
 //TODO

@@ -1,8 +1,8 @@
 ﻿#include "CPolyGon.h"
 
-const char* CPolyGon::GetType()
+GeometryType CPolyGon::GetType()
 {
-	return "PolyGon";
+	return GeometryType::PolyGon;
 }
 
 //TODO

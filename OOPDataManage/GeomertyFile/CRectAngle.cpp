@@ -14,9 +14,9 @@ CRectAngle::CRectAngle(CPoint lefttop, float width, float height):m_LT(lefttop),
 }
 
 //获取几何类型
-const char* CRectAngle::GetType()
+GeometryType CRectAngle::GetType()
 {
-	return "RectAngle";
+	return GeometryType::RectAngle;
 }
 
 

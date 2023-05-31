@@ -5,9 +5,9 @@ CSection::CSection(CPoint c, float r, float startangle, float endangle):CCircle(
 
 }
 
-const char* CSection::GetType()
+GeometryType CSection::GetType()
 {
-    return "Section";
+    return GeometryType::Section;
 }
 
 const char* CSection::ToWKT()

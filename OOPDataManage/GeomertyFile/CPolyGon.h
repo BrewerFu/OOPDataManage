@@ -8,9 +8,9 @@ public:
 	//默认构造函数
 	CPolyGon() {};
 
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType()override;
+	const char* ToWKT()override;
+	const char* ToGeojson()override;
 	virtual float Circum();
 	virtual float Area();
 	

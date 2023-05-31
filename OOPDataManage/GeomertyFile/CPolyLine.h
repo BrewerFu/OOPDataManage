@@ -13,9 +13,9 @@ public:
 	CPolyLine(const CPolyLine& c);
 
 	std::vector<CPoint> m_Pois;
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType() override;
+	const char* ToWKT() override;
+	const char* ToGeojson() override;
 	virtual float Circum();
 	
 	//获取折线点数

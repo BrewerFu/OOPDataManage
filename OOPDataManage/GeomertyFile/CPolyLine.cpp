@@ -5,9 +5,9 @@ CPolyLine::CPolyLine(const CPolyLine& c):m_Pois(c.m_Pois)
 
 }
 
-const char* CPolyLine::GetType()
+GeometryType CPolyLine::GetType()
 {
-	return"PolyLine";
+	return GeometryType::PolyLine;
 }
 
 //TODO

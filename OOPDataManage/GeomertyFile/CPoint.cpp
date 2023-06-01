@@ -13,6 +13,11 @@ CPoint::CPoint():m_X(0),m_Y(0)
 {
 }
 
+CPoint::CPoint(const CPoint& c)
+{
+	this->m_X = c.m_X;
+	this->m_Y = c.m_Y;
+}
 
 CPoint CPoint::operator +(CPoint c)
 {

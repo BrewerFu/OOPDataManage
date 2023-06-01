@@ -2,6 +2,7 @@
 #include<vector>
 #include<string>
 #include"CStyle.h"
+#include<qobject.h>
 
 //外包矩形
 struct BBox
@@ -16,19 +17,45 @@ enum class GeometryType:int
 {
 	Undefined,
 	Point,
+	Path,
 	PolyLine,
 	PolyGon,
 	RectAngle,
-	CirCle,
+	Circle,
 	Section,
 	Text,
 	BitMap
 };
 
 //抽象几何
-class CGeometry
+class CGeometry:public QObject
 {
 public:
+	CGeometry() { isDelete = false; }
+
+	CGeometry(const CGeometry& geo)
+	{
+		this->BorderColor = geo.BorderColor;
+		this->BorderStyle = geo.BorderStyle;
+		this->FillColor = geo.FillColor;
+		this->FillStyle = geo.FillStyle;
+		this->id = geo.id;
+		this->isDelete = geo.isDelete;
+		this->BoundingBox = geo.BoundingBox;
+	}
+
+	CGeometry& operator=(const CGeometry& geo)
+	{
+		this->BorderColor = geo.BorderColor;
+		this->BorderStyle = geo.BorderStyle;
+		this->FillColor = geo.FillColor;
+		this->FillStyle = geo.FillStyle;
+		this->id = geo.id;
+		this->isDelete = geo.isDelete;
+		this->BoundingBox = geo.BoundingBox;
+		return *this;
+	}
+
 	//几何边界
 	BBox BoundingBox;
 
@@ -60,6 +87,15 @@ public:
 
 	//虚析构函数
 	virtual ~CGeometry() {};
+
+	//设置id
+	void setId(int id){this->id=id;}
+
+	//获取id
+	int getId(){return id;}
+
+signals:
+	virtual void AimDestroy(GeometryType type,CGeometry* prt);
 };
 
 

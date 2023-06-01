@@ -4,11 +4,14 @@
 //几何点
 class CPoint :public CGeometry
 {
+	Q_OBJECT
 public:
 	//构造函数
 	CPoint(float x, float y);
 	//默认构造函数
 	CPoint();
+
+	CPoint(const CPoint& c);
 
 	//获取x
 	float x() { return m_X; };
@@ -41,7 +44,7 @@ public:
 	//判断点X、Y值是否不等
 	bool operator!=(CPoint);
 
-private:
+protected:
 	//x坐标
 	float m_X;
 	//y坐标

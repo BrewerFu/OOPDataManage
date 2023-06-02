@@ -86,19 +86,25 @@ void CSection::CheckAngle()
 CSectionPoly CSection::ToPolyGon(int n)
 {
     CSectionPoly sectionpoly;
+    CRing* ring = new CRing();
+    CPoint point;
+
     sectionpoly.prt = this;
     sectionpoly.polygon = CPolyGon();
+
     //计算微分角度
     float dangle = (EndAngle - StartAngle) / n;
     //计算微分点
     for (int i = 0; i < n; i++)
     {
-        CPoint point;
         point.x(m_C.x() + m_R * cos((StartAngle + dangle * i) * acos(-1) / 180));
         point.y(m_C.y() + m_R * sin((StartAngle + dangle * i) * acos(-1) / 180));
-        sectionpoly.polygon.AppendPoint(point);
+        *ring+=point;
     }
+
     //添加圆心
-    sectionpoly.polygon.AppendPoint(m_C);
+    *ring+=m_C;
+    //添加环
+    sectionpoly.polygon.AppendRing(ring);
     return sectionpoly; 
 }

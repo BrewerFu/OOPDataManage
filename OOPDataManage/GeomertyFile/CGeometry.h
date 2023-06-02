@@ -2,7 +2,6 @@
 #include<vector>
 #include<string>
 #include"CStyle.h"
-#include<qobject.h>
 
 //外包矩形
 struct BBox
@@ -19,6 +18,7 @@ enum class GeometryType:int
 	Point,
 	Path,
 	PolyLine,
+	Ring,
 	PolyGon,
 	RectAngle,
 	Circle,
@@ -28,7 +28,7 @@ enum class GeometryType:int
 };
 
 //抽象几何
-class CGeometry:public QObject
+class CGeometry
 {
 public:
 	CGeometry() { isDelete = false; }
@@ -94,8 +94,6 @@ public:
 	//获取id
 	int getId(){return id;}
 
-signals:
-	virtual void AimDestroy(GeometryType type,CGeometry* prt);
 };
 
 

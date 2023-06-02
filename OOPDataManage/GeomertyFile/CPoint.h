@@ -4,7 +4,6 @@
 //几何点
 class CPoint :public CGeometry
 {
-	Q_OBJECT
 public:
 	//构造函数
 	CPoint(float x, float y);

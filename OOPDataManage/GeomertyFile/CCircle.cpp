@@ -18,7 +18,7 @@ CPoint CCircle::GetC()
 //获取几何类型
 GeometryType CCircle::GetType()
 {
-    return GeometryType::CirCle;
+    return GeometryType::Circle;
 }
 
 //TODO
@@ -67,15 +67,19 @@ void CCircle::R(float r)
 CCirclePoly CCircle::ToPolyGon(int n)
 {
     CCirclePoly circlePoly;
+    CRing* ring = new CRing;
+    CPoint point;
     circlePoly.prt = this;
     circlePoly.polygon = CPolyGon();
+
     float  angle_increment = 2 * acos(-1) / n ;
     for (int i = 0; i < n; i++)
     {
-        CPoint point;
         point.x(m_C.x() + m_R * cos(angle_increment * i));
         point.y(m_C.y() + m_R * sin(angle_increment * i));
-        circlePoly.polygon.AppendPoint(point);
+        *ring+=point;
     }
+
+    circlePoly.polygon.AppendRing(ring);
     return circlePoly;
 }

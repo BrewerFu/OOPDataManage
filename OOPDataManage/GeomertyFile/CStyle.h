@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include<string>
-
+#include<qbrush.h>
+#include<qpen.h>
+#include<qcolor.h>
 //颜色类
 class CColor
 {
@@ -26,30 +28,18 @@ protected:
 };
 
 
-//线条样式可选项
-enum LineStyle
-{
-	SolidLine,
-	DashLine,
-	DotLine,
-	DashDotLine,
-	DashDotDotLine
-};
-
 //边框样式
-class CBorStyle
+class CBoundaryStyle
 {
 public:
 	//宽度
 	int m_Width;
-	//线条样式
-	LineStyle m_Style;
-
+	Qt::PenStyle m_PenStyle;
 };
 
 //填充样式
-class CFilStyle
+class CFillStyle
 {
 public:
-	
+	Qt::BrushStyle m_BrushStyle;
 };

@@ -1,31 +1,41 @@
 ﻿#pragma once
 #include"FileReader.h"
 
-
+//大端转小端
 int Big2Little(int a);
 
 class ShapeFileReader:public FileReader
 {
 public:
-	ShapeFileReader(const char* name) { Open(name); };
+	//默认构造函数
+	ShapeFileReader():m_cursur(100){}
+	ShapeFileReader(const char* name) { Open(name);};
+	//析构函数
+	~ShapeFileReader() { Close(); };
 
 	bool Open(const char* FileName) override;
 
 	bool Write(CFeature feature) override;
 
+	bool isNext() override;
+
+	bool Save() override;
+
+	bool Close() override;
+
 	GeometryType GetType();
 
-	int GetShape(CPoint& point) ;
+	int GetGeometry(CPoint& point) override;
 
-	int GetShape(CPolyLine& Line);
+	int GetGeometry(CPolyLine& Line) override;
 
-	int GetShape(CPolyGon& Gon) ;
+	int GetGeometry(CPolyGon& Gon) override;
 
-	int GetShape(CRectAngle& Rect) ;
+	int GetGeometry(CRectAngle& Rect)override { return 0; };
 
-	int GetShape(CCircle& Cir);
+	int GetGeometry(CCircle& Cir)override { return 0; };
 
-	int GetShape(CSection& Sec) ;
+	int GetGeometry(CSection& Sec)override { return 0; };
 
 private:
 	int m_cursur = 0;

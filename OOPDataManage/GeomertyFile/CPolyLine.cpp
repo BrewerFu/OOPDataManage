@@ -2,10 +2,6 @@
 
 CPath::CPath(const CPath& c):m_Pois(c.m_Pois)
 {
-	for (int i = 0; i < c.m_Pois.size(); i++)
-	{
-		m_Pois.push_back(CPoint(c.m_Pois[i]));
-	}
 }
 
 GeometryType CPath::GetType()
@@ -297,10 +293,9 @@ bool CPolyLine::AlterPath(int pos, CPath* c)
 
 bool CPolyLine::CheckDuplicate(CPath* c)
 {
-	for (std::vector<CPath*>::iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
+	for (int i = 0; i < m_Paths.size(); i++)
 	{
-		//检查内容是否重复
-		if (*c == **iter)
+		if (*c == *m_Paths[i])
 		{
 			return true;
 		}

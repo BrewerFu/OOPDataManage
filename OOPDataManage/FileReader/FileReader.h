@@ -3,6 +3,7 @@
 #include"../GeomertyFile/CSection.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CFeature.h"
+#include<qfile.h>
 #include<fstream>
 #include<exception>
 
@@ -11,17 +12,17 @@ class GeoFormat
 public:
 	virtual GeometryType GetType() = 0;
 
-	virtual int GetShape(CPoint& point) = 0;
+	virtual int GetGeometry(CPoint& point) = 0;
 
-	virtual int GetShape(CPolyLine& Line) = 0;
+	virtual int GetGeometry(CPolyLine& Line) = 0;
 
-	virtual int GetShape(CPolyGon& Gon) = 0;
+	virtual int GetGeometry(CPolyGon& Gon) = 0;
 
-	virtual int GetShape(CRectAngle& Rect) = 0;
+	virtual int GetGeometry(CRectAngle& Rect) = 0;
 
-	virtual int GetShape(CCircle& Cir) = 0;
+	virtual int GetGeometry(CCircle& Cir) = 0;
 
-	virtual int GetShape(CSection& Sec) = 0;
+	virtual int GetGeometry(CSection& Sec) = 0;
 
 };
 
@@ -39,9 +40,11 @@ public:
 
 	virtual bool Close()=0;
 
+	virtual ~FileReader() {};
+
 protected:
-	std::ifstream ifs;
-	std::ofstream ofs;
+	//qt文件读取
+	QFile qfs;
 };
 
 

@@ -1,7 +1,7 @@
 ﻿#include "FileReadWindow.h"
 
 FileReadWindow::FileReadWindow(QWidget *parent)
-    : QWidget(parent)
+    : QFileDialog(parent)
 {
     ui.setupUi(this);
 }

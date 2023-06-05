@@ -14,55 +14,55 @@ CRectAngle::CRectAngle(CPoint lefttop, float width, float height):m_LT(lefttop),
 }
 
 //获取几何类型
-GeometryType CRectAngle::GetType()
+GeometryType CRectAngle::GetType()const
 {
 	return GeometryType::RectAngle;
 }
 
 
 //TODO
-const char* CRectAngle::ToWKT()
+const char* CRectAngle::ToWKT()const
 {
 	return "TODO";
 }
 //TODO
-const char* CRectAngle::ToGeojson()
+const char* CRectAngle::ToGeojson()const
 {
 	return "TODO";
 }
 
 //计算周长
-float CRectAngle::Circum()
+float CRectAngle::Circum()const
 {
 	return CPoint_Distance(m_LT, CPoint(m_LT.x(), m_RB.y())) * 2 + CPoint_Distance(m_LT, CPoint(m_RB.x(), m_LT.y())) * 2;
 }
 
 //计算面积
-float CRectAngle::Area()
+float CRectAngle::Area()const
 {
 	return CPoint_Distance(m_LT, CPoint(m_LT.x(), m_RB.y())) * CPoint_Distance(m_LT, CPoint(m_RB.x(), m_LT.y()));
 }
 
 //获取宽度
-float CRectAngle::GetWidth()
+float CRectAngle::GetWidth()const
 {
 	return m_RB.x() - m_LT.x();
 }
 
 //获取高度
-float CRectAngle::GetHeight()
+float CRectAngle::GetHeight()const
 {
 	return m_LT.y() - m_RB.y();
 }
 
 //获取左上角顶点
-CPoint CRectAngle::GetLT()
+CPoint CRectAngle::GetLT()const
 {
 	return m_LT;
 }
 
 //获取右下角顶点
-CPoint CRectAngle::GetRB()
+CPoint CRectAngle::GetRB()const
 {
 	return m_RB;
 }
@@ -81,7 +81,7 @@ void CRectAngle::RB(CPoint c)
 }
 
 //检查是否颠倒
-bool CRectAngle::CheckReverse()
+bool CRectAngle::CheckReverse()const
 {
 	//如果左上角的x大于右下角的x或者左上角的y小于右下角的y，则颠倒
 	if (m_LT.x() > m_RB.x() || m_LT.y() < m_RB.y())

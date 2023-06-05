@@ -25,6 +25,7 @@ bool CFeature::DeleteGeometry(CGeometry* geo)
 			return true;
 		}
 	}
+	return false;
 }
 
 bool CFeature::CheckCorrectType(GeometryType type)

@@ -19,14 +19,14 @@ public:
 
 
 	//获取宽度
-	float GetWidth();
+	float GetWidth()const;
 	//获取高度
-	float GetHeight();
+	float GetHeight()const;
 
 	//获取左上角顶点
-	CPoint GetLT();
+	CPoint GetLT()const;
 	//获取右下角顶点
-	CPoint GetRB();
+	CPoint GetRB()const;
 
 	//设置左上角顶点
 	void LT(CPoint c);
@@ -34,13 +34,13 @@ public:
 	void RB(CPoint c);
 
 
-	GeometryType GetType()override;
-	const char* ToWKT()override;
-	const char* ToGeojson() override;
+	GeometryType GetType()const override;
+	const char* ToWKT()const override;
+	const char* ToGeojson()const override;
 	//计算周长
-	virtual float Circum();
+	float Circum()const override;
 	//计算面积
-	virtual float Area();
+	float Area()const override;
 
 private:
 	//左上角顶点
@@ -48,5 +48,5 @@ private:
 	//右下角顶点
 	CPoint m_RB;
 	//检查是否颠倒
-	bool CheckReverse();
+	bool CheckReverse()const;
 };

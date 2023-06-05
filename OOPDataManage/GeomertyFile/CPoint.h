@@ -18,35 +18,35 @@ public:
 
 
 	//获取x
-	float x() { return m_X; };
+	float x()const { return m_X; };
 	//获取y
-	float y() { return m_Y; };
+	float y()const { return m_Y; };
 
 	//设置x
 	void x(float x) { m_X = x; };
 	//设置y
 	void y(float y) { m_Y = y; };
 
-	GeometryType GetType() override;
-	const char* ToWKT()override;
-	const char* ToGeojson() override;
+	GeometryType GetType()const override;
+	const char* ToWKT()const override;
+	const char* ToGeojson()const  override;
 	
 	//重载+运算
-	CPoint operator +(CPoint c);
+	CPoint operator +(CPoint c)const;
 	//重载+=运算
 	CPoint& operator +=(CPoint c);
 	//-=运算
 	CPoint& operator -=(CPoint c);
 	//重载-运算
-	CPoint operator - (CPoint);
+	CPoint operator - (CPoint)const;
 	//重载*点积运算
-	float operator*(CPoint c);
+	float operator*(CPoint c)const;
 	//重载^叉积运算
-	float operator ^ (CPoint c);
+	float operator ^ (CPoint c)const;
 	//判断点X、Y值是否相等
-	bool operator==(CPoint c);
+	bool operator==(CPoint c)const;
 	//判断点X、Y值是否不等
-	bool operator!=(CPoint);
+	bool operator!=(CPoint)const;
 
 protected:
 	//x坐标
@@ -56,4 +56,4 @@ protected:
 };
 
 //求两个点之间的距离
-float CPoint_Distance(CPoint c1, CPoint c2);
+float CPoint_Distance(const CPoint& c1, const CPoint& c2);

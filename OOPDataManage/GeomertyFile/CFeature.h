@@ -18,7 +18,7 @@ public:
 	};
 
 	//获取几何对象的类型
-	GeometryType GetType()
+	GeometryType GetType()const
 	{
 		return Type;
 	}
@@ -30,13 +30,13 @@ public:
 	bool DeleteGeometry(CGeometry* geo);
 
 	//根据索引获取几何对象
-	CGeometry* GetGeometry(int index)
+	CGeometry* GetGeometry(int index)const
 	{
 		return m_vector[index];
 	}
 
 	//获取几何对象的数量
-	int GetGeometryCount()
+	int GetCount()const
 	{
 		return m_vector.size();
 	}
@@ -46,7 +46,32 @@ public:
 	{
 		return m_vector[index];
 	}
-	
+
+	//判断是否为空
+	bool IsEmpty()const
+	{
+		return m_vector.empty();
+	}
+
+	//迭代器对象
+	class iterator
+	{
+	public:
+		iterator(const std::vector<CGeometry*>::iterator& it): m_it(it) {}
+		iterator& operator++() { ++m_it; return *this; }
+		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
+		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
+		bool operator==(const iterator& other) const { return m_it == other.m_it; }
+		CGeometry* operator->() const { return *m_it; }
+		CGeometry* operator*() const { return *m_it; }
+	private:
+		std::vector<CGeometry*>::iterator m_it;
+	};
+
+	//迭代器的begin和end
+	iterator begin() { return iterator(m_vector.begin()); }
+	iterator end() { return iterator(m_vector.end()); }
+
 
 private:
 	//存储几何对象的容器
@@ -57,5 +82,4 @@ private:
 	GeometryType Type;
 
 };
-
 

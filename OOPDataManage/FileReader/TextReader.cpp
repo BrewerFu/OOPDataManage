@@ -7,7 +7,7 @@ bool TextReader::Open(const char* FileName)
 		//设置文件读取路径
 		qfs.setFileName(FileName);
 		//设置打开方式
-		if (!qfs.open(QIODevice::ReadWrite))
+		if (!qfs.open(QIODevice::ReadOnly))
 			return false;
 		if (!qfs.isOpen())
 			return false;

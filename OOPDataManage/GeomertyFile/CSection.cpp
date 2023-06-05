@@ -5,31 +5,31 @@ CSection::CSection(CPoint c, float r, float startangle, float endangle):CCircle(
 
 }
 
-GeometryType CSection::GetType()
+GeometryType CSection::GetType()const
 {
     return GeometryType::Section;
 }
 
-const char* CSection::ToWKT()
+const char* CSection::ToWKT()const
 {
     char* wkt = new char[100];
     sprintf(wkt, "Section((%f,%f),%f,%f,%f)", m_C.x(), m_C.y(), m_R, StartAngle, EndAngle);
     return wkt;
 }
 
-const char* CSection::ToGeojson()
+const char* CSection::ToGeojson()const
 {
     char* geojson = new char[100];
     sprintf(geojson, "{\"type\":\"Section\",\"coordinates\":[[%f,%f],%f,%f,%f]}", m_C.x(), m_C.y(), m_R, StartAngle, EndAngle);
     return geojson;
 }
 
-float CSection::Circum()
+float CSection::Circum()const
 {
     return (float) CCircle::Circum() * (double)fabs(EndAngle - StartAngle) / (360);
 }
 
-float CSection::Area()
+float CSection::Area()const
 {
     return  (float)CCircle::Area() * (double)fabs(EndAngle - StartAngle) / (360);
 }
@@ -46,12 +46,12 @@ void CSection::EAngle(float endangle)
     CheckAngle();
 }
 
-float CSection::SAngle()
+float CSection::GetSAngle()const
 {
     return StartAngle;
 }
 
-float CSection::EAngle()
+float CSection::GetEAngle()const
 {
     return EndAngle;
 }

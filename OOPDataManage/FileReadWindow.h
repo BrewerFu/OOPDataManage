@@ -1,9 +1,9 @@
 #pragma once
-#include <QtWidgets/QWidget>
+#include <QFileDialog>
 #include "ui_FileReadWindow.h"
-#include<qbrush.h>
 
-class FileReadWindow : public QWidget
+
+class FileReadWindow : public QFileDialog
 {
     Q_OBJECT
 

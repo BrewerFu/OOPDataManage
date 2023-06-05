@@ -10,27 +10,27 @@ CPath& CPath::operator=(const CPath& c)
 	return *this;
 }
 
-GeometryType CPath::GetType()
+GeometryType CPath::GetType()const
 {
 	return GeometryType::Path;
 }
 
 //TODO
-const char* CPath::ToWKT()
+const char* CPath::ToWKT()const
 {
 	return "TODO";
 }
 
 //TODO
-const char* CPath::ToGeojson()
+const char* CPath::ToGeojson()const
 {
 	return "TODO";
 }
 
-float CPath::Circum()
+float CPath::Circum()const
 {
 	float sum = 0;
-	for (std::vector<CPoint>::iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
+	for (std::vector<CPoint>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
 	{
 		sum += CPoint_Distance(*iter, *(iter + 1));
 	}
@@ -89,7 +89,7 @@ bool CPath::DeletePoint(int pos)
 	}
 }
 
-CPoint CPath::QureyPoint(int pos)
+CPoint CPath::QureyPoint(int pos)const
 {
 	if (pos<0 || pos>m_Pois.size())
 		throw std::range_error("pos超出范围! ");
@@ -224,27 +224,27 @@ CPolyLine::~CPolyLine()
 	m_Paths.clear();
 }
 
-GeometryType CPolyLine::GetType()
+GeometryType CPolyLine::GetType()const
 {
 	return GeometryType::PolyLine;
 }
 
 //TODO
-const char* CPolyLine::ToWKT()
+const char* CPolyLine::ToWKT()const
 {
 	return "TODO";
 }
 
 //TODO
-const char* CPolyLine::ToGeojson()
+const char* CPolyLine::ToGeojson()const
 {
 	return "TODO";
 }
 
-float CPolyLine::Circum()
+float CPolyLine::Circum()const
 {
 	float sum = 0;
-	for (std::vector<CPath*>::iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
+	for (std::vector<CPath*>::const_iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
 	{
 		sum += (*iter)->Circum();
 	}
@@ -275,7 +275,7 @@ bool CPolyLine::DeletePath(CPath* c)
 	return false;
 }
 
-CPath* CPolyLine::QureyPath(int pos)
+CPath* CPolyLine::QureyPath(int pos)const
 {
 	if (pos<0 || pos>m_Paths.size())
 		throw std::range_error("pos超出范围! ");
@@ -315,7 +315,7 @@ CPath* CPolyLine::operator[](int pos)
 	}
 }
 
-bool CPolyLine::CheckDuplicate(CPath* c)
+bool CPolyLine::CheckDuplicate(CPath* c)const
 {
 	for (int i = 0; i < m_Paths.size(); i++)
 	{

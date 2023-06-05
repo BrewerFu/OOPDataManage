@@ -22,21 +22,22 @@ public:
 	//@param endangle 角度,结束角度
 	CSection(CPoint c, float r, float startangle, float endangle);
 
-	//获取开始角度
-	void SAngle(float startangle);
-	//获取结束角度
-	void EAngle(float endangle);
-
 	//设置开始角度
-	float SAngle();
+	void SAngle(float startangle);
 	//设置结束角度
-	float EAngle();
+	
+	void EAngle(float endangle);
+	//获取开始角度
 
-	GeometryType GetType()override;
-	const char* ToWKT()override;
-	const char* ToGeojson() override;
-	float Circum() override;
-	float Area() override;
+	float GetSAngle()const;
+	//获取结束角度
+	float GetEAngle()const;
+
+	GeometryType GetType()const override;
+	const char* ToWKT()const override;
+	const char* ToGeojson()const  override;
+	float Circum()const  override;
+	float Area()const override;
 
 	CSectionPoly ToPolyGon(int n);
 

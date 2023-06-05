@@ -1,6 +1,6 @@
 ﻿#include "CPoint.h"
 
-GeometryType CPoint::GetType()
+GeometryType CPoint::GetType()const
 {
 	return GeometryType::Point;
 }
@@ -26,12 +26,12 @@ CPoint CPoint::operator=(const CPoint& c)
 	return *this;
 }
 
-CPoint CPoint::operator +(CPoint c)
+CPoint CPoint::operator +(CPoint c)const
 {
 	return CPoint(m_X + c.m_X, m_Y + c.m_Y);
 }
 
-CPoint CPoint::operator-(CPoint c)
+CPoint CPoint::operator-(CPoint c)const
 {
 	return CPoint(m_X - c.m_X, m_Y + c.m_Y);
 }
@@ -50,17 +50,17 @@ CPoint& CPoint::operator-=(CPoint c)
 	return *this;
 }
 
-float CPoint::operator*(CPoint c)
+float CPoint::operator*(CPoint c)const
 {
 	return this->m_X * c.m_X + this->m_Y * c.m_Y;
 }
 
-float CPoint::operator^(CPoint c)
+float CPoint::operator^(CPoint c)const
 {
 	return this->m_X * c.m_Y - this->m_Y * c.m_X;
 }
 
-bool CPoint::operator==(CPoint c)
+bool CPoint::operator==(CPoint c)const
 {
 	if (this->m_X == c.m_X && this->m_Y == c.m_Y)
 		return true;
@@ -68,7 +68,7 @@ bool CPoint::operator==(CPoint c)
 		return false;
 }
 
-bool CPoint::operator!=(CPoint c)
+bool CPoint::operator!=(CPoint c)const
 {
 	if (*this == c)
 		return false;
@@ -76,20 +76,20 @@ bool CPoint::operator!=(CPoint c)
 		return true;
 }
 
-float CPoint_Distance(CPoint c1, CPoint c2)
+float CPoint_Distance(const CPoint& c1, const CPoint& c2)
 {
 	float dx = c1.x() - c2.x();
 	float dy = c1.y()- c2.y();
 	return sqrt(dx*dx+dy*dy);
 }
 
-const char* CPoint::ToWKT()
+const char* CPoint::ToWKT()const
 {
 	return "POINT(" + (char)m_X + ' ' + (char)m_Y + ')';
 }
 
 //TODO
-const char* CPoint::ToGeojson()
+const char* CPoint::ToGeojson()const
 {
 	return " TODO";
 }

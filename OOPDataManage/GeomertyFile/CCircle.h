@@ -27,22 +27,22 @@ public:
 	//通过x、y坐标和半径构造
 	CCircle(float x, float y, float r);
 	//获取圆心
-	CPoint GetC();
+	CPoint GetC()const;
 	//获取半径
-	float GetR();
+	float GetR()const;
 
 	//设置圆心
 	void C(CPoint c);
 	//设置半径
 	void R(float r);
 	
-	GeometryType GetType();
-	const char* ToWKT()override;
-	const char* ToGeojson()override;
+	GeometryType GetType()const;
+	const char* ToWKT()const override;
+	const char* ToGeojson()const override;
 	//计算周长
-	float Circum() override;
+	float Circum()const override;
 	//计算面积
-	float Area() override;
+	float Area()const override;
 
 	//转换为多边形
 	//@param n:多边形边数

@@ -7,7 +7,7 @@
 #include<qfileinfo.h>
 #include<exception>
 
-class GeoFormat
+class GeoReaderFormat
 {
 public:
 	virtual GeometryType GetType() = 0;
@@ -27,7 +27,7 @@ public:
 };
 
 
-class FileReader:public GeoFormat
+class FileReader:public GeoReaderFormat
 {
 public:
 	virtual bool Open(const char* FileName)=0;

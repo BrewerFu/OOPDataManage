@@ -8,22 +8,22 @@ CRing::CRing(const CRing& ring)
 	}
 }
 
-GeometryType CRing::GetType()
+GeometryType CRing::GetType()const
 {
 	return GeometryType::Ring;
 }
 
-const char* CRing::ToWKT()
+const char* CRing::ToWKT()const
 {
 	return "TODO";
 }
 
-const char* CRing::ToGeojson()
+const char* CRing::ToGeojson()const
 {
 	return "TODO";
 }
 
-float CRing::Area()
+float CRing::Area()const
 {
 	float sum = 0;
 	for (int i = 0; i < m_Pois.size()-1; i++)
@@ -34,7 +34,7 @@ float CRing::Area()
 	return sum / 2;
 }
 
-float CRing::Circum()
+float CRing::Circum()const
 {
 	float sum = CPath::Circum();
 	sum += CPoint_Distance(m_Pois[0], m_Pois[m_Pois.size() - 1]);
@@ -61,19 +61,19 @@ CPolyGon::~CPolyGon()
 	m_Rings.clear();
 }
 
-GeometryType CPolyGon::GetType()
+GeometryType CPolyGon::GetType()const
 {
 	return GeometryType::PolyGon;
 }
 
 //TODO
-const char* CPolyGon::ToWKT()
+const char* CPolyGon::ToWKT()const
 {
 	return "TODO";
 }
 
 //TODO
-const char* CPolyGon::ToGeojson()
+const char* CPolyGon::ToGeojson()const
 {
 	return "TODO";
 }
@@ -108,7 +108,7 @@ bool CPolyGon::DeleteRing(CRing* pRing)
 	return false;
 }
 
-CRing* CPolyGon::QueryRing(int index)
+CRing* CPolyGon::QueryRing(int index)const
 {
 if (index < 0 || index >= m_Rings.size())
 		return nullptr;
@@ -140,7 +140,7 @@ bool CPolyGon::CheckDuplicate(CRing* pRing)
 	return true;
 }
 
-float CPolyGon::Area()
+float CPolyGon::Area()const
 {
 	float sum = 0;
 	for (int i = 0; i < m_Rings.size(); i++)
@@ -150,7 +150,7 @@ float CPolyGon::Area()
 	return sum;
 }
 
-float CPolyGon::Circum()
+float CPolyGon::Circum()const
 {
 	float sum = 0;
 	for (int i = 0; i < m_Rings.size(); i++)

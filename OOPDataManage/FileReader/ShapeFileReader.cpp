@@ -31,21 +31,9 @@ bool ShapeFileReader::Open(const char* FileName)
 	return true;
 }
 
-bool ShapeFileReader::Write(CFeature* feature)
-{
-	return false;
-}
-
 bool ShapeFileReader::isNext()
 {
 	return !qfs.atEnd();
-}
-
-
-
-bool ShapeFileReader::Save()
-{
-	return false;
 }
 
 bool ShapeFileReader::Close()

@@ -48,7 +48,6 @@ public:
 		this->FillColor = geo.FillColor;
 		this->FillStyle = geo.FillStyle;
 		this->isDelete = geo.isDelete;
-		this->BoundingBox = geo.BoundingBox;
 	}
 	//赋值运算符重载
 	CGeometry& operator=(const CGeometry& geo)
@@ -58,7 +57,6 @@ public:
 		this->FillColor = geo.FillColor;
 		this->FillStyle = geo.FillStyle;
 		this->isDelete = geo.isDelete;
-		this->BoundingBox = geo.BoundingBox;
 		return *this;
 	}
 
@@ -70,18 +68,18 @@ public:
 	bool isDelete;
 
 	//获取几何类型
-	virtual GeometryType GetType()=0;
+	virtual GeometryType GetType()const =0;
 
 	//获取WKT形式几何
-	virtual const char* ToWKT() = 0;
+	virtual const char* ToWKT()const = 0;
 	
 	//获取GeoJson类型几何
-	virtual const char* ToGeojson() = 0;
+	virtual const char* ToGeojson()const = 0;
 
 	//获取周长
-	virtual float Circum() { return 0; };
+	virtual float Circum()const { return 0; };
 	//获取面积
-	virtual float Area() { return 0; };
+	virtual float Area()const { return 0; };
 	
 	//边框颜色
 	QColor BoundaryColor;

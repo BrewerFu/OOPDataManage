@@ -3,6 +3,7 @@
 FileManager::FileManager()
 {
 	Reader = nullptr;
+	Writer = nullptr;
 	m_Point = nullptr;
 	m_PolyLine = nullptr;
 	m_PolyGon = nullptr;
@@ -14,6 +15,7 @@ FileManager::FileManager()
 FileManager::FileManager(const char* FileName)
 {
 	Reader = nullptr;
+	Writer = nullptr;
 	m_Point = nullptr;
 	m_PolyLine = nullptr;
 	m_PolyGon = nullptr;
@@ -27,6 +29,7 @@ FileManager::~FileManager()
 {
 	//几何对象的析构工作交给了CFeature
 	delete Reader;
+	delete Writer;
 }
 
 bool FileManager::Open(const char* FileName)
@@ -35,7 +38,9 @@ bool FileManager::Open(const char* FileName)
 	if (str.substr(str.find_last_of(".") + 1) == "txt")
 	{
 		delete Reader;
+		delete Writer;
 		Reader = new TextReader(FileName);
+		Writer = new TextWriter(FileName);
 	}
 	else if (str.substr(str.find_last_of(".") + 1) == "shp")
 	{
@@ -46,6 +51,16 @@ bool FileManager::Open(const char* FileName)
 	{
 		return false;
 	}
+	return true;
+}
+
+bool FileManager::Close()
+{
+	delete Reader;
+	delete Writer;
+	Reader = nullptr;
+	Writer = nullptr;
+	return true;
 }
 
 CFeature FileManager::Read()
@@ -59,6 +74,12 @@ CFeature FileManager::Read()
 		feature.AppendGeometry(geo);
 	}
 	return feature;
+}
+
+bool FileManager::Write(CFeature* feature)
+{
+	Writer->Write(feature);
+	return true;
 }
 
 CGeometry* FileManager::GetGeometry(GeometryType type)

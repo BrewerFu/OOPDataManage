@@ -10,44 +10,44 @@ CCircle::CCircle(float x, float y, float r):m_C(x, y), m_R(r)
 }
 
 //获取圆心
-CPoint CCircle::GetC()
+CPoint CCircle::GetC()const
 {
     return m_C;
 }
 
 //获取几何类型
-GeometryType CCircle::GetType()
+GeometryType CCircle::GetType()const
 {
     return GeometryType::Circle;
 }
 
 //TODO
-const char* CCircle::ToWKT()
+const char* CCircle::ToWKT()const
 {
     return "TODO";
 }
 
 //TODO
-const char* CCircle::ToGeojson()
+const char* CCircle::ToGeojson()const
 {
     return "TODO";
 }
 
 //计算周长
-float CCircle::Circum()
+float CCircle::Circum()const
 {
     return 2*std::acos(-1)*m_R;
 }
 
 //计算面积
-float CCircle::Area()
+float CCircle::Area()const
 {
     return std::acos(-1)*m_R*m_R;
 }
 
 
 //获取半径
-float CCircle::GetR()
+float CCircle::GetR()const
 {
     return m_R;
 }

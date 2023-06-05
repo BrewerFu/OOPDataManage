@@ -35,8 +35,8 @@ public:
 	GeometryType GetType()override;
 	const char* ToWKT()override;
 	const char* ToGeojson() override;
-	virtual float Circum();
-	virtual float Area();
+	float Circum() override;
+	float Area() override;
 
 	CSectionPoly ToPolyGon(int n);
 

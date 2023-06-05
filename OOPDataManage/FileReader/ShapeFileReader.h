@@ -15,11 +15,7 @@ public:
 
 	bool Open(const char* FileName) override;
 
-	bool Write(CFeature feature) override;
-
 	bool isNext() override;
-
-	bool Save() override;
 
 	bool Close() override;
 

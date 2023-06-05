@@ -93,9 +93,10 @@
     <QtUic Include="FileReadWindow.ui" />
     <QtMoc Include="FileReadWindow.h" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="FileReader\FileReader.cpp" />
     <ClCompile Include="FileReader\ShapeFileReader.cpp" />
+    <ClCompile Include="FileReader\TextReader.cpp" />
     <ClCompile Include="FileReadWindow.cpp" />
+    <ClCompile Include="FileWriter\TextWriter.cpp" />
     <ClCompile Include="GeomertyFile\CBitMap.cpp" />
     <ClCompile Include="GeomertyFile\CCircle.cpp" />
     <ClCompile Include="GeomertyFile\CFeature.cpp" />
@@ -113,6 +114,9 @@
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FileReader\FileReader.h" />
     <ClInclude Include="FileReader\ShapeFileReader.h" />
+    <ClInclude Include="FileReader\TextReader.h" />
+    <ClInclude Include="FileWriter\FileWriter.h" />
+    <ClInclude Include="FileWriter\TextWriter.h" />
     <ClInclude Include="GeomertyFile\CBitMap.h" />
     <ClInclude Include="GeomertyFile\CCircle.h" />
     <ClInclude Include="GeomertyFile\CFeature.h" />

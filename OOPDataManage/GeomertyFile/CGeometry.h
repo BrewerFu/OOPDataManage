@@ -31,35 +31,40 @@ enum class GeometryType:int
 class CGeometry
 {
 public:
-	CGeometry() { isDelete = false; }
-
+	//构造函数
+	CGeometry() 
+	{ 
+		isDelete = false; 
+		BoundaryColor = QColor(0, 0, 0);
+		FillColor = QColor(255, 255, 255);
+		BoundaryStyle = CBoundaryStyle();
+		FillStyle = CFillStyle();
+	};
+	//拷贝构造函数
 	CGeometry(const CGeometry& geo)
 	{
-		this->BorderColor = geo.BorderColor;
-		this->BorderStyle = geo.BorderStyle;
+		this->BoundaryColor = geo.BoundaryColor;
+		this->BoundaryStyle = geo.BoundaryStyle;
 		this->FillColor = geo.FillColor;
 		this->FillStyle = geo.FillStyle;
-		this->id = geo.id;
 		this->isDelete = geo.isDelete;
 		this->BoundingBox = geo.BoundingBox;
 	}
-
+	//赋值运算符重载
 	CGeometry& operator=(const CGeometry& geo)
 	{
-		this->BorderColor = geo.BorderColor;
-		this->BorderStyle = geo.BorderStyle;
+		this->BoundaryColor = geo.BoundaryColor;
+		this->BoundaryStyle = geo.BoundaryStyle;
 		this->FillColor = geo.FillColor;
 		this->FillStyle = geo.FillStyle;
-		this->id = geo.id;
 		this->isDelete = geo.isDelete;
 		this->BoundingBox = geo.BoundingBox;
 		return *this;
 	}
 
-	//几何边界
-	BBox BoundingBox;
+	//虚析构函数
+	virtual ~CGeometry() {};
 
-	int id;
 
 	//是否被删除
 	bool isDelete;
@@ -72,27 +77,22 @@ public:
 	
 	//获取GeoJson类型几何
 	virtual const char* ToGeojson() = 0;
+
+	//获取周长
+	virtual float Circum() { return 0; };
+	//获取面积
+	virtual float Area() { return 0; };
 	
 	//边框颜色
-	CColor BorderColor;
-	
+	QColor BoundaryColor;
 	//填充颜色
-	CColor FillColor;
+	QColor FillColor;
 	
 	//边框样式
-	CBorStyle BorderStyle;
+	CBoundaryStyle BoundaryStyle;
 	
 	//填充样式
-	CFilStyle FillStyle;
-
-	//虚析构函数
-	virtual ~CGeometry() {};
-
-	//设置id
-	void setId(int id){this->id=id;}
-
-	//获取id
-	int getId(){return id;}
+	CFillStyle FillStyle;
 
 };
 

@@ -1,7 +1,7 @@
 #pragma once
-
 #include <QtWidgets/QWidget>
 #include "ui_FileReadWindow.h"
+#include<qbrush.h>
 
 class FileReadWindow : public QWidget
 {
@@ -10,7 +10,7 @@ class FileReadWindow : public QWidget
 public:
     FileReadWindow(QWidget *parent = nullptr);
     ~FileReadWindow();
-
+    
 private:
     Ui::FileReadWindowClass ui;
 };

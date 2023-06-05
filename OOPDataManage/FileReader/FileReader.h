@@ -4,7 +4,7 @@
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CFeature.h"
 #include<qfile.h>
-#include<fstream>
+#include<qfileinfo.h>
 #include<exception>
 
 class GeoFormat
@@ -32,13 +32,11 @@ class FileReader:public GeoFormat
 public:
 	virtual bool Open(const char* FileName)=0;
 
-	virtual bool Write(CFeature feature)=0;
-
 	virtual bool isNext()=0;
 
-	virtual bool Save()=0;
+	virtual bool Close() { qfs.close(); return true; };
 
-	virtual bool Close()=0;
+	virtual bool isOpen() { return qfs.isOpen(); };
 
 	virtual ~FileReader() {};
 

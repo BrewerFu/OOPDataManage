@@ -4,6 +4,12 @@ CPath::CPath(const CPath& c):m_Pois(c.m_Pois)
 {
 }
 
+CPath& CPath::operator=(const CPath& c)
+{
+	m_Pois = c.m_Pois;
+	return *this;
+}
+
 GeometryType CPath::GetType()
 {
 	return GeometryType::Path;
@@ -170,6 +176,16 @@ bool CPath::operator!=(CPath c)
 	return !(*this == c);
 }
 
+CPoint& CPath::operator[](int pos)
+{
+	 if (pos<0 || pos>m_Pois.size())
+		throw std::range_error("pos超出范围! ");
+	 else
+	 {
+		return m_Pois[pos];
+	}
+}
+
 /*--------------------------------------------PolyLine实现------------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
@@ -182,6 +198,30 @@ CPolyLine::CPolyLine(const CPolyLine& c)
 		CPath *p = new CPath(*c.m_Paths[i]);
 		m_Paths.push_back(p);
 	}
+}
+
+CPolyLine& CPolyLine::operator=(const CPolyLine& c)
+{
+	for (int i = 0; i < m_Paths.size(); i++)
+	{
+		delete m_Paths[i];
+	}
+	m_Paths.clear();
+	for (int i = 0; i < c.m_Paths.size(); i++)
+	{
+		CPath *p = new CPath(*c.m_Paths[i]);
+		m_Paths.push_back(p);
+	}
+	return *this;
+}
+
+CPolyLine::~CPolyLine()
+{
+	for (int i = 0; i < m_Paths.size(); i++)
+	{
+		delete m_Paths[i];
+	}
+	m_Paths.clear();
 }
 
 GeometryType CPolyLine::GetType()
@@ -265,31 +305,15 @@ bool CPolyLine::AlterPath(int pos, CPath* c)
 	}
 }
 
-//CPolyLine CPolyLine::operator +(CPath c)
-//{
-//	CPolyLine copy(*this);
-//	copy.AppendPath(&c);
-//	return copy;
-//}
-//
-//CPolyLine CPolyLine::operator - (CPath c)
-//{
-//	CPolyLine copy(*this);
-//	copy.DeletePath(&c);
-//	return copy;
-//}
-//
-//CPolyLine& CPolyLine::operator+=(CPath c)
-//{
-//	this->AppendPath(&c);
-//	return *this;
-//}
-//
-//CPolyLine& CPolyLine::operator -=(CPath c)
-//{
-//	this->DeletePath(&c);
-//	return *this;
-//}
+CPath* CPolyLine::operator[](int pos)
+{
+	if (pos<0 || pos>m_Paths.size())
+		throw std::range_error("pos超出范围! ");
+	else
+	{
+		return m_Paths[pos];
+	}
+}
 
 bool CPolyLine::CheckDuplicate(CPath* c)
 {

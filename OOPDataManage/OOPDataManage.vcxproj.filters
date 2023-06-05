@@ -33,6 +33,12 @@
     <Filter Include="Source Files\FileReader">
       <UniqueIdentifier>{afe271a4-2c68-42db-a172-b81de2f84b20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FileWriter">
+      <UniqueIdentifier>{ff964fae-c85a-4908-ab34-f6dfdd8a2ba5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileWriter">
+      <UniqueIdentifier>{b86388be-c691-4ff1-849b-ce76d2225344}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="FileReadWindow.qrc">
@@ -82,9 +88,6 @@
     <ClCompile Include="GeomertyFile\CText.cpp">
       <Filter>Source Files\GeomertyFile</Filter>
     </ClCompile>
-    <ClCompile Include="FileReader\FileReader.cpp">
-      <Filter>Source Files\FileReader</Filter>
-    </ClCompile>
     <ClCompile Include="FileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,6 +96,12 @@
     </ClCompile>
     <ClCompile Include="GeometryManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader\TextReader.cpp">
+      <Filter>Source Files\FileReader</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWriter\TextWriter.cpp">
+      <Filter>Source Files\FileWriter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +149,15 @@
     </ClInclude>
     <ClInclude Include="GeomertyFile\CPoint.h">
       <Filter>Header Files\GeometryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader\TextReader.h">
+      <Filter>Header Files\FileReader</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter\FileWriter.h">
+      <Filter>Header Files\FileWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter\TextWriter.h">
+      <Filter>Header Files\FileWriter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

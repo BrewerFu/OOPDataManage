@@ -52,6 +52,15 @@ for (int i = 0; i < poly.m_Rings.size(); i++)
 	}
 }
 
+CPolyGon::~CPolyGon()
+{
+	for (int i = 0; i < m_Rings.size(); i++)
+	{
+		delete m_Rings[i];
+	}
+	m_Rings.clear();
+}
+
 GeometryType CPolyGon::GetType()
 {
 	return GeometryType::PolyGon;
@@ -151,3 +160,7 @@ float CPolyGon::Circum()
 	return sum;
 }
 
+CRing* CPolyGon::operator[](int pos)
+{
+	return QueryRing(pos);
+}

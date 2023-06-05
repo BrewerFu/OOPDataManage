@@ -7,4 +7,5 @@ FileReadWindow::FileReadWindow(QWidget *parent)
 }
 
 FileReadWindow::~FileReadWindow()
-{}
+{
+}

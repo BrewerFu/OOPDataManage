@@ -12,14 +12,16 @@ public:
 	CPath() {};
 	//复制构造函数
 	CPath(const CPath& c);
+	//赋值构造函数
+	CPath& operator=(const CPath& c);
 	//析构函数
-	~CPath() {};
+	~CPath() { m_Pois.clear(); };
 
-	std::vector<CPoint> m_Pois;
+
 	GeometryType GetType() override;
 	const char* ToWKT() override;
 	const char* ToGeojson() override;
-	virtual float Circum();
+	virtual float Circum() ;
 	
 	//获取单折线点数
 	int GetCount() { return m_Pois.size(); };
@@ -50,14 +52,16 @@ public:
 	CPath& operator +=(CPoint c);
 	//重载-=运算
 	CPath& operator -=(CPoint c);
+	//重载[]运算
+	CPoint& operator [](int pos);
 
 	//重载==运算
 	bool operator==(CPath c);
-
 	//重载!=运算
 	bool operator!=(CPath c);
 
 protected:
+	std::vector<CPoint> m_Pois;
 	//检查是否有重复
 	bool CheckDuplicate(CPoint c);
 };
@@ -68,26 +72,17 @@ class CPolyLine:public CGeometry
 public:
 	//默认构造函数
 	CPolyLine() {};
-
 	//复制构造函数
 	CPolyLine(const CPolyLine& c);
-	
 	//析构函数
-	~CPolyLine()
-	{
-		for (int i = 0; i < m_Paths.size(); i++)
-		{
-			delete m_Paths[i];
-		}
-	};
-
-	//数组成员
-	std::vector<CPath*> m_Paths;
+	~CPolyLine();
+	//赋值构造函数
+	CPolyLine& operator=(const CPolyLine& c);
 
 	GeometryType GetType() override;
 	const char* ToWKT() override;
 	const char* ToGeojson() override;
-	virtual float Circum();
+	float Circum() override;
 
 	//获取折线段数
 	int GetCount() { return m_Paths.size(); };
@@ -104,16 +99,12 @@ public:
 	//改变位置在pos处的点
 	bool AlterPath(int pos, CPath* c);
 
-	////重载+运算
-	//CPolyLine operator +(CPath c);
-	////重载-运算
-	//CPolyLine operator - (CPath c);
-	////重载+=运算
-	//CPolyLine & operator +=(CPath c);
-	////重载-=运算
-	//CPolyLine & operator -=(CPath c);
+	//重载[]运算
+	CPath* operator [](int pos);
 
 private:
-//检查是否有重复
+	//数组成员
+	std::vector<CPath*> m_Paths;
+	//检查是否有重复
 	bool CheckDuplicate(CPath* c);
 };

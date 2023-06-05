@@ -7,7 +7,6 @@ class CRing :public CPath
 public:
 	//默认构造函数
 	CRing() {};
-
 	//复制构造函数
 	CRing(const CRing& ring);
 
@@ -37,15 +36,8 @@ public:
 	CPolyGon(const CPolyGon& poly);
 
 	//析构函数
-	~CPolyGon()
-	{
-		for(int i=0;i<m_Rings.size();i++)
-		{
-			delete m_Rings[i];
-		}
-	}
+	~CPolyGon();
 
-	std::vector<CRing*> m_Rings;
 
 	//获取环数
 	int GetCount() { return m_Rings.size(); };
@@ -68,10 +60,14 @@ public:
 	//转换为geojson
 	const char* ToGeojson()override;
 	//获取周长
-	virtual float Circum();
+	float Circum() override;
 	//获取面积
-	virtual float Area();
+	float Area() override;
+
+	//重载[]运算符
+	CRing* operator[](int pos);
 
 protected:
+	std::vector<CRing*> m_Rings;
 	bool CheckDuplicate(CRing* ring);
 };

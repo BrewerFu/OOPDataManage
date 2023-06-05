@@ -31,7 +31,7 @@ bool ShapeFileReader::Open(const char* FileName)
 	return true;
 }
 
-bool ShapeFileReader::Write(CFeature feature)
+bool ShapeFileReader::Write(CFeature* feature)
 {
 	return false;
 }

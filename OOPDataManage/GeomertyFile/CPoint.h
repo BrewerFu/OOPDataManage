@@ -9,8 +9,13 @@ public:
 	CPoint(float x, float y);
 	//默认构造函数
 	CPoint();
-
+	//拷贝构造函数
 	CPoint(const CPoint& c);
+	//赋值运算符重载
+	CPoint operator=(const CPoint& c);
+	//析构函数
+	~CPoint() {};
+
 
 	//获取x
 	float x() { return m_X; };

@@ -40,9 +40,9 @@ public:
 	const char* ToWKT()override;
 	const char* ToGeojson()override;
 	//计算周长
-	virtual float Circum();
+	float Circum() override;
 	//计算面积
-	virtual float Area();
+	float Area() override;
 
 	//转换为多边形
 	//@param n:多边形边数

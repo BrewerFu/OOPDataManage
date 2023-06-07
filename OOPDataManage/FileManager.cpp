@@ -12,19 +12,6 @@ FileManager::FileManager()
 	m_Section = nullptr;
 }
 
-FileManager::FileManager(const char* FileName)
-{
-	Reader = nullptr;
-	Writer = nullptr;
-	m_Point = nullptr;
-	m_PolyLine = nullptr;
-	m_PolyGon = nullptr;
-	m_RectAngle = nullptr;
-	m_Circle = nullptr;
-	m_Section = nullptr;
-	Open(FileName);
-}
-
 FileManager::~FileManager()
 {
 	//几何对象的析构工作交给了CFeature
@@ -32,25 +19,43 @@ FileManager::~FileManager()
 	delete Writer;
 }
 
+bool FileManager::Open(std::string FileName)
+{
+	return Open(FileName.c_str());
+}
+
 bool FileManager::Open(const char* FileName)
 {
-	std::string str = FileName;
-	if (str.substr(str.find_last_of(".") + 1) == "txt")
+	return Open(QString(FileName));
+}
+
+bool FileManager::Open(QString FileName)
+{
+	m_FileName = FileName;
+	QFileInfo fileInfo(FileName);
+
+	//先关闭之前的文件
+	delete Reader;
+	delete Writer;
+
+	if (fileInfo.suffix()=="txt")
 	{
-		delete Reader;
-		delete Writer;
-		Reader = new TextReader(FileName);
-		Writer = new TextWriter(FileName);
+		Reader = new TextReader();
+		Writer = new TextWriter();
+		if (!Reader->Open(FileName))
+			return false;
+		if(!Writer->Open(FileName))
+			return false;
 	}
-	else if (str.substr(str.find_last_of(".") + 1) == "shp")
+	else if (fileInfo.suffix() == "shp")
 	{
-		delete Reader;
-		Reader = new ShapeFileReader(FileName);
+		Reader = new ShapeFileReader();
+		if(!Reader->Open(FileName))
+			return false;
 	}
 	else
-	{
 		return false;
-	}
+
 	return true;
 }
 
@@ -63,9 +68,27 @@ bool FileManager::Close()
 	return true;
 }
 
+bool FileManager::Save()
+{
+	Reader->Close();
+	if (Writer->Save())
+	{
+		Reader->Open(m_FileName);
+		return true;
+	}
+	else
+	{
+		Reader->Open(m_FileName);
+		return false;
+	}
+}
+
 CFeature FileManager::Read()
 {
 	GeometryType type=Reader->GetType();
+	if (type == GeometryType::Undefined)
+		throw std::runtime_error("文件不包含几何类型声明，文件读取失败");
+
 	CFeature feature(type);
 	CGeometry* geo;
 	while (Reader->isNext())
@@ -78,8 +101,10 @@ CFeature FileManager::Read()
 
 bool FileManager::Write(CFeature* feature)
 {
-	Writer->Write(feature);
-	return true;
+	if(Writer->Write(feature))
+		return true;
+	else
+		return false;
 }
 
 CGeometry* FileManager::GetGeometry(GeometryType type)

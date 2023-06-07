@@ -1,6 +1,6 @@
 ﻿#include"TextReader.h"
 
-bool TextReader::Open(const char* FileName)
+bool TextReader::Open(QString FileName)
 {
 	try
 	{

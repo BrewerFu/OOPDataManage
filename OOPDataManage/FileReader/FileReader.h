@@ -30,7 +30,17 @@ public:
 class FileReader:public GeoReaderFormat
 {
 public:
-	virtual bool Open(const char* FileName)=0;
+
+	virtual bool Open(std::string FileName)
+	{
+		if (Open(FileName))
+			return true;
+		else
+			return false; 
+		Open(QString(FileName.c_str()));
+	}
+
+	virtual bool Open(QString FileName) = 0;
 
 	virtual bool isNext()=0;
 

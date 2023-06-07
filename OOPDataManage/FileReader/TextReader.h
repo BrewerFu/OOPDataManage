@@ -7,10 +7,12 @@ class TextReader : public FileReader
 public:
 	TextReader() {};
 	TextReader(const char* name) { Open(name); };
+	TextReader(std::string name) { Open(QString(name.c_str())); };
+	TextReader(QString name) { Open(name); }
 
 	~TextReader() { qfs.close(); };
 
-	bool Open(const char* FileName) override;
+	bool Open(QString FileName) override;
 
 	bool isNext() override;
 

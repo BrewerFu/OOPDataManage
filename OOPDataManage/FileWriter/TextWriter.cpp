@@ -1,19 +1,20 @@
 ﻿#include"TextWriter.h"
-TextWriter::TextWriter(const char* filename)
-{
-	Open(filename);
-}
 
 TextWriter::~TextWriter()
 {
 	Close();
 }
-bool TextWriter::Open(const char* FileName)
+
+bool TextWriter::Open(QString FileName)
 {
+	QFileInfo fileInfo(FileName);
+	m_FileName = fileInfo.fileName();
+	m_FilePath = fileInfo.path();
+
 	try
 	{
 		//设置文件读取路径
-		qfs.setFileName(FileName);
+		qfs.setFileName(m_FilePath+"/~"+m_FileName);
 		//设置打开方式
 		if (!qfs.open(QIODevice::WriteOnly))
 			return false;
@@ -40,27 +41,37 @@ bool TextWriter::Write(CFeature* feature)
 		switch (type)
 		{
 		case GeometryType::Undefined:
-			return false;
+			break;
 		case GeometryType::Point:
 			if (WritePoint((CPoint*)*iter))
-				return true;
+				break;
+			else
+				return false;
 		case GeometryType::PolyLine:
-			if(WritePolyLine((CPolyLine*)*iter))
-				return true;
+			if (WritePolyLine((CPolyLine*)*iter))
+				break;
+			else
+				return false;
 		case GeometryType::PolyGon:
-			if(WritePolyGon((CPolyGon*)*iter))
-				return true;
+			if (WritePolyGon((CPolyGon*)*iter))
+				break;
+			else
+				return false;
 		case GeometryType::RectAngle:
-			if(WriteRectAngle((CRectAngle*)*iter))
-				return true;
+			if (WriteRectAngle((CRectAngle*)*iter))
+				break;
+			else
+				return false;
 		case GeometryType::Circle:
-			if(WriteCircle((CCircle*)*iter))
-				return true;
+			if (WriteCircle((CCircle*)*iter))
+				break;
+			else
+				return false;
 		default:
 			return false;
 		}
 	}
-	return false;
+	return true;
 }
 
 bool TextWriter::WriteHeader(const CFeature* feature)

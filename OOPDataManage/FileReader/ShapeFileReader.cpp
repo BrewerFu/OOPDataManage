@@ -12,17 +12,17 @@ int Big2Little(int a)
 	return b;
 }
 
-bool ShapeFileReader::Open(const char* FileName)
+bool ShapeFileReader::Open(QString FileName)
 {
 	try
 	{
 		qfs.setFileName(FileName);
-		if(!qfs.open(QIODevice::ReadOnly))
+		if (!qfs.open(QIODevice::ReadOnly))
 			return false;
-		if(!qfs.isOpen())
+		if (!qfs.isOpen())
 			return false;
 	}
-	catch(std::exception e)
+	catch (std::exception e)
 	{
 		return false;
 	}

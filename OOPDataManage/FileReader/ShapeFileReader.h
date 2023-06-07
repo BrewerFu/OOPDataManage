@@ -10,10 +10,12 @@ public:
 	//默认构造函数
 	ShapeFileReader():m_cursur(100){}
 	ShapeFileReader(const char* name) { Open(name);};
+	ShapeFileReader(std::string name) { Open(QString(name.c_str())); };
+	ShapeFileReader(QString name) { Open(name); };
 	//析构函数
 	~ShapeFileReader() { Close(); };
 
-	bool Open(const char* FileName) override;
+	bool Open(QString FileName) override;
 
 	bool isNext() override;
 

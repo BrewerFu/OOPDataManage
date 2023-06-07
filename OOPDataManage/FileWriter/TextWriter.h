@@ -5,12 +5,15 @@ class TextWriter :public FileWriter
 {
 public:
 	TextWriter() {};
-	TextWriter(const char* filename);
+	TextWriter(const char* filename) { Open(filename); };
+	TextWriter(std::string filename) { Open(QString(filename.c_str())); };
+	TextWriter(QString filename) { Open(filename); };
+
 	~TextWriter();
 
-	bool Open(const char* FileName);
+	bool Open(QString FileName) override;
 
-	bool Write(CFeature* feature);
+	bool Write(CFeature* feature)override;
 
 protected:
 	QTextStream qts;

@@ -1,0 +1,12 @@
+CPoint
+
+Data
+	Point
+		1 2
+	Boundary
+		Color 0 0 0 255
+		Style 1 1
+	Fill
+		Color 255 255 255 255
+		Style 0
+

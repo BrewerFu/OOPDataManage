@@ -19,24 +19,13 @@
 //	//根据几何类型销毁几何对象
 //	virtual void DestroyGeometry(CGeometry* pGeometry)=0;
 //
-//	//获取下一个可用的id
-//	int getNextId();
-//
-//	//释放id
-//	void releseId(int id);
-//
-//protected:
-//	//存储未使用的id
-//	static std::set<int> m_unusedIds;
-//	//存储id和和几何对象指针
-//	static std::map<int,CGeometry*> m_map;
 //};
 //
 //class GeometryManager
 //{
 //public:
 //	//创建几何管理器单例
-//	static GeometryManager* GetInstance();
+//	static GeometryManager& GetInstance();
 //	//摧毁几何管理器单例
 //	static void DestroyInstance();
 //

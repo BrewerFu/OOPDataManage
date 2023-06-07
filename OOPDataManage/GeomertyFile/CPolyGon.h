@@ -1,17 +1,14 @@
 ﻿#pragma once
-#include"CPolyLine.h"
-class CRing;
-class CPolyGon;
+#include"CGeometry.h"
+#include"CPoint.h"
 #define _RINGPRT std::shared_ptr<CRing> ring = std::make_shared<CRing>();
 #define _POLYGONPRT std::shared_ptr<CPolyGon> polygon = std::make_shared<CPolyGon>();
 
-class CRingFactory;
-class CPolyGonFactory;
 
-class CRing :public CGeometry,public IDManager<CRing>
+class CGEOMETRY_API CRing :public CGeometry,public IDManager<CRing>
 {
 public:;
-	//复制构造函数,副本
+	//复制构造函数
 	  CRing(const CRing& ring);
 	//赋值运算符重载
 	CRing& operator=(const CRing& ring);
@@ -61,6 +58,7 @@ public:;
 	//重载!=运算
 	bool operator!=(CRing c);
 
+	//普通迭代器
 	class iterator {
 	public:
 		iterator() = default;
@@ -73,6 +71,8 @@ public:;
 	private:
 		std::vector<std::shared_ptr<CPoint>>::iterator m_it;
 	};
+
+	//const迭代器
 	class const_iterator {
 	public:
 		const_iterator() = default;
@@ -95,14 +95,13 @@ public:;
 
 protected:
 	std::vector<std::shared_ptr<CPoint>> m_Pois;
+
 	//检查是否有重复
 	bool CheckDuplicate(std::shared_ptr<CPoint> c);
-
-friend class CRingFactory;
 };
 
 //几何多边形
-class CPolyGon :public CGeometry,public IDManager<CPolyGon>
+class CGEOMETRY_API CPolyGon :public CGeometry,public IDManager<CPolyGon>
 {
 public:
 	//默认构造函数
@@ -162,7 +161,6 @@ public:
 
 protected:
 	std::vector<std::shared_ptr<CRing>> m_Rings;
+	//检查是否有重复
 	bool CheckDuplicate(std::shared_ptr<CRing> ring);
-
-friend class CPolyGonFactory;
 };

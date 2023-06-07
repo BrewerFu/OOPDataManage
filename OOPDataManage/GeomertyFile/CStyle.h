@@ -1,11 +1,19 @@
-﻿#pragma once
+﻿#define CSTYLE_EXPORTS
+#pragma once
 #include<string>
 #include<qbrush.h>
 #include<qpen.h>
 #include<qcolor.h>
 
+#ifdef CSTYLE_EXPORTS
+#define CSTYLE_API __declspec(dllexport)
+#else
+#define CSTYLE_API __declspec(dllimport)
+#endif // CSTYLE_EXPORTS
+
+
 //边框样式
-class CBoundaryStyle
+class CSTYLE_API CBoundaryStyle
 {
 public:
 	//构造函数
@@ -42,7 +50,7 @@ public:
 };
 
 //填充样式
-class CFillStyle
+class CSTYLE_API CFillStyle
 {
 public:
 	//构造函数

@@ -3,7 +3,7 @@
 #include"CPoint.h"
 #include"CPolyGon.h"
 #include<cmath>
-class CCircle;
+
 #define _CIRCLEPRT std::shared_ptr<CCircle> = std::make_shared<CCircle>();
 
 //几何圆

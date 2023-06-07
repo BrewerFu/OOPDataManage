@@ -1,12 +1,16 @@
-﻿#pragma once
+﻿#define DBMANAGER_EXPORTS
+
+#pragma once
 #include"GeomertyFile/CFeature.h"
 #include"DBDriver/SQLiteDriver.h"
 
-struct FeatureIDSet
-{
-	std::vector<int> id;
-};
+#ifdef DBMANAGER_EXPORTS
+#define DBMANAGER_API __declspec(dllexport)
+#else
+#define DBMANAGER_API __declspec(dllimport)
+#endif // DBMANAGER_EXPORTS
 
+//数据库管理器，单例
 class DBManager
 {
 public:

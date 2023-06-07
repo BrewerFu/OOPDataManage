@@ -1,11 +1,13 @@
 ﻿#include"../GeomertyFile/CFeature.h"
 #include"../GeomertyFile/CPolyGon.h"
+#include"../GeomertyFile/CPolyLine.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CCircle.h"
 #include"../GeomertyFile/CSection.h"
 #include<qfile.h>
 #include<qfileinfo.h>
 
+//格式化写入
 class GeoWriterFormat
 {
 public:
@@ -25,14 +27,15 @@ public:
 
 };
 
+//文件写入抽象类
 class FileWriter:public GeoWriterFormat
 {
 public:
 	//打开文件
 	~FileWriter()
 	{ 
-		qfs.setFileName(m_FilePath + "/~" + m_FileName); 
-		if (qfs.exists())
+		qfs.setFileName(m_FilePath + "/~" + m_FileName);	//删除带有~前缀的文件（打开时默认打开带有~前缀的文件，因此需要删除）
+		if (qfs.exists())	//如果存在，则删除
 			qfs.remove();
 	}
 
@@ -47,6 +50,7 @@ public:
 	//关闭文件
 	virtual bool Close() { qfs.close(); return true; };
 
+	//保存文件
 	virtual bool Save() 
 	{
 		qfs.setFileName(m_FilePath + "/" + m_FileName);

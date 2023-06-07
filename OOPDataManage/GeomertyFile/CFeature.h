@@ -29,7 +29,7 @@
 
 
 //要素类
-class CFeature
+class CGEOMETRY_API CFeature
 {
 public:
 
@@ -70,6 +70,7 @@ public:
 		return m_vector.size();
 	}
 
+	//重载[]运算符
 	std::shared_ptr<CGeometry> operator[](int index)
 	{
 		return m_vector[index];
@@ -81,12 +82,12 @@ public:
 		return m_vector.empty();
 	}
 
-	//获取要对象素的ID
-	int GetID() { return m_ID; }
-	void SetID(int id) { m_ID = id; }
-	const char* GetName() { return Name.c_str(); }
-	void SetName(const char* name) { Name = std::string(name);}
-	void SetName(std::string name) { Name = name; }
+	
+	int GetID() { return m_ID; }	//获取要对象素的ID
+	void SetID(int id) { m_ID = id; }	//设置要素对象的ID
+	const char* GetName() { return Name.c_str(); }	//获取要素对象的名称
+	void SetName(const char* name) { Name = std::string(name);}	//设置要素对象的名称
+	void SetName(std::string name) { Name = name; }	//设置要素对象的名称
 	//迭代器对象
 	class iterator
 	{
@@ -108,26 +109,28 @@ public:
 
 private:
 
-	CFeature(GeometryType type) :m_Type(type), m_ID(-1),m_DBID(-1){};
-	~CFeature()
+	CFeature(GeometryType type) :m_Type(type), m_ID(-1),m_DBID(-1){};	//默认构造函数
+	~CFeature()	//析构函数
 	{
 		m_vector.clear();
 	};
 	//检查几何对象的类型是否正确
 	bool CheckCorrectType(GeometryType type);
 	
-	int m_ID,m_DBID;
+	int m_ID,m_DBID;	//自身程序ID与数据库ID
 
-	std::string Name = "Default";
+	std::string Name = "Default";	//要素对象的名称
 
-	GeometryType m_Type;
-	std::vector<std::shared_ptr<CGeometry>> m_vector;
-	/*std::vector<Observer*> m_observers;*/
+	GeometryType m_Type;	//要素对象的类型
+
+	std::vector<std::shared_ptr<CGeometry>> m_vector;	//存储几何对象的容器
+
 	friend class CFeatureManager;
 };
 
 
-class CFeatureManager
+//要素管理类，负责创建、删除要素对象
+class CGEOMETRY_API CFeatureManager
 {
 public:
 	static CFeatureManager& GetInstance()
@@ -143,8 +146,8 @@ public:
 private:
 	//单例模式
 	CFeatureManager() {};
-	CFeatureManager(const CFeatureManager&) {};
-	CFeatureManager& operator=(const CFeatureManager&) {};
+	CFeatureManager(const CFeatureManager&) = delete;
+	CFeatureManager& operator=(const CFeatureManager&)=delete;
 	~CFeatureManager();
 
 	int GetUnusedID();

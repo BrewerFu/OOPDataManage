@@ -1,6 +1,7 @@
 ﻿#include"FileWriter.h"
 #include"qtextstream.h"
 
+//文本写入类
 class TextWriter :public FileWriter
 {
 public:

@@ -2,15 +2,13 @@
 #include"CGeometry.h"
 #include"CPoint.h"
 #include<stdexcept>
-class CPath;
-class CPolyLine;
+
+
 #define _PATHPRT std::shared_ptr<CPath> path = std::make_shared<CPath>();
 #define _POLYLINEPRT std::shared_ptr<CPolyLine> polyline = std::make_shared<CPolyLine>();
-class CPolyLineFactory;
-class CPathFactory;
 
 //几何单折线
-class CPath :public CGeometry,public IDManager<CPath>
+class CGEOMETRY_API CPath :public CGeometry,public IDManager<CPath>
 {
 public:
 	//默认构造函数
@@ -94,12 +92,10 @@ protected:
 	std::vector<std::shared_ptr<CPoint>> m_Pois;
 	//检查是否有重复
 	bool CheckDuplicate(std::shared_ptr<CPoint> c);
-
-friend class CPathFactory;
 };
 
 //几何折线
-class CPolyLine:public CGeometry,public IDManager<CPolyLine>
+class CGEOMETRY_API CPolyLine:public CGeometry,public IDManager<CPolyLine>
 {
 public:
 	CPolyLine();
@@ -155,6 +151,4 @@ private:
 	std::vector<std::shared_ptr<CPath>> m_Paths;
 	//检查是否有重复
 	bool CheckDuplicate(std::shared_ptr<CPath> c)const;
-
-friend class CPolyLineFactory;
 };

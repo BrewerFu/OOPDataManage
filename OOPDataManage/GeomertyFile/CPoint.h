@@ -1,10 +1,9 @@
 ﻿#pragma once
 #include"CGeometry.h"
-class CPoint;
+
 #define _POINTPRT std::shared_ptr<CPoint> point = std::make_shared<CPoint>();
 
 
-//几何点
 class CPoint :public CGeometry,public IDManager<CPoint>
 {
 public:
@@ -59,5 +58,5 @@ protected:
 };
 
 //求两个点之间的距离
-double CPoint_Distance(const CPoint& c1, const CPoint& c2);
+double CGEOMETRY_API CPoint_Distance(const CPoint& c1, const CPoint& c2);
 

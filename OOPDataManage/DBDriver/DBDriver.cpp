@@ -58,10 +58,8 @@ bool DBSql::next()
 
 bool DBSql::AddReference(std::shared_ptr<CGeometry> geo)
 {
-	QString tableName;
-
 	//根据几何对象的类型确定表名
-	tableName = GeometryTypeToString(geo->GetType()).c_str();
+	QString tableName = GeometryTypeToString(geo->GetType()).c_str();
 
 	//增加几何对象的引用计数
 	QString sql = QString("UPDATE %1 SET Ref = Ref + 1 WHERE DBID = :DBID").arg(tableName);

@@ -1,6 +1,7 @@
 #pragma once
 #include"DBDriver.h"
 
+//SQLiteÇı¶¯Àà
 class SQLiteDriver : public DBDriver
 {
 public:

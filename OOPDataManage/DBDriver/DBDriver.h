@@ -6,11 +6,13 @@
 #include<qsqlrecord.h>
 #include"../GeomertyFile/CFeature.h"
 #include"../GeomertyFile/CPolyGon.h"
+#include"../GeomertyFile/CPolyLine.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CSection.h"
 
 class DBSql;
 
+//数据库枚举类型
 enum DBType
 {
     MYSQL,
@@ -25,6 +27,7 @@ enum DBType
 	OTHER
 };
 
+//数据库驱动抽象类
 class DBDriver
 {
 
@@ -51,6 +54,7 @@ protected:
     DBSql* m_sql;
 };
 
+//数据库解码类
 class DBSqlCoder
 {
 public:
@@ -63,6 +67,7 @@ public:
 
 };
 
+//数据库SQL类，负责执行与封装SQL语句
 class DBSql
 {
 public:

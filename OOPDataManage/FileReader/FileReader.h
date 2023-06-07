@@ -3,13 +3,14 @@
 #include"../GeomertyFile/CSection.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CFeature.h"
+#include"../GeomertyFile/CPolyLine.h"
 #include"../GeometryManager.h"
 #include<qfile.h>
 #include<qfileinfo.h>
 #include<exception>
 
 
-
+//格式化读取格式类
 class GeoReaderFormat
 {
 public:
@@ -29,7 +30,7 @@ public:
 
 };
 
-
+//文件读取抽象类
 class FileReader:public GeoReaderFormat
 {
 public:

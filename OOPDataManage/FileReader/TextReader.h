@@ -2,6 +2,7 @@
 #include<qtextstream.h>
 
 
+//文件读取类
 class TextReader : public FileReader
 {
 public:

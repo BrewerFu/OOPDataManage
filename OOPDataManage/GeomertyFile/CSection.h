@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include"CCircle.h"
-class CSection;
-#define _SECTIONPRT std::shared_ptr<CSection> = std::make_shared<CSection>();
+
+#define _SECTIONPRT std::shared_ptr<CGEOMETRY_API CSection> = std::make_shared<CSection>();
 
 //几何扇形
 class CSection :public CGeometry,public IDManager<CSection>
@@ -44,12 +44,14 @@ public:
 	//获取结束角度
 	double GetEAngle()const;
 
+	//重载父类函数
 	GeometryType GetType()const override;
 	const char* ToWKT()const override;
 	const char* ToGeojson()const  override;
 	double Circum()const  override;
 	double Area()const override;
 
+	//转为多边形
 	std::shared_ptr<CPolyGon> ToPolyGon(int n)const;
 
 protected:

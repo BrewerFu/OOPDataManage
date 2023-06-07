@@ -1,4 +1,6 @@
-﻿#pragma once
+﻿#define FILEMANAGER_EXPORTS
+
+#pragma once
 #include"GeomertyFile/CFeature.h"
 #include"FileReader/TextReader.h"
 #include"FileReader/ShapeFileReader.h"
@@ -6,9 +8,16 @@
 #include"qfileinfo.h"
 #include<stdexcept>
 
+#ifdef FILEMANAGER_EXPORTS
+#define FILEMANAGER_API __declspec(dllexport)
+#else
+#define FILEMANAGER_API __declspec(dllimport)
+#endif // FILEMANAGER_EXPORTS
+
+
 //单例模式
 //文件管理类，用于管理文件的读取和写入
-class FileManager
+class FILEMANAGER_API FileManager
 {
 public:
 	//获取唯一实例
@@ -22,8 +31,9 @@ public:
 	int Open(const char* FileName);
 
 	int Open(std::string FileName);
-	//0为不能读写，1为可读写,2为可写
-	int Open(QString FileName);
+
+
+	int Open(QString FileName);		//0为不能读写，1为可读写,2为可写
 
 	CFeature* Read();
 

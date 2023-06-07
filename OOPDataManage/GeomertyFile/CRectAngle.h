@@ -2,11 +2,12 @@
 #include"CGeometry.h"
 #include"CPoint.h"
 #include<stdexcept>
-class CRectAngle;
+
 #define _RECTANGLEPRT std::shared_ptr<CRectAngle> rectangle = std::make_shared<CRectAngle>();
 
+
 //几何矩形
-class CRectAngle :public CGeometry,public IDManager<CRectAngle>
+class CGEOMETRY_API CRectAngle :public CGeometry,public IDManager<CRectAngle>
 {
 public:
 	//默认构造函数

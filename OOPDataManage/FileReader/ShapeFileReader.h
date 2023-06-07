@@ -4,6 +4,7 @@
 //大端转小端
 int Big2Little(int a);
 
+//ShapeFile读取类
 class ShapeFileReader:public FileReader
 {
 public:

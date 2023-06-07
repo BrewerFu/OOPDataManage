@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include"CPoint.h"
 
-class CBitMap 
+class CGEOMETRY_API CBitMap
 {
 public:
 	CPoint C;
@@ -10,8 +10,6 @@ public:
 	long m_PiexLen;
 	unsigned char* m_prtPixels;
 
-	virtual const char* GetType();
-	virtual const char* ToWKT();
-	virtual const char* ToGeojson();
+	GeometryType GetType();
 
 };

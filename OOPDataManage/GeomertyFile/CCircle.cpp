@@ -21,16 +21,16 @@ GeometryType CCircle::GetType()const
     return GeometryType::Circle;
 }
 
-//TODO
+
 const char* CCircle::ToWKT()const
 {
-    return "TODO";
+    return this->ToPolyGon(100).ToWKT();
 }
 
-//TODO
+
 const char* CCircle::ToGeojson()const
 {
-    return "TODO";
+    return this->ToPolyGon(100).ToWKT();
 }
 
 //计算周长
@@ -64,13 +64,11 @@ void CCircle::R(float r)
     m_R = r;
 }
 
-CCirclePoly CCircle::ToPolyGon(int n)
+CPolyGon CCircle::ToPolyGon(int n)const
 {
-    CCirclePoly circlePoly;
     CRing* ring = new CRing;
     CPoint point;
-    circlePoly.prt = this;
-    circlePoly.polygon = CPolyGon();
+    CPolyGon polygon = CPolyGon();
 
     float  angle_increment = 2 * acos(-1) / n ;
     for (int i = 0; i < n; i++)
@@ -80,6 +78,6 @@ CCirclePoly CCircle::ToPolyGon(int n)
         *ring+=point;
     }
 
-    circlePoly.polygon.AppendRing(ring);
-    return circlePoly;
+    polygon.AppendRing(ring);
+    return polygon;
 }

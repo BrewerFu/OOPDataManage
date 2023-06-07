@@ -85,11 +85,17 @@ float CPoint_Distance(const CPoint& c1, const CPoint& c2)
 
 const char* CPoint::ToWKT()const
 {
-	return "POINT(" + (char)m_X + ' ' + (char)m_Y + ')';
+	std::ostringstream oss;
+	oss << "POINT(" << m_X << " " << m_Y << ")";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
 
 //TODO
 const char* CPoint::ToGeojson()const
 {
-	return " TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"Point\",\"coordinates\":[" << m_X << "," << m_Y << "]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }

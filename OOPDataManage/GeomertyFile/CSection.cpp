@@ -12,16 +12,12 @@ GeometryType CSection::GetType()const
 
 const char* CSection::ToWKT()const
 {
-    char* wkt = new char[100];
-    sprintf(wkt, "Section((%f,%f),%f,%f,%f)", m_C.x(), m_C.y(), m_R, StartAngle, EndAngle);
-    return wkt;
+    return this->ToPolyGon(100).ToWKT();
 }
 
 const char* CSection::ToGeojson()const
 {
-    char* geojson = new char[100];
-    sprintf(geojson, "{\"type\":\"Section\",\"coordinates\":[[%f,%f],%f,%f,%f]}", m_C.x(), m_C.y(), m_R, StartAngle, EndAngle);
-    return geojson;
+    return this->ToPolyGon(100).ToGeojson();
 }
 
 float CSection::Circum()const
@@ -83,14 +79,12 @@ void CSection::CheckAngle()
     }
 }
 
-CSectionPoly CSection::ToPolyGon(int n)
+CPolyGon CSection::ToPolyGon(int n)const
 {
-    CSectionPoly sectionpoly;
     CRing* ring = new CRing();
     CPoint point;
 
-    sectionpoly.prt = this;
-    sectionpoly.polygon = CPolyGon();
+    CPolyGon polygon = CPolyGon();
 
     //计算微分角度
     float dangle = (EndAngle - StartAngle) / n;
@@ -105,6 +99,6 @@ CSectionPoly CSection::ToPolyGon(int n)
     //添加圆心
     *ring+=m_C;
     //添加环
-    sectionpoly.polygon.AppendRing(ring);
-    return sectionpoly; 
+    polygon.AppendRing(ring);
+    return polygon;
 }

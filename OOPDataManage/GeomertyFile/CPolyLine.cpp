@@ -15,17 +15,41 @@ GeometryType CPath::GetType()const
 	return GeometryType::Path;
 }
 
-//TODO
-const char* CPath::ToWKT()const
+const char* CPath::ToWKT() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "LINESTRING (";
+	for (int i = 0; i < m_Pois.size(); ++i) 
+	{
+		oss << m_Pois[i].x() << " " << m_Pois[i].y();
+		if (i != m_Pois.size() - 1) 
+		{
+			oss << ", ";
+		}
+	}
+	oss << ")";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
 
-//TODO
-const char* CPath::ToGeojson()const
+
+const char* CPath::ToGeojson() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"LineString\",\"coordinates\":[";
+	for (int i = 0; i < m_Pois.size(); ++i) 
+	{
+		oss << "[" << m_Pois[i].x() << "," << m_Pois[i].y() << "]";
+		if (i != m_Pois.size() - 1) 
+		{
+			oss << ",";
+		}
+	}
+	oss << "]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }
+
 
 float CPath::Circum()const
 {
@@ -229,17 +253,54 @@ GeometryType CPolyLine::GetType()const
 	return GeometryType::PolyLine;
 }
 
-//TODO
-const char* CPolyLine::ToWKT()const
+const char* CPolyLine::ToWKT() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "MULTILINESTRING (";
+	for (int i = 0; i < m_Paths.size(); ++i) 
+	{
+		oss << "(";
+		for (int j = 0; j < m_Paths[i]->GetCount(); ++j) 
+		{
+			oss << m_Paths[i]->QureyPoint(j).x() << " " << m_Paths[i]->QureyPoint(j).y();
+			if (j != m_Paths[i]->GetCount() - 1) 
+			{
+				oss << ", ";
+			}
+		}
+		oss << ")";
+		if (i != m_Paths.size() - 1) 
+		{
+			oss << ", ";
+		}
+	}
+	oss << ")";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
 
-//TODO
-const char* CPolyLine::ToGeojson()const
+const char* CPolyLine::ToGeojson() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"MultiLineString\",\"coordinates\":[";
+	for (int i = 0; i < m_Paths.size(); ++i) {
+		oss << "[";
+		for (int j = 0; j < m_Paths[i]->GetCount(); ++j) {
+			oss << "[" << m_Paths[i]->QureyPoint(j).x() << "," << m_Paths[i]->QureyPoint(j).y() << "]";
+			if (j != m_Paths[i]->GetCount() - 1) {
+				oss << ",";
+			}
+		}
+		oss << "]";
+		if (i != m_Paths.size() - 1) {
+			oss << ",";
+		}
+	}
+	oss << "]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }
+
 
 float CPolyLine::Circum()const
 {

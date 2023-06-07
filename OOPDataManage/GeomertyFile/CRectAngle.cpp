@@ -20,16 +20,34 @@ GeometryType CRectAngle::GetType()const
 }
 
 
-//TODO
-const char* CRectAngle::ToWKT()const
+const char* CRectAngle::ToWKT() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "POLYGON ((";
+	oss << m_LT.x() << " " << m_LT.y() << ", ";
+	oss << m_RB.x() << " " << m_LT.y() << ", ";
+	oss << m_RB.x() << " " << m_RB.y() << ", ";
+	oss << m_LT.x() << " " << m_RB.y() << ", ";
+	oss << m_LT.x() << " " << m_LT.y();
+	oss << "))";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
-//TODO
-const char* CRectAngle::ToGeojson()const
+
+const char* CRectAngle::ToGeojson() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"Polygon\",\"coordinates\":[[[";
+	oss << m_LT.x() << "," << m_LT.y() << "],[";
+	oss << m_RB.x() << "," << m_LT.y() << "],[";
+	oss << m_RB.x() << "," << m_RB.y() << "],[";
+	oss << m_LT.x() << "," << m_RB.y() << "],[";
+	oss << m_LT.x() << "," << m_LT.y();
+	oss << "]]]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }
+
 
 //计算周长
 float CRectAngle::Circum()const

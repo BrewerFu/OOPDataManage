@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include<vector>
+#include<sstream>
 #include<string>
 #include"CStyle.h"
 

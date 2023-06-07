@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
  
-    FileManager& manager = FileManager::GetInstance();
+   /* FileManager& manager = FileManager::GetInstance();
 
     std::string path = "C:/Users/25294/Desktop/Text.txt";
     manager.Open(path);
@@ -19,7 +19,8 @@ int main(int argc, char *argv[])
     manager.Write(&feature);
     manager.Save();
     manager.Close();
-    return 0;
+    return 0;*/
+
 }
 
 //QApplication a(argc, argv);

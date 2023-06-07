@@ -4,17 +4,6 @@
 #include"CPolyGon.h"
 #include<cmath>
 
-//声明圆
-class CCircle;
-
-//圆多边形
-struct CCirclePoly
-{
-	//指向圆的指针
-	CCircle* prt;
-	//多边形
-	CPolyGon polygon;
-};
 
 //几何圆
 class CCircle :public CGeometry
@@ -46,8 +35,7 @@ public:
 
 	//转换为多边形
 	//@param n:多边形边数
-	//@return:包含多边形和圆的结构体
-	CCirclePoly ToPolyGon(int n);
+	CPolyGon ToPolyGon(int n)const;
 
 protected:
 	//圆心

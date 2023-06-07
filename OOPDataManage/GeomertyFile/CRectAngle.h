@@ -16,8 +16,6 @@ public:
 	//通过一个点和长宽构造
 	CRectAngle(CPoint lefttop, float width, float height);
 
-
-
 	//获取宽度
 	float GetWidth()const;
 	//获取高度

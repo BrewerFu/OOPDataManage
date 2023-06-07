@@ -13,14 +13,38 @@ GeometryType CRing::GetType()const
 	return GeometryType::Ring;
 }
 
-const char* CRing::ToWKT()const
+const char* CRing::ToWKT() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "POLYGON (";
+	oss << "(";
+	for (int i = 0; i < GetCount(); ++i) 
+	{
+		oss << QureyPoint(i).x() << " " << QureyPoint(i).y();
+		if (i != GetCount() - 1) 
+		{
+			oss << ", ";
+		}
+	}
+	oss << ")";
+	oss << ")";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
 
-const char* CRing::ToGeojson()const
+const char* CRing::ToGeojson() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"Polygon\",\"coordinates\":[[";
+	for (int i = 0; i < GetCount(); ++i) {
+		oss << "[" << QureyPoint(i).x() << "," << QureyPoint(i).y() << "]";
+		if (i != GetCount() - 1) {
+			oss << ",";
+		}
+	}
+	oss << "]]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }
 
 float CRing::Area()const
@@ -66,16 +90,60 @@ GeometryType CPolyGon::GetType()const
 	return GeometryType::PolyGon;
 }
 
-//TODO
-const char* CPolyGon::ToWKT()const
+const char* CPolyGon::ToWKT() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "POLYGON (";
+	for (int i = 0; i < GetCount(); ++i) 
+	{
+		CRing* ring = QueryRing(i);
+		oss << "(";
+		for (int j = 0; j < ring->GetCount(); ++j) 
+		{
+			CPoint point = ring->QureyPoint(j);
+			oss << point.x() << " " << point.y();
+			if (j != ring->GetCount() - 1) 
+			{
+				oss << ", ";
+			}
+		}
+		oss << ")";
+		if (i != GetCount() - 1) 
+		{
+			oss << ", ";
+		}
+	}
+	oss << ")";
+	std::string wkt = oss.str();
+	return wkt.c_str();
 }
 
-//TODO
-const char* CPolyGon::ToGeojson()const
+const char* CPolyGon::ToGeojson() const
 {
-	return "TODO";
+	std::ostringstream oss;
+	oss << "{\"type\":\"Polygon\",\"coordinates\":[";
+	for (int i = 0; i < GetCount(); ++i) 
+	{
+		CRing* ring = QueryRing(i);
+		oss << "[";
+		for (int j = 0; j < ring->GetCount(); ++j) 
+		{
+			CPoint point = ring->QureyPoint(j);
+			oss << "[" << point.x() << "," << point.y() << "]";
+			if (j != ring->GetCount() - 1) 
+			{
+				oss << ",";
+			}
+		}
+		oss << "]";
+		if (i != GetCount() - 1) 
+		{
+			oss << ",";
+		}
+	}
+	oss << "]}";
+	std::string geojson = oss.str();
+	return geojson.c_str();
 }
 
 bool CPolyGon::AppendRing(CRing* pRing)

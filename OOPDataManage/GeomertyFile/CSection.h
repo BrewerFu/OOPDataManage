@@ -3,13 +3,6 @@
 
 class CSection;
 
-//几何扇形多边形
-struct CSectionPoly
-{
-	CSection* prt;
-	CPolyGon polygon;
-};
-
 //几何扇形
 class CSection :public CCircle
 {
@@ -39,7 +32,7 @@ public:
 	float Circum()const  override;
 	float Area()const override;
 
-	CSectionPoly ToPolyGon(int n);
+	CPolyGon ToPolyGon(int n)const;
 
 protected:
 	//开始角度

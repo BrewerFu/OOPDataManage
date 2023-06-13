@@ -1,163 +1,186 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>qml;cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>qrc;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
     </Filter>
-    <Filter Include="Translation Files">
-      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
-      <Extensions>ts</Extensions>
+    <Filter Include="几何对象">
+      <UniqueIdentifier>{f1ed9a7f-69bb-4ddc-9b03-fe05689b1242}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GeomertyFile">
-      <UniqueIdentifier>{cff03a76-865d-4aeb-b1f7-80d228117d97}</UniqueIdentifier>
+    <Filter Include="文件管理">
+      <UniqueIdentifier>{47d96005-d229-4f51-80b9-73396288624c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GeometryFile">
-      <UniqueIdentifier>{11ea42c4-6470-48ba-808a-7d68ef86986e}</UniqueIdentifier>
+    <Filter Include="数据库管理">
+      <UniqueIdentifier>{1aad1f1a-10c7-4756-8edd-2b34a090fd3d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FileReader">
-      <UniqueIdentifier>{a4a337e4-af21-46d9-b523-48b361f924d0}</UniqueIdentifier>
+    <Filter Include="几何对象\抽象几何">
+      <UniqueIdentifier>{b3c31f9d-9758-4c1f-9314-6904b6942172}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\FileReader">
-      <UniqueIdentifier>{afe271a4-2c68-42db-a172-b81de2f84b20}</UniqueIdentifier>
+    <Filter Include="几何对象\点">
+      <UniqueIdentifier>{a8460f67-3e3d-454f-8a75-57a99240f168}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\FileWriter">
-      <UniqueIdentifier>{ff964fae-c85a-4908-ab34-f6dfdd8a2ba5}</UniqueIdentifier>
+    <Filter Include="几何对象\多折线">
+      <UniqueIdentifier>{4eba41c8-30d5-4c8f-a947-8a21991ceb65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\FileWriter">
-      <UniqueIdentifier>{b86388be-c691-4ff1-849b-ce76d2225344}</UniqueIdentifier>
+    <Filter Include="几何对象\多边形">
+      <UniqueIdentifier>{a8c5ff15-b09a-4d39-9648-423a1e392236}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\矩形">
+      <UniqueIdentifier>{444aa8d0-d65e-42d1-9c6f-8bd25d4c051e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\圆">
+      <UniqueIdentifier>{fb2e9d87-c943-4d4a-88de-4303516aabb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\扇形">
+      <UniqueIdentifier>{80816e8b-1f84-407e-883e-2f8c8a29d380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\位图">
+      <UniqueIdentifier>{78b22b66-987d-4498-899f-fc2d1729d9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\文本">
+      <UniqueIdentifier>{18d34700-9637-406e-96cd-2aadc5bef492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\样式">
+      <UniqueIdentifier>{99091251-11d2-4db2-8a35-e148c4122986}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="几何对象\要素类">
+      <UniqueIdentifier>{42c12b98-592b-4002-89c7-07ebe34c0327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文件管理\文件管理器">
+      <UniqueIdentifier>{71e27875-c7af-42da-abca-bebd6f26a348}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文件管理\文件读取">
+      <UniqueIdentifier>{2e6cfe9f-87ee-4da2-9946-9ea376b945ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="文件管理\文件写入">
+      <UniqueIdentifier>{a444d75c-7c4b-4868-ac68-245d62b4faab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="数据库管理\数据库管理器">
+      <UniqueIdentifier>{b19bd11e-863a-4613-b9a4-27b9ef0d33bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main程序入口">
+      <UniqueIdentifier>{dcc94d28-d829-4611-9b4f-2f97e4e6e964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Abort遗弃">
+      <UniqueIdentifier>{7110f537-150f-4567-9995-f5910eb5c4a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="FileReadWindow.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
     <QtUic Include="FileReadWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="FileReadWindow.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="FileReadWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeomertyFile\CText.cpp">
+      <Filter>几何对象\文本</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CBitMap.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\位图</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CCircle.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\圆</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CFeature.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\要素类</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CPoint.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\点</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CPolyGon.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\多边形</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CPolyLine.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\多折线</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CRectAngle.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\矩形</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CSection.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\扇形</Filter>
     </ClCompile>
     <ClCompile Include="GeomertyFile\CStyle.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+      <Filter>几何对象\样式</Filter>
     </ClCompile>
-    <ClCompile Include="GeomertyFile\CText.cpp">
-      <Filter>Source Files\GeomertyFile</Filter>
+    <ClCompile Include="DBManager.cpp">
+      <Filter>数据库管理\数据库管理器</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReader\ShapeFileReader.cpp">
-      <Filter>Source Files\FileReader</Filter>
-    </ClCompile>
-    <ClCompile Include="GeometryManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileReader\TextReader.cpp">
-      <Filter>Source Files\FileReader</Filter>
+      <Filter>文件管理\文件管理器</Filter>
     </ClCompile>
     <ClCompile Include="FileWriter\TextWriter.cpp">
-      <Filter>Source Files\FileWriter</Filter>
+      <Filter>文件管理\文件写入</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader\TextReader.cpp">
+      <Filter>文件管理\文件读取</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader\ShapeFileReader.cpp">
+      <Filter>文件管理\文件读取</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Main程序入口</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryManager.cpp">
+      <Filter>Abort遗弃</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeomertyFile\CBitMap.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CCircle.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CFeature.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CPolyGon.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CPolyLine.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CRectAngle.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CSection.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CStyle.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeomertyFile\CText.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReader\FileReader.h">
-      <Filter>Header Files\FileReader</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileReader\ShapeFileReader.h">
-      <Filter>Header Files\FileReader</Filter>
-    </ClInclude>
     <ClInclude Include="GeomertyFile\CGeometry.h">
-      <Filter>Header Files\GeometryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GeometryManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>几何对象\抽象几何</Filter>
     </ClInclude>
     <ClInclude Include="GeomertyFile\CPoint.h">
-      <Filter>Header Files\GeometryFile</Filter>
+      <Filter>几何对象\点</Filter>
     </ClInclude>
-    <ClInclude Include="FileReader\TextReader.h">
-      <Filter>Header Files\FileReader</Filter>
+    <ClInclude Include="GeomertyFile\CRectAngle.h">
+      <Filter>几何对象\矩形</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CStyle.h">
+      <Filter>几何对象\样式</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CText.h">
+      <Filter>几何对象\文本</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CSection.h">
+      <Filter>几何对象\扇形</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CPolyLine.h">
+      <Filter>几何对象\多折线</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CPolyGon.h">
+      <Filter>几何对象\多边形</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CFeature.h">
+      <Filter>几何对象\要素类</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CCircle.h">
+      <Filter>几何对象\圆</Filter>
+    </ClInclude>
+    <ClInclude Include="GeomertyFile\CBitMap.h">
+      <Filter>几何对象\位图</Filter>
     </ClInclude>
     <ClInclude Include="FileWriter\FileWriter.h">
-      <Filter>Header Files\FileWriter</Filter>
+      <Filter>文件管理\文件写入</Filter>
     </ClInclude>
     <ClInclude Include="FileWriter\TextWriter.h">
-      <Filter>Header Files\FileWriter</Filter>
+      <Filter>文件管理\文件写入</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader\FileReader.h">
+      <Filter>文件管理\文件读取</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader\ShapeFileReader.h">
+      <Filter>文件管理\文件读取</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader\TextReader.h">
+      <Filter>文件管理\文件读取</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>文件管理\文件管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="DBManager.h">
+      <Filter>数据库管理\数据库管理器</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryManager.h">
+      <Filter>Abort遗弃</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

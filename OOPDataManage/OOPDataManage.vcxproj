@@ -32,7 +32,7 @@
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>6.2.4_msvc2019_64</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;sql</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
@@ -89,13 +89,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="FileReadWindow.qrc" />
     <QtUic Include="FileReadWindow.ui" />
-    <QtMoc Include="FileReadWindow.h" />
+    <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FileReader\ShapeFileReader.cpp" />
     <ClCompile Include="FileReader\TextReader.cpp" />
-    <ClCompile Include="FileReadWindow.cpp" />
     <ClCompile Include="FileWriter\TextWriter.cpp" />
     <ClCompile Include="GeomertyFile\CBitMap.cpp" />
     <ClCompile Include="GeomertyFile\CCircle.cpp" />
@@ -111,6 +109,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DBManager.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FileReader\FileReader.h" />
     <ClInclude Include="FileReader\ShapeFileReader.h" />

@@ -83,18 +83,19 @@ bool FileManager::Save()
 	}
 }
 
-CFeature FileManager::Read()
+CFeature* FileManager::Read()
 {
 	GeometryType type=Reader->GetType();
 	if (type == GeometryType::Undefined)
 		throw std::runtime_error("文件不包含几何类型声明，文件读取失败");
 
-	CFeature feature(type);
+	CFeatureManager& featureManager = CFeatureManager::GetInstance();
+	CFeature* feature = featureManager.CreateFeature(type);
 	CGeometry* geo;
 	while (Reader->isNext())
 	{
 		geo = GetGeometry(type);
-		feature.AppendGeometry(geo);
+		feature->AppendGeometry(geo);
 	}
 	return feature;
 }

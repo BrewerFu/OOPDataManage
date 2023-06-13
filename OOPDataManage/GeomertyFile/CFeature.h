@@ -1,26 +1,38 @@
 ﻿#pragma once
 #include"CGeometry.h"
 #include<vector>
+#include<map>
+#include<set>
 
+//class CFeatureManager;
+//
+////观察者模式
+//class Observer;
+//
+//class Subject 
+//{
+//public:
+//	virtual void Attach(Observer* observer)=0;
+//	virtual bool Detach(Observer* observer)=0;
+//	virtual void Notify()=0;
+//};
+//
+//class Observer
+//{
+//public:
+//	virtual void Update(Subject* subject) = 0;
+//};
+
+
+//要素类
 class CFeature
 {
 public:
-	//默认构造函数
-	CFeature(GeometryType type):Type(type){};
-	//析构函数
-	~CFeature() 
-	{
-		for (int i = 0; i < m_vector.size(); i++)
-		{
-			delete m_vector[i];
-		}
-		m_vector.clear();
-	};
 
 	//获取几何对象的类型
 	GeometryType GetType()const
 	{
-		return Type;
+		return m_Type;
 	}
 
 	//添加几何对象
@@ -41,7 +53,6 @@ public:
 		return m_vector.size();
 	}
 
-	//重载[]运算符
 	CGeometry* operator[](int index)
 	{
 		return m_vector[index];
@@ -52,6 +63,9 @@ public:
 	{
 		return m_vector.empty();
 	}
+
+	//获取要对象素的ID
+	int GetID() { return m_ID; }
 
 	//迭代器对象
 	class iterator
@@ -74,12 +88,55 @@ public:
 
 
 private:
-	//存储几何对象的容器
-	std::vector<CGeometry*> m_vector;
+
+	CFeature(GeometryType type) :m_Type(type), m_ID(-1),m_DBID(-1){};
+	~CFeature()
+	{
+		for (int i = 0; i < m_vector.size(); i++)
+		{
+			delete m_vector[i];
+		}
+		m_vector.clear();
+	};
 	//检查几何对象的类型是否正确
 	bool CheckCorrectType(GeometryType type);
-	//存储几何对象的类型
-	GeometryType Type;
+	void SetID(int id) { m_ID = id; }
 
+
+	int m_ID,m_DBID;
+	GeometryType m_Type;
+	std::vector<CGeometry*> m_vector;
+	/*std::vector<Observer*> m_observers;*/
+	friend class CFeatureManager;
 };
 
+
+class CFeatureManager
+{
+public:
+	static CFeatureManager& GetInstance()
+	{
+		static CFeatureManager instance;
+		return instance;
+	}
+
+	CFeature* CreateFeature(GeometryType type);
+
+	bool DestroyFeature(CFeature* feature);
+
+
+private:
+	//单例模式
+	CFeatureManager() {};
+	CFeatureManager(const CFeatureManager&) {};
+	CFeatureManager& operator=(const CFeatureManager&) {};
+	~CFeatureManager() {};
+
+	int GetUnusedID();
+	void RecycleID(int id);
+
+	//存储未使用的id
+	std::set<int> m_unusedIds;
+	//存储id和和要素对象指针
+	std::map<int, CFeature*> m_map;
+};

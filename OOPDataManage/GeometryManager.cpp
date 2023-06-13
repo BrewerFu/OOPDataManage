@@ -1,12 +1,12 @@
 ﻿//#include "GeometryManager.h"
 //
 ////获取单例
-//GeometryManager& GeometryManager::GetInstance()
+//GeometryManager* GeometryManager::GetInstance()
 //{
 //	if (m_pGeometryManager != nullptr)
 //		m_pGeometryManager = new GeometryManager();
 //	else
-//		return *m_pGeometryManager;
+//		return m_pGeometryManager;
 //}
 //
 ////释放单例
@@ -87,12 +87,65 @@
 //	delete m_pSectionFactory;
 //}
 //
+//void GeometryManager::OnGeometryDestory(GeometryType type, CGeometry* prt)
+//{
+//		switch (type)
+//		{
+//		case GeometryType::Point:
+//			m_pPointFactory->DestroyGeometry(prt);
+//			break;
+//		case GeometryType::PolyLine:
+//			m_pPolyLineFactory->DestroyGeometry(prt);
+//			break;
+//		case GeometryType::PolyGon:
+//			m_pPolyGonFactory->DestroyGeometry(prt);
+//			break;
+//		case GeometryType::RectAngle:
+//			m_pRectAngleFactory->DestroyGeometry(prt);
+//			break;
+//		case GeometryType::Circle:
+//			m_pCircleFactory->DestroyGeometry(prt);
+//			break;
+//		case GeometryType::Section:
+//			m_pSectionFactory->DestroyGeometry(prt);
+//			break;
+//		default:
+//			break;
+//		}
+//}
+//
+//int GeometryFactory::getNextId()
+//{
+//	 if (m_unusedIds.empty())
+//    {
+//        // 如果没有未使用的 id，则分配一个新的 id
+//        return m_map.size() + 1;
+//    }
+//    else
+//    {
+//        // 如果有未使用的 id，则返回最小的未使用的 id
+//        int id = *m_unusedIds.begin();
+//        m_unusedIds.erase(m_unusedIds.begin());
+//        return id;
+//    }
+//}
+//
+//void GeometryFactory::releseId(int id)
+//{
+//	// 将 id 标记为未使用的
+//	m_unusedIds.insert(id);
+//}
+//
+//
+//
 //CGeometry* CPointFactory::CreateGeometry(GeometryType type)
 //{
 //	if (type == GeometryType::Point)
 //	{
+//		int id = getNextId();
 //		CPoint* p = new CPoint();
-//		return p;
+//		p->setId(id);
+//		m_map[id] = p;
 //	}
 //	else
 //		return nullptr;

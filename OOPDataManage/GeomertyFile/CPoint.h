@@ -57,3 +57,4 @@ protected:
 
 //求两个点之间的距离
 float CPoint_Distance(const CPoint& c1, const CPoint& c2);
+

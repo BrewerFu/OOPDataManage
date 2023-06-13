@@ -25,8 +25,8 @@ public:
 
 	bool Open(QString FileName);
 
-	CFeature Read();
-	
+	CFeature* Read();
+
 	bool Write(CFeature* feature);
 
 	bool Save();

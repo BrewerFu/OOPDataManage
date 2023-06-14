@@ -66,6 +66,15 @@ bool CFeature::CheckCorrectType(GeometryType type)
 //	}
 //}
 
+CFeatureManager::~CFeatureManager()
+{
+	for (auto it = m_map.begin(); it != m_map.end(); it++)
+	{
+		delete it->second;
+	}
+	m_map.clear();
+}
+
 CFeature* CFeatureManager::CreateFeature(GeometryType type)
 {
 	switch (type)

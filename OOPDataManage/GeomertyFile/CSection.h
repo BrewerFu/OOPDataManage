@@ -13,13 +13,13 @@ public:
 	//构造函数
 	//@param startangle 角度,开始角度
 	//@param endangle 角度,结束角度
-	CSection(CPoint c, float r, float startangle, float endangle);
+	CSection(CPoint* c, float r, float startangle, float endangle);
 
 	//设置开始角度
-	void SAngle(float startangle);
+	void SetSAngle(float startangle);
 	//设置结束角度
 	
-	void EAngle(float endangle);
+	void SetEAngle(float endangle);
 	//获取开始角度
 
 	float GetSAngle()const;
@@ -32,7 +32,7 @@ public:
 	float Circum()const  override;
 	float Area()const override;
 
-	CPolyGon ToPolyGon(int n)const;
+	CPolyGon* ToPolyGon(int n)const;
 
 protected:
 	//开始角度

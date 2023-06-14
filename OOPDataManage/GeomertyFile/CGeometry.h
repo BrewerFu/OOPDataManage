@@ -4,6 +4,8 @@
 #include<string>
 #include"CStyle.h"
 
+class CGeometryFactory;
+
 //外包矩形
 struct BBox
 {
@@ -81,7 +83,17 @@ public:
 	virtual float Circum()const { return 0; };
 	//获取面积
 	virtual float Area()const { return 0; };
+
+
+	int GetID() { return ID; }
 	
+	void SetID(int id) { ID = id;}
+
+	//几何对象的ID
+	int ID;
+
+	//数据库ID
+	int DBID;
 
 	/*-----------------------------------------------------------------------------------------------------------------------*/
 	/*----------------------------------------------------------------成员变量-----------------------------------------------*/
@@ -93,6 +105,7 @@ public:
 
 	//边框颜色
 	QColor BoundaryColor;
+
 	//填充颜色
 	QColor FillColor;
 	
@@ -101,6 +114,7 @@ public:
 	
 	//填充样式
 	CFillStyle FillStyle;
+
 
 };
 

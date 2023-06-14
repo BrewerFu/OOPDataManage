@@ -90,6 +90,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtUic Include="FileReadWindow.ui" />
+    <ClCompile Include="DBDriver\DBDriver.cpp" />
+    <ClCompile Include="DBDriver\SQLiteDriver.cpp" />
     <ClCompile Include="DBManager.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FileReader\ShapeFileReader.cpp" />
@@ -109,6 +111,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DBDriver\DBDriver.h" />
+    <ClInclude Include="DBDriver\SQLiteDriver.h" />
     <ClInclude Include="DBManager.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="FileReader\FileReader.h" />

@@ -3,6 +3,7 @@
 #include"CPoint.h"
 #include"CPolyGon.h"
 #include<cmath>
+#include"../GeometryManager.h"
 
 
 //几何圆
@@ -12,18 +13,17 @@ public:
 	//默认构造函数
 	CCircle():m_R(0){};
 	//通过圆心和半径构造
-	CCircle(CPoint c, float r);
-	//通过x、y坐标和半径构造
-	CCircle(float x, float y, float r);
+	CCircle(CPoint* c, float r);
+
 	//获取圆心
-	CPoint GetC()const;
+	CPoint* GetC()const;
 	//获取半径
 	float GetR()const;
 
 	//设置圆心
-	void C(CPoint c);
+	void SetC(CPoint* c);
 	//设置半径
-	void R(float r);
+	void SetR(float r);
 	
 	GeometryType GetType()const;
 	const char* ToWKT()const override;
@@ -35,11 +35,13 @@ public:
 
 	//转换为多边形
 	//@param n:多边形边数
-	CPolyGon ToPolyGon(int n)const;
+	virtual CPolyGon* ToPolyGon(int n)const;
 
 protected:
 	//圆心
-	CPoint m_C;
+	CPoint* m_C=nullptr;
 	//半径
 	float m_R;
+
+	GeometryManager& gm = GeometryManager::GetInstance();
 };

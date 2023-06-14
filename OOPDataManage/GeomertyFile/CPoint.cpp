@@ -60,9 +60,9 @@ float CPoint::operator^(CPoint c)const
 	return this->m_X * c.m_Y - this->m_Y * c.m_X;
 }
 
-bool CPoint::operator==(CPoint c)const
+bool CPoint::operator==(const CPoint& other) const
 {
-	if (this->m_X == c.m_X && this->m_Y == c.m_Y)
+	if (this->m_X == other.m_X && this->m_Y == other.m_Y)
 		return true;
 	else
 		return false;

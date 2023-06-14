@@ -1,15 +1,16 @@
 ﻿#pragma once
 #include"CPolyLine.h"
 
+class CRingFactory;
+class CPolyGonFactory;
 
 class CRing :public CPath
 {
-public:
-	//默认构造函数
-	CRing() {};
+public:;
 	//复制构造函数
 	CRing(const CRing& ring);
-
+	//默认构造函数
+	CRing() {};
 	//析构函数
 	~CRing(){};
 
@@ -24,6 +25,9 @@ public:
 	//获取面积
 	float Area() const override;
 
+protected:
+
+friend class CRingFactory;
 };
 
 //几何多边形
@@ -32,6 +36,7 @@ class CPolyGon :public CGeometry
 public:
 	//默认构造函数
 	CPolyGon() {};
+
 	//复制构造函数
 	CPolyGon(const CPolyGon& poly);
 
@@ -85,4 +90,6 @@ public:
 protected:
 	std::vector<CRing*> m_Rings;
 	bool CheckDuplicate(CRing* ring);
+
+friend class CPolyGonFactory;
 };

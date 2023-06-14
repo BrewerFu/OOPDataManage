@@ -79,7 +79,10 @@ int ShapeFileReader::GetGeometry(CPoint& point)
 	qfs.read(ptBuf, len);
 
 	double* pt = (double*)(ptBuf + 4);
-	point= CPoint(pt[0], pt[1]);
+	CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
+	CPoint* p = (CPoint*)geo;
+	p->x(pt[0]);
+	p->y(pt[1]);
 	
 	//移动游标
 	m_cursur += 4 + 4 + len;
@@ -112,11 +115,16 @@ int ShapeFileReader::GetGeometry(CPolyLine& Line)
 	{
 		int end = (i == partNum - 1) ? pointNum : start[i + 1];
 		//新建一个折线
-		CPath* path = new CPath;
+		CGeometry* geo = gm.CreateGeometry(GeometryType::Path);
+		CPath* path = (CPath*)geo;
+
 		for (int j = start[i]; j < end; j++)
 		{
-			CPoint point(pnts[2 * j], pnts[2 * j + 1]);
-			*path+=point;
+			CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
+			CPoint* point = (CPoint*)geo;
+			point->x(pnts[2 * j]);
+			point->y(pnts[2 * j + 1]);
+			path->AppendPoint(point);
 		}
 		//加入折线
 		Line.AppendPath(path);
@@ -151,11 +159,15 @@ int ShapeFileReader::GetGeometry(CPolyGon& Gon)
 	{
 		int end = (i == partNum - 1) ? pointNum : start[i + 1];
 		//新建一个线环
-		CRing* ring = new CRing;
+		CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
+		CRing* ring = (CRing*)geo;
 		for (int j = start[i]; j < end; j++)
 		{
-			CPoint point(pnts[2 * j], pnts[2 * j + 1]);
-			*ring+= point;
+			CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
+			CPoint* point = (CPoint*)geo;
+			point->x(pnts[2 * j]);
+			point->y(pnts[2 * j + 1]);
+			ring->AppendPoint(point);
 		}
 		//线环加入多边形
 		Gon.AppendRing(ring);

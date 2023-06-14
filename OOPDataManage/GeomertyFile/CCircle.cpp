@@ -1,16 +1,12 @@
 ﻿#include "CCircle.h"
 
 //通过圆心和半径构造
-CCircle::CCircle(CPoint c, float r):m_C(c),m_R(r)
-{
-}
-
-CCircle::CCircle(float x, float y, float r):m_C(x, y), m_R(r)
+CCircle::CCircle(CPoint* c, float r):m_C(c),m_R(r)
 {
 }
 
 //获取圆心
-CPoint CCircle::GetC()const
+CPoint* CCircle::GetC()const
 {
     return m_C;
 }
@@ -24,13 +20,19 @@ GeometryType CCircle::GetType()const
 
 const char* CCircle::ToWKT()const
 {
-    return this->ToPolyGon(100).ToWKT();
+    CPolyGon* polygon = ToPolyGon(100);
+    const char* wkt = polygon->ToWKT();
+    gm.DestroyGeometry(polygon);
+    return wkt;
 }
 
 
 const char* CCircle::ToGeojson()const
 {
-    return this->ToPolyGon(100).ToWKT();
+    CPolyGon* polygon = ToPolyGon(100);
+    const char* geojson = polygon->ToGeojson();
+    gm.DestroyGeometry(polygon);
+    return geojson;
 }
 
 //计算周长
@@ -53,31 +55,34 @@ float CCircle::GetR()const
 }
 
 //设置圆心
-void CCircle::C(CPoint c)
+void CCircle::SetC(CPoint* c)
 {
     m_C = c;
 }
 
 //设置半径
-void CCircle::R(float r)
+void CCircle::SetR(float r)
 {
     m_R = r;
 }
 
-CPolyGon CCircle::ToPolyGon(int n)const
+CPolyGon* CCircle::ToPolyGon(int n)const
 {
-    CRing* ring = new CRing;
-    CPoint point;
-    CPolyGon polygon = CPolyGon();
+    CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
+    CRing* ring = dynamic_cast<CRing*>(geo);
+    geo = gm.CreateGeometry(GeometryType::Point);
+    CPoint* point = dynamic_cast<CPoint*>(geo);
+    geo = gm.CreateGeometry(GeometryType::PolyGon);
+    CPolyGon* polygon = dynamic_cast<CPolyGon*>(geo);
 
     float  angle_increment = 2 * acos(-1) / n ;
     for (int i = 0; i < n; i++)
     {
-        point.x(m_C.x() + m_R * cos(angle_increment * i));
-        point.y(m_C.y() + m_R * sin(angle_increment * i));
-        *ring+=point;
+        point->x(m_C->x() + m_R * cos(angle_increment * i));
+        point->y(m_C->y() + m_R * sin(angle_increment * i));
+        ring->AppendPoint(point);
     }
 
-    polygon.AppendRing(ring);
+    polygon->AppendRing(ring);
     return polygon;
 }

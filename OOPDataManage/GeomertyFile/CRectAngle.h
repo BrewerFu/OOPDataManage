@@ -11,10 +11,10 @@ public:
 	CRectAngle() {};
 
 	//通过两个点构造
-	CRectAngle(CPoint lefttop, CPoint rightbottom);
+	CRectAngle(CPoint* lefttop, CPoint* rightbottom);
 
 	//通过一个点和长宽构造
-	CRectAngle(CPoint lefttop, float width, float height);
+	CRectAngle(CPoint* lefttop, float width, float height);
 
 	//获取宽度
 	float GetWidth()const;
@@ -22,14 +22,14 @@ public:
 	float GetHeight()const;
 
 	//获取左上角顶点
-	CPoint GetLT()const;
+	CPoint* GetLT()const;
 	//获取右下角顶点
-	CPoint GetRB()const;
+	CPoint* GetRB()const;
 
 	//设置左上角顶点
-	void LT(CPoint c);
+	void SetLT(CPoint* c);
 	//设置右下角顶点
-	void RB(CPoint c);
+	void SetRB(CPoint* c);
 
 
 	GeometryType GetType()const override;
@@ -42,9 +42,9 @@ public:
 
 private:
 	//左上角顶点
-	CPoint m_LT;
+	CPoint* m_LT=nullptr;
 	//右下角顶点
-	CPoint m_RB;
+	CPoint* m_RB=nullptr;
 	//检查是否颠倒
 	bool CheckReverse()const;
 };

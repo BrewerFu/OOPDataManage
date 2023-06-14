@@ -130,7 +130,7 @@ private:
 	CFeatureManager() {};
 	CFeatureManager(const CFeatureManager&) {};
 	CFeatureManager& operator=(const CFeatureManager&) {};
-	~CFeatureManager() {};
+	~CFeatureManager();
 
 	int GetUnusedID();
 	void RecycleID(int id);

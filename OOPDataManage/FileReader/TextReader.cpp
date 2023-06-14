@@ -118,16 +118,18 @@ CFillStyle TextReader::ReadFillStyle()
 	return fill;
 }
 
-CPoint TextReader::ReadPoint()
+CPoint* TextReader::ReadPoint()
 {
-	CPoint point;
+	CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
+	CPoint* point = dynamic_cast<CPoint*>(geo);
+
 	//读取Point坐标
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
 	if (qsl[0] == "Point")
 	{
-		point.x(qsl[1].toFloat());
-		point.y(qsl[2].toFloat());
+		point->x(qsl[1].toFloat());
+		point->y(qsl[2].toFloat());
 		return point;
 	}
 	else
@@ -184,11 +186,12 @@ int TextReader::GetGeometry(CPolyLine& Line)
 			qsl = qstr.split(" ");
 		} while (qsl[0] != "Path");
 
-		CPath* path = new CPath;
+		CGeometry* geo = gm.CreateGeometry(GeometryType::Path);
+		CPath* path = dynamic_cast<CPath*>(geo);
 		//获取CPath点数
 		int pointCount = qsl[1].toInt();
 		for (int i = 0; i < pointCount; i++)
-			*path += ReadPoint();
+			path->AppendPoint(ReadPoint());
 		//添加单折线
 		Line.AppendPath(path);
 	}
@@ -224,12 +227,12 @@ int TextReader::GetGeometry(CPolyGon& Gon)
 			qstr = qts.readLine().trimmed();
 			qsl = qstr.split(" ");
 		} while (qsl[0] != "Ring");
-
-		CRing* ring = new CRing;
+		CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
+		CRing* ring = dynamic_cast<CRing*>(geo);
 		//获取CRing点数
 		int pointCount = qsl[1].toInt();
 		for (int i = 0; i < pointCount; i++)
-			*ring += ReadPoint();
+			ring->AppendPoint(ReadPoint());
 		//添加单环
 		Gon.AppendRing(ring);
 	}
@@ -253,8 +256,8 @@ int TextReader::GetGeometry(CRectAngle& Rect)
 	} while (qstr != "RectAngle");
 
 	//读取RectAngle坐标
-	Rect.LT(ReadPoint());
-	Rect.RB(ReadPoint());
+	Rect.SetLT(ReadPoint());
+	Rect.SetRB(ReadPoint());
 
 
 	ReadAttribute(Rect);

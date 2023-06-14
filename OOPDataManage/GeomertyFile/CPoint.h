@@ -16,7 +16,6 @@ public:
 	//析构函数
 	~CPoint() {};
 
-
 	//获取x
 	float x()const { return m_X; };
 	//获取y
@@ -44,15 +43,17 @@ public:
 	//重载^叉积运算
 	float operator ^ (CPoint c)const;
 	//判断点X、Y值是否相等
-	bool operator==(CPoint c)const;
+	bool operator==(const CPoint& other) const;
 	//判断点X、Y值是否不等
 	bool operator!=(CPoint)const;
 
 protected:
+
 	//x坐标
 	float m_X;
 	//y坐标
 	float m_Y;
+
 };
 
 //求两个点之间的距离

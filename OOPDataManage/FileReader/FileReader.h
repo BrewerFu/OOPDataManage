@@ -3,9 +3,12 @@
 #include"../GeomertyFile/CSection.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CFeature.h"
+#include"../GeometryManager.h"
 #include<qfile.h>
 #include<qfileinfo.h>
 #include<exception>
+
+
 
 class GeoReaderFormat
 {
@@ -53,6 +56,7 @@ public:
 protected:
 	//qt文件读取
 	QFile qfs;
+	GeometryManager& gm = GeometryManager::GetInstance();
 };
 
 

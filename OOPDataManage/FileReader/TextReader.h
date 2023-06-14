@@ -44,7 +44,7 @@ protected:
 	CFillStyle ReadFillStyle();
 
 	//读取点
-	CPoint ReadPoint();
+	CPoint* ReadPoint();
 
 	//读取属性
 	template<class T>

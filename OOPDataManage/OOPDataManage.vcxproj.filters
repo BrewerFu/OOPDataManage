@@ -123,6 +123,10 @@
     <ClCompile Include="GeometryManager.cpp">
       <Filter>Abort遗弃</Filter>
     </ClCompile>
+    <ClCompile Include="DBDriver\SQLiteDriver.cpp" />
+    <ClCompile Include="DBDriver\DBDriver.cpp">
+      <Filter>数据库管理</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeomertyFile\CGeometry.h">
@@ -181,6 +185,10 @@
     </ClInclude>
     <ClInclude Include="GeometryManager.h">
       <Filter>Abort遗弃</Filter>
+    </ClInclude>
+    <ClInclude Include="DBDriver\SQLiteDriver.h" />
+    <ClInclude Include="DBDriver\DBDriver.h">
+      <Filter>数据库管理</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

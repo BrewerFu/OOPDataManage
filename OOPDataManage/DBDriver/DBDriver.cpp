@@ -25,7 +25,8 @@ QString DBSqlCoder::Encode()
 
 bool DBSqlAdd::BindAttribute(CGeometry* geo)
 {
-	m_Sql.bindValue(":BStyle","sd")
+	m_Sql.bindValue(":BStyle", "sd");
+	return true;
 }
 
 bool DBSqlAdd::AddPoint(CPoint* point,int ID,int featureID)
@@ -35,4 +36,5 @@ bool DBSqlAdd::AddPoint(CPoint* point,int ID,int featureID)
 	m_Sql.bindValue(":Feature_id", featureID);
 	m_Sql.bindValue(":x", point->x());
 	m_Sql.bindValue(":y", point->y());
+	return true;
 }

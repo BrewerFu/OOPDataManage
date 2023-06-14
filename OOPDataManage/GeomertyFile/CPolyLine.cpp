@@ -21,7 +21,7 @@ const char* CPath::ToWKT() const
 	oss << "LINESTRING (";
 	for (int i = 0; i < m_Pois.size(); ++i) 
 	{
-		oss << m_Pois[i].x() << " " << m_Pois[i].y();
+		oss << m_Pois[i]->x() << " " << m_Pois[i]->y();
 		if (i != m_Pois.size() - 1) 
 		{
 			oss << ", ";
@@ -39,7 +39,7 @@ const char* CPath::ToGeojson() const
 	oss << "{\"type\":\"LineString\",\"coordinates\":[";
 	for (int i = 0; i < m_Pois.size(); ++i) 
 	{
-		oss << "[" << m_Pois[i].x() << "," << m_Pois[i].y() << "]";
+		oss << "[" << m_Pois[i]->x() << "," << m_Pois[i]->y() << "]";
 		if (i != m_Pois.size() - 1) 
 		{
 			oss << ",";
@@ -54,14 +54,14 @@ const char* CPath::ToGeojson() const
 float CPath::Circum()const
 {
 	float sum = 0;
-	for (std::vector<CPoint>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
+	for (std::vector<CPoint*>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
 	{
-		sum += CPoint_Distance(*iter, *(iter + 1));
+		sum += CPoint_Distance(**iter, **(iter + 1));
 	}
 	return sum;
 }
 
-bool CPath::AppendPoint(CPoint c)
+bool CPath::AppendPoint(CPoint* c)
 {
 	if (!CheckDuplicate(c))
 	{
@@ -72,7 +72,7 @@ bool CPath::AppendPoint(CPoint c)
 		return false;
 }
 
-bool CPath::InsertPoint(int pos, CPoint c)
+bool CPath::InsertPoint(int pos, CPoint* c)
 {
 	if (pos<0 || pos>m_Pois.size())
 		return false;
@@ -89,9 +89,9 @@ bool CPath::InsertPoint(int pos, CPoint c)
 }
 
 
-bool CPath::DeletePoint(CPoint c)
+bool CPath::DeletePoint(CPoint* c)
 {
-	for (std::vector<CPoint>::iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
+	for (std::vector<CPoint*>::iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
 	{
 		if (c == *iter)
 		{
@@ -113,7 +113,7 @@ bool CPath::DeletePoint(int pos)
 	}
 }
 
-CPoint CPath::QureyPoint(int pos)const
+CPoint* CPath::QureyPoint(int pos)const
 {
 	if (pos<0 || pos>m_Pois.size())
 		throw std::range_error("pos超出范围! ");
@@ -123,7 +123,7 @@ CPoint CPath::QureyPoint(int pos)const
 	}
 }
 
-bool CPath::AlterPoint(int pos, CPoint c)
+bool CPath::AlterPoint(int pos, CPoint* c)
 {
 	if (pos<0 || pos>m_Pois.size())
 	{
@@ -145,34 +145,34 @@ bool CPath::AlterPoint(int pos, CPoint c)
 CPath CPath::operator +(CPoint c)
 {
 	CPath copy(*this);
-	copy.AppendPoint(c);
+	copy.AppendPoint(&c);
 	return copy;
 }
 
 CPath CPath::operator - (CPoint c)
 {
 	CPath copy(*this);
-	copy.DeletePoint(c);
+	copy.DeletePoint(&c);
 	return copy;
 }
 
 CPath& CPath::operator+=(CPoint c)
 {
-	this->AppendPoint(c);
+	this->AppendPoint(&c);
 	return *this;
 }
 
 CPath& CPath::operator -=(CPoint c)
 {
-	this->DeletePoint(c);
+	this->DeletePoint(&c);
 	return *this;
 }
 
-bool CPath::CheckDuplicate(CPoint c)
+bool CPath::CheckDuplicate(CPoint* c)
 {
-	for (std::vector<CPoint>::iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
+	for (std::vector<CPoint*>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
 	{
-		if (c == *iter)
+		if (*c == **iter)
 		{
 			return true;
 		}
@@ -200,7 +200,7 @@ bool CPath::operator!=(CPath c)
 	return !(*this == c);
 }
 
-CPoint& CPath::operator[](int pos)
+CPoint* CPath::operator[](int pos)
 {
 	 if (pos<0 || pos>m_Pois.size())
 		throw std::range_error("pos超出范围! ");
@@ -262,7 +262,7 @@ const char* CPolyLine::ToWKT() const
 		oss << "(";
 		for (int j = 0; j < m_Paths[i]->GetCount(); ++j) 
 		{
-			oss << m_Paths[i]->QureyPoint(j).x() << " " << m_Paths[i]->QureyPoint(j).y();
+			oss << m_Paths[i]->QureyPoint(j)->x() << " " << m_Paths[i]->QureyPoint(j)->y();
 			if (j != m_Paths[i]->GetCount() - 1) 
 			{
 				oss << ", ";
@@ -286,7 +286,7 @@ const char* CPolyLine::ToGeojson() const
 	for (int i = 0; i < m_Paths.size(); ++i) {
 		oss << "[";
 		for (int j = 0; j < m_Paths[i]->GetCount(); ++j) {
-			oss << "[" << m_Paths[i]->QureyPoint(j).x() << "," << m_Paths[i]->QureyPoint(j).y() << "]";
+			oss << "[" << m_Paths[i]->QureyPoint(j)->x() << "," << m_Paths[i]->QureyPoint(j)->y() << "]";
 			if (j != m_Paths[i]->GetCount() - 1) {
 				oss << ",";
 			}

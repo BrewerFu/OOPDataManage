@@ -79,8 +79,7 @@ int ShapeFileReader::GetGeometry(CPoint& point)
 	qfs.read(ptBuf, len);
 
 	double* pt = (double*)(ptBuf + 4);
-	CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
-	CPoint* p = (CPoint*)geo;
+	CREATE_GEOSHARED_PTR(CPoint,p);
 	p->x(pt[0]);
 	p->y(pt[1]);
 	
@@ -115,13 +114,11 @@ int ShapeFileReader::GetGeometry(CPolyLine& Line)
 	{
 		int end = (i == partNum - 1) ? pointNum : start[i + 1];
 		//新建一个折线
-		CGeometry* geo = gm.CreateGeometry(GeometryType::Path);
-		CPath* path = (CPath*)geo;
+		_PATHPRT;
 
 		for (int j = start[i]; j < end; j++)
 		{
-			CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
-			CPoint* point = (CPoint*)geo;
+			_POINTPRT;
 			point->x(pnts[2 * j]);
 			point->y(pnts[2 * j + 1]);
 			path->AppendPoint(point);
@@ -159,12 +156,10 @@ int ShapeFileReader::GetGeometry(CPolyGon& Gon)
 	{
 		int end = (i == partNum - 1) ? pointNum : start[i + 1];
 		//新建一个线环
-		CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
-		CRing* ring = (CRing*)geo;
+		_RINGPRT;
 		for (int j = start[i]; j < end; j++)
 		{
-			CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
-			CPoint* point = (CPoint*)geo;
+			_POINTPRT;
 			point->x(pnts[2 * j]);
 			point->y(pnts[2 * j + 1]);
 			ring->AppendPoint(point);

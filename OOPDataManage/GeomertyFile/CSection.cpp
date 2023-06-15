@@ -1,6 +1,6 @@
 ﻿#include "CSection.h"
 
-CSection::CSection(CPoint* c, float r, float startangle, float endangle):CCircle(c,r),StartAngle(startangle),EndAngle(endangle)
+CSection::CSection(std::shared_ptr<CPoint> c, float r, float startangle, float endangle):m_C(nullptr),m_R(1), StartAngle(startangle), EndAngle(endangle)
 {
 
 }
@@ -12,29 +12,49 @@ GeometryType CSection::GetType()const
 
 const char* CSection::ToWKT()const
 {
-    CPolyGon* polygon = ToPolyGon(100);
-    const char* wkt = polygon->ToWKT();
-    gm.DestroyGeometry(polygon);
-    return wkt;
+    return ToPolyGon(100)->ToWKT();
 }
 
 const char* CSection::ToGeojson()const
 {
-    CPolyGon* polygon = ToPolyGon(100);
-    const char* geojson = polygon->ToGeojson();
-    gm.DestroyGeometry(polygon);
-    return geojson;
+    return ToPolyGon(100)->ToGeojson();
 }
 
 float CSection::Circum()const
 {
-    return (float) CCircle::Circum() * (double)fabs(EndAngle - StartAngle) / (360);
+    return (float) (2 * std::acos(-1) * m_R * (double)fabs(EndAngle - StartAngle) / (360));
 }
 
 float CSection::Area()const
 {
-    return  (float)CCircle::Area() * (double)fabs(EndAngle - StartAngle) / (360);
+    return  (float)(std::acos(-1) * m_R * m_R * (double)fabs(EndAngle - StartAngle) / (360));
 }
+
+//获取圆心
+std::shared_ptr<CPoint> CSection::GetC()const
+{
+    return m_C;
+}
+
+//获取半径
+float CSection::GetR()const
+{
+    return m_R;
+}
+
+//设置圆心
+void CSection::SetC(std::shared_ptr<CPoint> c)
+{
+    m_C = c;
+}
+
+//设置半径
+void CSection::SetR(float r)
+{
+    m_R = r;
+}
+
+
 
 void CSection::SetSAngle(float startangle)
 {
@@ -85,14 +105,11 @@ void CSection::CheckAngle()
     }
 }
 
-CPolyGon* CSection::ToPolyGon(int n)const
+std::shared_ptr<CPolyGon> CSection::ToPolyGon(int n)const
 {
-    CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
-    CRing* ring = dynamic_cast<CRing*>(geo);
-    geo = gm.CreateGeometry(GeometryType::Point);
-    CPoint* point = dynamic_cast<CPoint*>(geo);
-    geo = gm.CreateGeometry(GeometryType::PolyGon);
-    CPolyGon* polygon = dynamic_cast<CPolyGon*>(geo);
+    std::shared_ptr<CRing> ring = std::make_shared<CRing>();
+    std::shared_ptr<CPoint> point = std::make_shared<CPoint>();
+    std::shared_ptr<CPolyGon> polygon = std::make_shared<CPolyGon>();
 
     //计算微分角度
     float dangle = (EndAngle - StartAngle) / n;

@@ -3,25 +3,25 @@
 #include"CPoint.h"
 #include"CPolyGon.h"
 #include<cmath>
-#include"../GeometryManager.h"
-
+class CCircle;
+#define _CIRCLEPRT std::shared_ptr<CCircle> = std::make_shared<CCircle>();
 
 //几何圆
 class CCircle :public CGeometry
 {
 public:
 	//默认构造函数
-	CCircle():m_R(0){};
+	CCircle():m_R(1){};
 	//通过圆心和半径构造
-	CCircle(CPoint* c, float r);
+	CCircle(std::shared_ptr<CPoint> c, float r);
 
 	//获取圆心
-	CPoint* GetC()const;
+	std::shared_ptr<CPoint> GetC()const;
 	//获取半径
 	float GetR()const;
 
 	//设置圆心
-	void SetC(CPoint* c);
+	void SetC(std::shared_ptr<CPoint> c);
 	//设置半径
 	void SetR(float r);
 	
@@ -35,13 +35,11 @@ public:
 
 	//转换为多边形
 	//@param n:多边形边数
-	virtual CPolyGon* ToPolyGon(int n)const;
+	virtual std::shared_ptr<CPolyGon> ToPolyGon(int n)const;
 
 protected:
 	//圆心
-	CPoint* m_C=nullptr;
+	std::shared_ptr<CPoint> m_C=nullptr;
 	//半径
 	float m_R;
-
-	GeometryManager& gm = GeometryManager::GetInstance();
 };

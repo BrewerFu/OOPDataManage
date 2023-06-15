@@ -1,7 +1,7 @@
 ﻿#include "CRectAngle.h"
 
 //通过两个点构造
-CRectAngle::CRectAngle(CPoint* lefttop, CPoint* rightbottom):m_LT(lefttop),m_RB(rightbottom)
+CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, std::shared_ptr<CPoint> rightbottom):m_LT(lefttop),m_RB(rightbottom)
 {
 	if (CheckReverse())
 		throw std::logic_error("顶点不符合规范");
@@ -9,8 +9,11 @@ CRectAngle::CRectAngle(CPoint* lefttop, CPoint* rightbottom):m_LT(lefttop),m_RB(
 
 
 //通过一个点和长宽构造
-CRectAngle::CRectAngle(CPoint* lefttop, float width, float height):m_LT(lefttop),m_RB(m_RB = &CPoint(lefttop->x() + width, lefttop->y() - height))
+CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, float width, float height):m_LT(lefttop),m_RB(std::shared_ptr<CPoint> (new CPoint(lefttop->x() + width, lefttop->y() - height)))
 {
+	;
+
+
 }
 
 //获取几何类型
@@ -74,25 +77,25 @@ float CRectAngle::GetHeight()const
 }
 
 //获取左上角顶点
-CPoint* CRectAngle::GetLT()const
+std::shared_ptr<CPoint> CRectAngle::GetLT()const
 {
 	return m_LT;
 }
 
 //获取右下角顶点
-CPoint* CRectAngle::GetRB()const
+std::shared_ptr<CPoint> CRectAngle::GetRB()const
 {
 	return m_RB;
 }
 
 //设置左上角顶点
-void CRectAngle::SetLT(CPoint* c)
+void CRectAngle::SetLT(std::shared_ptr<CPoint> c)
 {
 	if(c->x() > m_RB->x() || c->y() < m_RB->y())
 		throw std::logic_error("顶点不符合规范");
 }
 //设置右下角顶点
-void CRectAngle::SetRB(CPoint* c)
+void CRectAngle::SetRB(std::shared_ptr<CPoint> c)
 {
 	if (c->x() < m_LT->x() || c->y() > m_LT->y())
 		throw std::logic_error("顶点不符合规范");

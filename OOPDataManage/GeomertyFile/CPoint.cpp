@@ -7,16 +7,24 @@ GeometryType CPoint::GetType()const
 
 CPoint::CPoint(float x, float y):m_X(x),m_Y(y)
 {
+	ID = GetNewID(this);
 }
 
 CPoint::CPoint():m_X(0),m_Y(0)
 {
+	ID = GetNewID(this);
 }
 
 CPoint::CPoint(const CPoint& c)
 {
+	ID = GetNewID(this);
 	this->m_X = c.m_X;
 	this->m_Y = c.m_Y;
+}
+
+CPoint::~CPoint()
+{
+	ReleaseID(ID);
 }
 
 CPoint CPoint::operator=(const CPoint& c)

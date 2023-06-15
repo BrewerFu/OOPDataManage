@@ -118,10 +118,9 @@ CFillStyle TextReader::ReadFillStyle()
 	return fill;
 }
 
-CPoint* TextReader::ReadPoint()
+std::shared_ptr<CPoint> TextReader::ReadPoint()
 {
-	CGeometry* geo = gm.CreateGeometry(GeometryType::Point);
-	CPoint* point = dynamic_cast<CPoint*>(geo);
+	_POINTPRT;
 
 	//读取Point坐标
 	qstr = qts.readLine().trimmed();
@@ -186,8 +185,7 @@ int TextReader::GetGeometry(CPolyLine& Line)
 			qsl = qstr.split(" ");
 		} while (qsl[0] != "Path");
 
-		CGeometry* geo = gm.CreateGeometry(GeometryType::Path);
-		CPath* path = dynamic_cast<CPath*>(geo);
+		_PATHPRT;
 		//获取CPath点数
 		int pointCount = qsl[1].toInt();
 		for (int i = 0; i < pointCount; i++)
@@ -227,8 +225,7 @@ int TextReader::GetGeometry(CPolyGon& Gon)
 			qstr = qts.readLine().trimmed();
 			qsl = qstr.split(" ");
 		} while (qsl[0] != "Ring");
-		CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
-		CRing* ring = dynamic_cast<CRing*>(geo);
+		_RINGPRT;
 		//获取CRing点数
 		int pointCount = qsl[1].toInt();
 		for (int i = 0; i < pointCount; i++)
@@ -279,11 +276,11 @@ int TextReader::GetGeometry(CCircle& Cir)
 	} while (qstr != "Circle");
 
 	//读取Circle坐标
-	Cir.C(ReadPoint());
+	Cir.SetC(ReadPoint());
 	//读取Circle半径
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Cir.R(qsl[1].toFloat());
+	Cir.SetR(qsl[1].toFloat());
 
 	ReadAttribute(Cir);
 	return 1;
@@ -305,19 +302,19 @@ int TextReader::GetGeometry(CSection& Sec)
 	} while (qstr != "Section");
 
 	//读取Section坐标
-	Sec.C(ReadPoint());
+	Sec.SetC(ReadPoint());
 	//读取Section半径
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.R(qsl[1].toFloat());
+	Sec.SetR(qsl[1].toFloat());
 	//读取Section起始角度
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.SAngle(qsl[1].toFloat());
+	Sec.SetSAngle(qsl[1].toFloat());
 	//读取Section终止角度
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.EAngle(qsl[1].toFloat());
+	Sec.SetEAngle(qsl[1].toFloat());
 
 	ReadAttribute(Sec);
 	return 1;

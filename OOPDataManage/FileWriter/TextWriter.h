@@ -19,13 +19,13 @@ protected:
 	QTextStream qts;
 
 	bool WriteHeader(const CFeature* feature) override;
-	bool WritePoint(const CPoint* point) override;
-	bool WritePolyLine(CPolyLine* polyline) override;
-	bool WritePolyGon(CPolyGon* polygon) override;
-	bool WriteRectAngle(const CRectAngle* rectangle) override;
-	bool WriteCircle(const CCircle* circle) override;
-	bool WriteSection(const CSection* section) override;
+	bool WritePoint(const std::shared_ptr<CPoint> point) override;
+	bool WritePolyLine(std::shared_ptr<CPolyLine> polyline) override;
+	bool WritePolyGon(std::shared_ptr<CPolyGon> polygon) override;
+	bool WriteRectAngle(const std::shared_ptr<CRectAngle> rectangle) override;
+	bool WriteCircle(const std::shared_ptr<CCircle> circle) override;
+	bool WriteSection(const std::shared_ptr<CSection> section) override;
 	//写边界和填充数据
-	bool WriterAttribute(const CGeometry* geo);
+	bool WriterAttribute(const std::shared_ptr<CGeometry> geo);
 };
 

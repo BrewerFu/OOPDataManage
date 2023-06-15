@@ -1,12 +1,12 @@
 ﻿#include "CCircle.h"
 
 //通过圆心和半径构造
-CCircle::CCircle(CPoint* c, float r):m_C(c),m_R(r)
+CCircle::CCircle(std::shared_ptr<CPoint> c, float r):m_C(c),m_R(r)
 {
 }
 
 //获取圆心
-CPoint* CCircle::GetC()const
+std::shared_ptr<CPoint> CCircle::GetC()const
 {
     return m_C;
 }
@@ -20,19 +20,13 @@ GeometryType CCircle::GetType()const
 
 const char* CCircle::ToWKT()const
 {
-    CPolyGon* polygon = ToPolyGon(100);
-    const char* wkt = polygon->ToWKT();
-    gm.DestroyGeometry(polygon);
-    return wkt;
+    return ToPolyGon(100)->ToWKT();
 }
 
 
 const char* CCircle::ToGeojson()const
 {
-    CPolyGon* polygon = ToPolyGon(100);
-    const char* geojson = polygon->ToGeojson();
-    gm.DestroyGeometry(polygon);
-    return geojson;
+    return ToPolyGon(100)->ToGeojson();
 }
 
 //计算周长
@@ -55,7 +49,7 @@ float CCircle::GetR()const
 }
 
 //设置圆心
-void CCircle::SetC(CPoint* c)
+void CCircle::SetC(std::shared_ptr<CPoint> c)
 {
     m_C = c;
 }
@@ -66,14 +60,11 @@ void CCircle::SetR(float r)
     m_R = r;
 }
 
-CPolyGon* CCircle::ToPolyGon(int n)const
+std::shared_ptr<CPolyGon> CCircle::ToPolyGon(int n)const
 {
-    CGeometry* geo = gm.CreateGeometry(GeometryType::Ring);
-    CRing* ring = dynamic_cast<CRing*>(geo);
-    geo = gm.CreateGeometry(GeometryType::Point);
-    CPoint* point = dynamic_cast<CPoint*>(geo);
-    geo = gm.CreateGeometry(GeometryType::PolyGon);
-    CPolyGon* polygon = dynamic_cast<CPolyGon*>(geo);
+    std::shared_ptr<CRing> ring = std::make_shared<CRing>();
+    std::shared_ptr<CPoint> point = std::make_shared<CPoint>();
+    std::shared_ptr<CPolyGon> polygon = std::make_shared<CPolyGon>();
 
     float  angle_increment = 2 * acos(-1) / n ;
     for (int i = 0; i < n; i++)

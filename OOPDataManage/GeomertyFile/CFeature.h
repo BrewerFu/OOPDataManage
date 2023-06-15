@@ -3,7 +3,11 @@
 #include<vector>
 #include<map>
 #include<set>
+#define GET_FEATURE_GEOMETRY_BY_ID(featureVar, derivedType, varName, id) \
+    std::shared_ptr<derivedType> varName  = std::dynamic_pointer_cast<derivedType>(featureVar->GetGeometryByID(id)); \
 
+#define GET_FEATURE_GEOMETRY_BY_INDEX(featureVar, derivedType, varName, index) \
+	std::shared_ptr<derivedType> varName  = std::dynamic_pointer_cast<derivedType>(featureVar->GetGeometryByIndex(index)); \
 //class CFeatureManager;
 //
 ////观察者模式
@@ -36,15 +40,28 @@ public:
 	}
 
 	//添加几何对象
-	bool AppendGeometry(CGeometry* geo);
+	bool AppendGeometry(std::shared_ptr<CGeometry> geo);
 
 	//删除几何对象
-	bool DeleteGeometry(CGeometry* geo);
+	bool DeleteGeometry(std::shared_ptr<CGeometry> geo);
 
 	//根据索引获取几何对象
-	CGeometry* GetGeometry(int index)const
+	std::shared_ptr<CGeometry> GetGeometryByIndex(int index)const
 	{
 		return m_vector[index];
+	}
+
+	//根据ID获取几何对象
+	std::shared_ptr<CGeometry> GetGeometryByID(int id)const
+	{
+		for (int i = 0; i < m_vector.size(); i++)
+		{
+			if (m_vector[i]->GetID() == id)
+			{
+				return m_vector[i];
+			}
+		}
+		return nullptr;
 	}
 
 	//获取几何对象的数量
@@ -53,7 +70,7 @@ public:
 		return m_vector.size();
 	}
 
-	CGeometry* operator[](int index)
+	std::shared_ptr<CGeometry> operator[](int index)
 	{
 		return m_vector[index];
 	}
@@ -71,31 +88,26 @@ public:
 	class iterator
 	{
 	public:
-		iterator(const std::vector<CGeometry*>::iterator& it): m_it(it) {}
+		iterator(const std::vector<std::shared_ptr<CGeometry>>::iterator& it): m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
 		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const { return m_it == other.m_it; }
-		CGeometry* operator->() const { return *m_it; }
-		CGeometry* operator*() const { return *m_it; }
+		std::shared_ptr<CGeometry> operator->() const { return *m_it; }
+		std::shared_ptr<CGeometry> operator*() const { return *m_it; }
 	private:
-		std::vector<CGeometry*>::iterator m_it;
+		std::vector<std::shared_ptr<CGeometry>>::iterator m_it;
 	};
 
 	//迭代器的begin和end
 	iterator begin() { return iterator(m_vector.begin()); }
 	iterator end() { return iterator(m_vector.end()); }
 
-
 private:
 
 	CFeature(GeometryType type) :m_Type(type), m_ID(-1),m_DBID(-1){};
 	~CFeature()
 	{
-		for (int i = 0; i < m_vector.size(); i++)
-		{
-			delete m_vector[i];
-		}
 		m_vector.clear();
 	};
 	//检查几何对象的类型是否正确
@@ -105,7 +117,7 @@ private:
 
 	int m_ID,m_DBID;
 	GeometryType m_Type;
-	std::vector<CGeometry*> m_vector;
+	std::vector<std::shared_ptr<CGeometry>> m_vector;
 	/*std::vector<Observer*> m_observers;*/
 	friend class CFeatureManager;
 };
@@ -123,7 +135,6 @@ public:
 	CFeature* CreateFeature(GeometryType type);
 
 	bool DestroyFeature(CFeature* feature);
-
 
 private:
 	//单例模式

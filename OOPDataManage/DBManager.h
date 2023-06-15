@@ -3,6 +3,10 @@
 #include"DBDriver/DBDriver.h"
 
 
+struct FeatureSet
+{
+	std::vector<CFeature> S;
+};
 
 class DBManager
 {

@@ -17,19 +17,13 @@ QStringList DBSqlCoder::Decode()
 	return m_list;
 }
 
-QString DBSqlCoder::Encode()
-{
-	m_text = m_list.join(";");
-	return m_text;
-}
-
-bool DBSqlAdd::BindAttribute(CGeometry* geo)
+bool DBSqlAdd::BindAttribute(std::shared_ptr<CGeometry> geo)
 {
 	m_Sql.bindValue(":BStyle", "sd");
 	return true;
 }
 
-bool DBSqlAdd::AddPoint(CPoint* point,int ID,int featureID)
+bool DBSqlAdd::AddPoint(std::shared_ptr<CPoint> point,int ID,int featureID)
 {
 	m_Sql.prepare("INSERT INTO Point (id,Feature_id ,x, y,BStyle ,BColor, FStyle,FColor) VALUES (:id,:Feature_id ,:x, :y, :BStyle, :BColor, :FStyle, :FColor)");
 	m_Sql.bindValue(":id", ID);

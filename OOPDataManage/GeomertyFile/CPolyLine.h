@@ -2,59 +2,56 @@
 #include"CGeometry.h"
 #include"CPoint.h"
 #include<stdexcept>
-
+class CPath;
+class CPolyLine;
+#define _PATHPRT std::shared_ptr<CPath> path = std::make_shared<CPath>();
+#define _POLYLINEPRT std::shared_ptr<CPolyLine> polyline = std::make_shared<CPolyLine>();
 class CPolyLineFactory;
 class CPathFactory;
 
 //几何单折线
-class CPath :public CGeometry
+class CPath :public CGeometry,public IDManager<CPath>
 {
 public:
-
-	//复制构造函数
-	CPath(const CPath& c);
-	//赋值运算符重载
-	CPath& operator=(const CPath& c);
+	//默认构造函数
+	CPath();
+	//复制构造函数,副本
+	CPath(const CPath& c) {};
+	//赋值运算符重载，副本
+	CPath& operator=(const CPath& c) {};
 	//析构函数
-	~CPath() { m_Pois.clear(); };
+	~CPath();
 
 
 	GeometryType GetType()const override;
 	const char* ToWKT()const override;
 	const char* ToGeojson()const override;
+	const char* ToDBIDText()const override;
 	float Circum()const override;
-	
+
 	//获取单折线点数
 	int GetCount()const { return m_Pois.size(); };
 
 	//在最后添加点
-	bool AppendPoint(CPoint* c);
+	bool AppendPoint(std::shared_ptr<CPoint> c);
 
 	//在位置pos插入一个点
-	bool InsertPoint(int pos, CPoint* c);
+	bool InsertPoint(int pos, std::shared_ptr<CPoint> c);
 
 	//删除点c
-	bool DeletePoint(CPoint* c);
+	bool DeletePoint(std::shared_ptr<CPoint> c);
 
 	//删除位置在pos的点
 	bool DeletePoint(int pos);
 
 	//查询位置在pos处的点
-	CPoint* QureyPoint(int pos)const;
+	std::shared_ptr<CPoint> QureyPoint(int pos)const;
 
 	//改变位置在pos处的点
-	bool AlterPoint(int pos,CPoint* c);
+	bool AlterPoint(int pos,std::shared_ptr<CPoint> c);
 
-	//重载+运算
-	CPath operator +(CPoint c);
-	//重载-运算
-	CPath operator - (CPoint c);
-	//重载+=运算
-	CPath& operator +=(CPoint c);
-	//重载-=运算
-	CPath& operator -=(CPoint c);
 	//重载[]运算
-	CPoint* operator [](int pos);
+	std::shared_ptr<CPoint> operator [](int pos);
 
 	//重载==运算
 	bool operator==(CPath c);
@@ -64,28 +61,28 @@ public:
 	class iterator {
 	public:
 		iterator() = default;
-		iterator(const std::vector<CPoint*>::iterator& it) : m_it(it) {}
+		iterator(const std::vector<std::shared_ptr<CPoint>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
 		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const{return m_it == other.m_it;}
-		CPoint* operator*() const { return *m_it; }
+		std::shared_ptr<CPoint> operator*() const { return *m_it; }
 	private:
-		std::vector<CPoint*>::iterator m_it;
+		std::vector<std::shared_ptr<CPoint>>::iterator m_it;
 	};
 	class const_iterator {
 	public:
 		const_iterator() = default;
 
-		const_iterator(const std::vector<CPoint*>::const_iterator& m_it): m_it(m_it){}
-		const_iterator(const std::vector<CPoint*>::iterator& it) : m_it(it) {}
+		const_iterator(const std::vector<std::shared_ptr<CPoint>>::const_iterator& m_it): m_it(m_it){}
+		const_iterator(const std::vector<std::shared_ptr<CPoint>>::iterator& it) : m_it(it) {}
 		const_iterator& operator++() { ++m_it; return *this; }
 		const_iterator& operator++(int) { const_iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const const_iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const const_iterator& other) const { return m_it == other.m_it; }
-		CPoint* operator*() const { return *m_it; }
+		std::shared_ptr<CPoint> operator*() const { return *m_it; }
 	private:
-		std::vector<CPoint*>::const_iterator m_it;
+		std::vector<std::shared_ptr<CPoint>>::const_iterator m_it;
 	public:
 
 	};
@@ -94,27 +91,24 @@ public:
 	iterator end() { return iterator(m_Pois.end()); }
 
 protected:
-	//默认构造函数
-	CPath() {};
-
-	std::vector<CPoint*> m_Pois;
+	std::vector<std::shared_ptr<CPoint>> m_Pois;
 	//检查是否有重复
-	bool CheckDuplicate(CPoint* c);
+	bool CheckDuplicate(std::shared_ptr<CPoint> c);
 
 friend class CPathFactory;
 };
 
 //几何折线
-class CPolyLine:public CGeometry
+class CPolyLine:public CGeometry,public IDManager<CPolyLine>
 {
 public:
-	
-	//复制构造函数
-	CPolyLine(const CPolyLine& c);
+	CPolyLine();
+	//复制构造函数，副本
+	CPolyLine(const CPolyLine& c) {};
 	//析构函数
 	~CPolyLine();
-	//赋值构造函数
-	CPolyLine& operator=(const CPolyLine& c);
+	//赋值构造函数,副本
+	CPolyLine& operator=(const CPolyLine& c) {};
 
 	GeometryType GetType()const override;
 	const char* ToWKT()const override;
@@ -125,44 +119,42 @@ public:
 	int GetCount()const { return m_Paths.size(); };
 
 	//在最后添加一个单折线
-	bool AppendPath(CPath* c);
+	bool AppendPath(std::shared_ptr<CPath> c);
 
 	//删除一条单折线
-	bool DeletePath(CPath* c);
+	bool DeletePath(std::shared_ptr<CPath> c);
 
 	//查询位置在pos处的点
-	CPath* QureyPath(int pos)const;
+	std::shared_ptr<CPath> QureyPath(int pos)const;
 
 	//改变位置在pos处的点
-	bool AlterPath(int pos, CPath* c);
+	bool AlterPath(int pos, std::shared_ptr<CPath> c);
 
 	//重载[]运算
-	CPath* operator [](int pos);
+	std::shared_ptr<CPath> operator [](int pos);
 
 	class iterator {
 	public:
 		iterator() = default;
-		iterator(const std::vector<CPath*>::iterator& it) : m_it(it) {}
+		iterator(const std::vector<std::shared_ptr<CPath>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
 		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const { return m_it == other.m_it; }
-		CPath* operator*() const { return *m_it; }
+		std::shared_ptr<CPath> operator*() const { return *m_it; }
 	private:
-		std::vector<CPath*>::iterator m_it;
+		std::vector<std::shared_ptr<CPath>>::iterator m_it;
 	};
 
 	iterator begin() { return iterator(m_Paths.begin()); }
 	iterator end() { return iterator(m_Paths.end()); }
 
 private:
-	//默认构造函数
-	CPolyLine() {};
 
 	//数组成员
-	std::vector<CPath*> m_Paths;
+	std::vector<std::shared_ptr<CPath>> m_Paths;
 	//检查是否有重复
-	bool CheckDuplicate(CPath* c)const;
+	bool CheckDuplicate(std::shared_ptr<CPath> c)const;
 
 friend class CPolyLineFactory;
 };

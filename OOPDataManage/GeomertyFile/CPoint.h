@@ -1,8 +1,11 @@
 ﻿#pragma once
 #include"CGeometry.h"
+class CPoint;
+#define _POINTPRT std::shared_ptr<CPoint> point = std::make_shared<CPoint>();
+
 
 //几何点
-class CPoint :public CGeometry
+class CPoint :public CGeometry,public IDManager<CPoint>
 {
 public:
 	//构造函数
@@ -14,7 +17,7 @@ public:
 	//赋值运算符重载
 	CPoint operator=(const CPoint& c);
 	//析构函数
-	~CPoint() {};
+	~CPoint();
 
 	//获取x
 	float x()const { return m_X; };
@@ -48,7 +51,6 @@ public:
 	bool operator!=(CPoint)const;
 
 protected:
-
 	//x坐标
 	float m_X;
 	//y坐标

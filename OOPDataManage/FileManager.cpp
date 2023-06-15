@@ -19,17 +19,17 @@ FileManager::~FileManager()
 	delete Writer;
 }
 
-bool FileManager::Open(std::string FileName)
+int FileManager::Open(std::string FileName)
 {
 	return Open(FileName.c_str());
 }
 
-bool FileManager::Open(const char* FileName)
+int FileManager::Open(const char* FileName)
 {
 	return Open(QString(FileName));
 }
 
-bool FileManager::Open(QString FileName)
+int FileManager::Open(QString FileName)
 {
 	m_FileName = FileName;
 	QFileInfo fileInfo(FileName);
@@ -42,21 +42,22 @@ bool FileManager::Open(QString FileName)
 	{
 		Reader = new TextReader();
 		Writer = new TextWriter();
+		if (!Writer->Open(FileName))
+			return 0;
 		if (!Reader->Open(FileName))
-			return false;
-		if(!Writer->Open(FileName))
-			return false;
+			return 2;
+	
 	}
 	else if (fileInfo.suffix() == "shp")
 	{
 		Reader = new ShapeFileReader();
 		if(!Reader->Open(FileName))
-			return false;
+			return 2;
 	}
 	else
-		return false;
+		return 0;
 
-	return true;
+	return 1;
 }
 
 bool FileManager::Close()
@@ -91,7 +92,7 @@ CFeature* FileManager::Read()
 
 	CFeatureManager& featureManager = CFeatureManager::GetInstance();
 	CFeature* feature = featureManager.CreateFeature(type);
-	CGeometry* geo;
+	std::shared_ptr<CGeometry> geo;
 	while (Reader->isNext())
 	{
 		geo = GetGeometry(type);
@@ -108,37 +109,37 @@ bool FileManager::Write(CFeature* feature)
 		return false;
 }
 
-CGeometry* FileManager::GetGeometry(GeometryType type)
+std::shared_ptr<CGeometry> FileManager::GetGeometry(GeometryType type)
 {
 	switch (type)
 	{
 	case GeometryType::Point:
-		m_Point = new CPoint();
+		m_Point = std::make_shared<CPoint>();
 		Reader->GetGeometry(*m_Point);
 		return m_Point;
 
 	case GeometryType::PolyLine:
-		m_PolyLine = new CPolyLine();
+		m_PolyLine = std::make_shared<CPolyLine>();
 		Reader->GetGeometry(*m_PolyLine);
 		return m_PolyLine;
 
 	case GeometryType::PolyGon:
-		m_PolyGon = new CPolyGon();
+		m_PolyGon = std::make_shared<CPolyGon>();
 		Reader->GetGeometry(*m_PolyGon);
 		return m_PolyGon;
 
 	case GeometryType::RectAngle:
-		m_RectAngle = new CRectAngle();
+		m_RectAngle = std::make_shared<CRectAngle>();
 		Reader->GetGeometry(*m_RectAngle);
 		return m_RectAngle;
 
 	case GeometryType::Circle:
-		m_Circle = new CCircle();
+		m_Circle = std::make_shared<CCircle>();
 		Reader->GetGeometry(*m_Circle);
 		return m_Circle;
 
 	case GeometryType::Section:
-		m_Section = new CSection();
+		m_Section = std::make_shared<CSection>();
 		Reader->GetGeometry(*m_Section);
 		return m_Section;
 

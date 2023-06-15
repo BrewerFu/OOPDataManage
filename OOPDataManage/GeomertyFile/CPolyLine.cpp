@@ -1,13 +1,13 @@
 ﻿#include "CPolyLine.h"
 
-CPath::CPath(const CPath& c):m_Pois(c.m_Pois)
+CPath::CPath()
 {
+	ID = GetNewID(this);
 }
 
-CPath& CPath::operator=(const CPath& c)
+CPath::~CPath()
 {
-	m_Pois = c.m_Pois;
-	return *this;
+	ReleaseID(ID);
 }
 
 GeometryType CPath::GetType()const
@@ -50,18 +50,32 @@ const char* CPath::ToGeojson() const
 	return geojson.c_str();
 }
 
+const char* CPath::ToDBIDText()const
+{
+	std::ostringstream oss;
+	for(int i = 0; i < m_Pois.size(); ++i) 
+	{
+		oss << m_Pois[i]->GetID();
+		if (i != m_Pois.size() - 1) 
+		{
+			oss << ",";
+		}
+	}
+	std::string dbid = oss.str();
+	return dbid.c_str();
+}
 
 float CPath::Circum()const
 {
 	float sum = 0;
-	for (std::vector<CPoint*>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
+	for (std::vector<std::shared_ptr<CPoint>>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
 	{
 		sum += CPoint_Distance(**iter, **(iter + 1));
 	}
 	return sum;
 }
 
-bool CPath::AppendPoint(CPoint* c)
+bool CPath::AppendPoint(std::shared_ptr<CPoint> c)
 {
 	if (!CheckDuplicate(c))
 	{
@@ -72,7 +86,7 @@ bool CPath::AppendPoint(CPoint* c)
 		return false;
 }
 
-bool CPath::InsertPoint(int pos, CPoint* c)
+bool CPath::InsertPoint(int pos, std::shared_ptr<CPoint> c)
 {
 	if (pos<0 || pos>m_Pois.size())
 		return false;
@@ -89,9 +103,9 @@ bool CPath::InsertPoint(int pos, CPoint* c)
 }
 
 
-bool CPath::DeletePoint(CPoint* c)
+bool CPath::DeletePoint(std::shared_ptr<CPoint> c)
 {
-	for (std::vector<CPoint*>::iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
+	for (std::vector<std::shared_ptr<CPoint>>::iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
 	{
 		if (c == *iter)
 		{
@@ -113,7 +127,7 @@ bool CPath::DeletePoint(int pos)
 	}
 }
 
-CPoint* CPath::QureyPoint(int pos)const
+std::shared_ptr<CPoint> CPath::QureyPoint(int pos)const
 {
 	if (pos<0 || pos>m_Pois.size())
 		throw std::range_error("pos超出范围! ");
@@ -123,7 +137,7 @@ CPoint* CPath::QureyPoint(int pos)const
 	}
 }
 
-bool CPath::AlterPoint(int pos, CPoint* c)
+bool CPath::AlterPoint(int pos, std::shared_ptr<CPoint> c)
 {
 	if (pos<0 || pos>m_Pois.size())
 	{
@@ -142,35 +156,9 @@ bool CPath::AlterPoint(int pos, CPoint* c)
 	}
 }
 
-CPath CPath::operator +(CPoint c)
+bool CPath::CheckDuplicate(std::shared_ptr<CPoint> c)
 {
-	CPath copy(*this);
-	copy.AppendPoint(&c);
-	return copy;
-}
-
-CPath CPath::operator - (CPoint c)
-{
-	CPath copy(*this);
-	copy.DeletePoint(&c);
-	return copy;
-}
-
-CPath& CPath::operator+=(CPoint c)
-{
-	this->AppendPoint(&c);
-	return *this;
-}
-
-CPath& CPath::operator -=(CPoint c)
-{
-	this->DeletePoint(&c);
-	return *this;
-}
-
-bool CPath::CheckDuplicate(CPoint* c)
-{
-	for (std::vector<CPoint*>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
+	for (std::vector<std::shared_ptr<CPoint>>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end(); iter++)
 	{
 		if (*c == **iter)
 		{
@@ -197,10 +185,20 @@ bool CPath::operator==(CPath c)
 
 bool CPath::operator!=(CPath c)
 {
-	return !(*this == c);
+	if (m_Pois.size() != c.m_Pois.size())
+		return false;
+	else
+	{
+		for (int i = 0; i < m_Pois.size(); i++)
+		{
+			if (m_Pois[i] == c.m_Pois[i])
+				return false;
+		}
+		return true;
+	}
 }
 
-CPoint* CPath::operator[](int pos)
+std::shared_ptr<CPoint> CPath::operator[](int pos)
 {
 	 if (pos<0 || pos>m_Pois.size())
 		throw std::range_error("pos超出范围! ");
@@ -214,38 +212,14 @@ CPoint* CPath::operator[](int pos)
 /*----------------------------------------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------------------------------------*/
 
-
-CPolyLine::CPolyLine(const CPolyLine& c)
+CPolyLine::CPolyLine()
 {
-	for (int i = 0; i < c.m_Paths.size(); i++)
-	{
-		CPath *p = new CPath(*c.m_Paths[i]);
-		m_Paths.push_back(p);
-	}
-}
-
-CPolyLine& CPolyLine::operator=(const CPolyLine& c)
-{
-	for (int i = 0; i < m_Paths.size(); i++)
-	{
-		delete m_Paths[i];
-	}
-	m_Paths.clear();
-	for (int i = 0; i < c.m_Paths.size(); i++)
-	{
-		CPath *p = new CPath(*c.m_Paths[i]);
-		m_Paths.push_back(p);
-	}
-	return *this;
+	ID = GetNewID(this);
 }
 
 CPolyLine::~CPolyLine()
 {
-	for (int i = 0; i < m_Paths.size(); i++)
-	{
-		delete m_Paths[i];
-	}
-	m_Paths.clear();
+	ReleaseID(ID);
 }
 
 GeometryType CPolyLine::GetType()const
@@ -305,14 +279,14 @@ const char* CPolyLine::ToGeojson() const
 float CPolyLine::Circum()const
 {
 	float sum = 0;
-	for (std::vector<CPath*>::const_iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
+	for (std::vector<std::shared_ptr<CPath>>::const_iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
 	{
 		sum += (*iter)->Circum();
 	}
 	return sum;
 }
 
-bool CPolyLine::AppendPath(CPath* c)
+bool CPolyLine::AppendPath(std::shared_ptr<CPath> c)
 {
 	if (!CheckDuplicate(c))
 		{
@@ -323,9 +297,9 @@ bool CPolyLine::AppendPath(CPath* c)
 			return false;
 }
 
-bool CPolyLine::DeletePath(CPath* c)
+bool CPolyLine::DeletePath(std::shared_ptr<CPath> c)
 {
-	for (std::vector<CPath*>::iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
+	for (std::vector<std::shared_ptr<CPath>>::iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
 	{
 		if (c == *iter)
 		{
@@ -336,7 +310,7 @@ bool CPolyLine::DeletePath(CPath* c)
 	return false;
 }
 
-CPath* CPolyLine::QureyPath(int pos)const
+std::shared_ptr<CPath> CPolyLine::QureyPath(int pos)const
 {
 	if (pos<0 || pos>m_Paths.size())
 		throw std::range_error("pos超出范围! ");
@@ -346,7 +320,7 @@ CPath* CPolyLine::QureyPath(int pos)const
 	}
 }
 
-bool CPolyLine::AlterPath(int pos, CPath* c)
+bool CPolyLine::AlterPath(int pos, std::shared_ptr<CPath> c)
 {
 	if (pos<0 || pos>m_Paths.size())
 	{
@@ -360,13 +334,12 @@ bool CPolyLine::AlterPath(int pos, CPath* c)
 	}
 	else
 	{
-		delete m_Paths[pos];
 		m_Paths[pos] = c;
 		return true;
 	}
 }
 
-CPath* CPolyLine::operator[](int pos)
+std::shared_ptr<CPath> CPolyLine::operator[](int pos)
 {
 	if (pos<0 || pos>m_Paths.size())
 		throw std::range_error("pos超出范围! ");
@@ -376,7 +349,7 @@ CPath* CPolyLine::operator[](int pos)
 	}
 }
 
-bool CPolyLine::CheckDuplicate(CPath* c)const
+bool CPolyLine::CheckDuplicate(std::shared_ptr<CPath> c)const
 {
 	for (int i = 0; i < m_Paths.size(); i++)
 	{

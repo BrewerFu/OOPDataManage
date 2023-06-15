@@ -43,27 +43,32 @@ bool TextWriter::Write(CFeature* feature)
 		case GeometryType::Undefined:
 			break;
 		case GeometryType::Point:
-			if (WritePoint((CPoint*)*iter))
+			if (WritePoint(std::dynamic_pointer_cast<CPoint>(*iter)))
 				break;
 			else
 				return false;
 		case GeometryType::PolyLine:
-			if (WritePolyLine((CPolyLine*)*iter))
+			if (WritePolyLine(std::dynamic_pointer_cast<CPolyLine>(*iter)))
 				break;
 			else
 				return false;
 		case GeometryType::PolyGon:
-			if (WritePolyGon((CPolyGon*)*iter))
+			if (WritePolyGon(std::dynamic_pointer_cast<CPolyGon> (*iter)))
 				break;
 			else
 				return false;
 		case GeometryType::RectAngle:
-			if (WriteRectAngle((CRectAngle*)*iter))
+			if (WriteRectAngle(std::dynamic_pointer_cast<CRectAngle>(*iter)))
 				break;
 			else
 				return false;
 		case GeometryType::Circle:
-			if (WriteCircle((CCircle*)*iter))
+			if (WriteCircle(std::dynamic_pointer_cast<CCircle>(*iter)))
+				break;
+			else
+				return false;
+		case GeometryType::Section:
+			if (WriteSection(std::dynamic_pointer_cast<CSection>(*iter)))
 				break;
 			else
 				return false;
@@ -106,7 +111,7 @@ bool TextWriter::WriteHeader(const CFeature* feature)
 	return true;
 }
 
-bool TextWriter::WriterAttribute(const CGeometry* geo)
+bool TextWriter::WriterAttribute(const std::shared_ptr<CGeometry> geo)
 {
 	//写几何边界数据
 	qts << "\tBoundary\n";
@@ -121,7 +126,7 @@ bool TextWriter::WriterAttribute(const CGeometry* geo)
 	return true;
 }
 
-bool TextWriter::WritePoint(const CPoint* point)
+bool TextWriter::WritePoint(const std::shared_ptr<CPoint> point)
 {
 	//写点标志和数据
 	qts << "\tPoint\n";
@@ -131,7 +136,7 @@ bool TextWriter::WritePoint(const CPoint* point)
 	return true;
 }
 
-bool TextWriter::WritePolyLine(CPolyLine* polyline)
+bool TextWriter::WritePolyLine(std::shared_ptr<CPolyLine> polyline)
 {
 	//写多边形标志和折线数
 	qts << "PolyLine" << " " << polyline->GetCount() << "\n";
@@ -141,14 +146,14 @@ bool TextWriter::WritePolyLine(CPolyLine* polyline)
 		qts<<"\tPath"<<" "<<(*iter)->GetCount()<<"\n";
 		for (CPath::iterator iter1 = (*iter)->begin(); iter1 != (*iter)->end(); ++iter1)
 		{
-			qts << "\t\tPoint" << " " << (*iter1).x() << " " << (*iter1).y() << "\n";
+			qts << "\t\tPoint" << " " << (*iter1)->x() << " " << (*iter1)->y() << "\n";
 		}
 	}
 	WriterAttribute(polyline);
 	return true;
 }
 
-bool TextWriter::WritePolyGon(CPolyGon* polygon)
+bool TextWriter::WritePolyGon(std::shared_ptr<CPolyGon> polygon)
 {
 	//写多边形标志和折线数
 	qts << "PolyGon" << " " << polygon->GetCount() << "\n";
@@ -158,43 +163,43 @@ bool TextWriter::WritePolyGon(CPolyGon* polygon)
 		qts << "\tRing" << " " << (*iter)->GetCount() << "\n";
 		for(CRing::iterator iter1 = (*iter)->begin(); iter1 != (*iter)->end(); ++iter1)
 		{
-			qts << "\t\tPoint" << " " << (*iter1).x() << " " << (*iter1).y() << "\n";
+			qts << "\t\tPoint" << " " << (*iter1)->x() << " " << (*iter1)->y() << "\n";
 		}
 	}
 	WriterAttribute(polygon);
 	return true;
 }
 
-bool TextWriter::WriteRectAngle(const CRectAngle* rectangle)
+bool TextWriter::WriteRectAngle(const std::shared_ptr<CRectAngle> rectangle)
 {
 	//写矩形标志
 	qts << "RectAngle" << "\n";
 	//写矩形左上和右下两个点
-	qts << "\tPoint" << " " << rectangle->GetLT().x() << " " << rectangle->GetLT().y() << "\n";
-	qts << "\tPoint" << " " << rectangle->GetRB().x() << " " << rectangle->GetRB().y() << "\n";
+	qts << "\tPoint" << " " << rectangle->GetLT()->x() << " " << rectangle->GetLT()->y() << "\n";
+	qts << "\tPoint" << " " << rectangle->GetRB()->x() << " " << rectangle->GetRB()->y() << "\n";
 
 	WriterAttribute(rectangle);
 	return true;
 }
 
-bool TextWriter::WriteCircle(const CCircle* circle)
+bool TextWriter::WriteCircle(const std::shared_ptr<CCircle> circle)
 {
 	//写圆标志
 	qts << "Circle" << "\n";
 	//写圆心和半径
-	qts << "\tPoint" << " " << circle->GetC().x() << " " << circle->GetC().y() << "\n";
+	qts << "\tPoint" << " " << circle->GetC()->x() << " " << circle->GetC()->y() << "\n";
 	qts << "\tFloat" << " " << circle->GetR() << "\n";
 
 	WriterAttribute(circle);
 	return true;
 }
 
-bool TextWriter::WriteSection(const CSection* section)
+bool TextWriter::WriteSection(const std::shared_ptr<CSection> section)
 {
 	//写扇形标志
 	qts << "Section" << "\n";
 	//写圆心和半径
-	qts << "\tPoint" << " " << section->GetC().x() << " " << section->GetC().y() << "\n";
+	qts << "\tPoint" << " " << section->GetC()->x() << " " << section->GetC()->y() << "\n";
 	qts << "\tFloat" << " " << section->GetR() << "\n";
 	//写起始角和终止角
 	qts << "\tPoint" << " " << section->GetSAngle() << "\n";

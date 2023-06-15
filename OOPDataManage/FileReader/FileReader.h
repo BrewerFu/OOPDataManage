@@ -56,7 +56,6 @@ public:
 protected:
 	//qt文件读取
 	QFile qfs;
-	GeometryManager& gm = GeometryManager::GetInstance();
 };
 
 

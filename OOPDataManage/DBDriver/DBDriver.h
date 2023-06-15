@@ -87,23 +87,23 @@ public:
     DBSqlAdd() {};
     ~DBSqlAdd() {};
 
-    virtual bool AddPoint(CPoint* point,int ID,int featureID);
+    virtual bool AddPoint(std::shared_ptr<CPoint> point,int ID,int featureID);
 
-    virtual bool AddPath(CPath* path,int featureID);
+    virtual bool AddPath(std::shared_ptr<CPath> path,int featureID);
 
-    virtual bool AddPolyLine(CPolyLine* polyline,int featureID);
+    virtual bool AddPolyLine(std::shared_ptr<CPolyLine> polyline,int featureID);
 
-    virtual bool AddRing(CRing* ring,int featureID);
+    virtual bool AddRing(std::shared_ptr<CRing> ring,int featureID);
 
-    virtual bool AddPolyGon(CPolyGon* polygon,int featureID);
+    virtual bool AddPolyGon(std::shared_ptr<CPolyGon> polygon,int featureID);
 
-    virtual bool AddRectAngle(CRectAngle* rectangle,int featureID);
+    virtual bool AddRectAngle(std::shared_ptr<CRectAngle> rectangle,int featureID);
 
-    virtual bool AddCircle(CCircle* circle,int featureID);
+    virtual bool AddCircle(std::shared_ptr<CCircle> circle,int featureID);
 
-    virtual bool AddSection(CSection* section,int featureID);
+    virtual bool AddSection(std::shared_ptr<CSection> section,int featureID);
 
 protected:
-    virtual bool BindAttribute(CGeometry* geo);
+    virtual bool BindAttribute(std::shared_ptr<CGeometry> geo);
     DBSqlCoder m_coder;
 };

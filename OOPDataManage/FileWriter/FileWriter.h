@@ -11,17 +11,17 @@ class GeoWriterFormat
 public:
 	virtual bool WriteHeader(const CFeature* feature) = 0;
 
-	virtual bool WritePoint(const CPoint* point) =0;
+	virtual bool WritePoint(const std::shared_ptr<CPoint> point) =0;
 
-	virtual bool WritePolyLine(CPolyLine* polyline) =0;
+	virtual bool WritePolyLine(std::shared_ptr<CPolyLine> polyline) =0;
 
-	virtual bool WritePolyGon(CPolyGon* polygon) =0;
+	virtual bool WritePolyGon(std::shared_ptr<CPolyGon> polygon) =0;
 
-	virtual bool WriteRectAngle(const CRectAngle* rectangle) =0;
+	virtual bool WriteRectAngle(const std::shared_ptr<CRectAngle> rectangle) =0;
 
-	virtual bool WriteCircle(const CCircle* circle) =0;
+	virtual bool WriteCircle(const std::shared_ptr<CCircle> circle) =0;
 
-	virtual bool WriteSection(const CSection* section) =0;
+	virtual bool WriteSection(const std::shared_ptr<CSection> section) =0;
 
 };
 

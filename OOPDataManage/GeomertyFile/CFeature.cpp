@@ -1,7 +1,7 @@
 ﻿#include "CFeature.h"
 
 
-bool CFeature::AppendGeometry(CGeometry* geo)
+bool CFeature::AppendGeometry(std::shared_ptr<CGeometry> geo)
 {
 	if (CheckCorrectType(geo->GetType()))
 	{
@@ -12,7 +12,7 @@ bool CFeature::AppendGeometry(CGeometry* geo)
 		return false;
 }
 
-bool CFeature::DeleteGeometry(CGeometry* geo)
+bool CFeature::DeleteGeometry(std::shared_ptr<CGeometry> geo)
 {
 	if (!CheckCorrectType(geo->GetType()))
 		return false;
@@ -20,7 +20,6 @@ bool CFeature::DeleteGeometry(CGeometry* geo)
 	{
 		if (m_vector[i] == geo)
 		{
-			delete m_vector[i];
 			m_vector.erase(m_vector.begin() + i);
 			return true;
 		}

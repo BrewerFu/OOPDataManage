@@ -1,19 +1,29 @@
 ﻿#pragma once
 #include"CCircle.h"
-
 class CSection;
+#define _SECTIONPRT std::shared_ptr<CSection> = std::make_shared<CSection>();
 
 //几何扇形
-class CSection :public CCircle
+class CSection :public CGeometry,public IDManager<CSection>
 {
 public:
 	//默认构造函数
-	CSection():StartAngle(0),EndAngle(360){};
+	CSection():m_C(nullptr),m_R(1),StartAngle(0), EndAngle(360) {};
 
 	//构造函数
 	//@param startangle 角度,开始角度
 	//@param endangle 角度,结束角度
-	CSection(CPoint* c, float r, float startangle, float endangle);
+	CSection(std::shared_ptr<CPoint> c, float r, float startangle, float endangle);
+
+	//获取圆心
+	std::shared_ptr<CPoint> GetC()const;
+	//获取半径
+	float GetR()const;
+
+	//设置圆心
+	void SetC(std::shared_ptr<CPoint> c);
+	//设置半径
+	void SetR(float r);
 
 	//设置开始角度
 	void SetSAngle(float startangle);
@@ -32,9 +42,13 @@ public:
 	float Circum()const  override;
 	float Area()const override;
 
-	CPolyGon* ToPolyGon(int n)const;
+	std::shared_ptr<CPolyGon> ToPolyGon(int n)const;
 
 protected:
+	//圆心
+	std::shared_ptr<CPoint> m_C = nullptr;
+	//半径
+	float m_R;
 	//开始角度
 	float StartAngle;
 	//结束角度

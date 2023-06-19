@@ -12,7 +12,10 @@ class CRing :public CGeometry,public IDManager<CRing>
 {
 public:;
 	//复制构造函数,副本
-	  CRing(const CRing& ring) {};
+	  CRing(const CRing& ring);
+	//赋值运算符重载
+	CRing& operator=(const CRing& ring);
+
 	//默认构造函数
 	CRing();
 	//析构函数
@@ -25,9 +28,9 @@ public:;
 	//转换为geojson
 	const char* ToGeojson()const override;
 	//获取周长
-	float Circum()const override;
+	double Circum()const override;
 	//获取面积
-	float Area() const override;
+	double Area() const override;
 
 	//获取单折线点数
 	int GetCount()const { return m_Pois.size(); };
@@ -63,7 +66,7 @@ public:;
 		iterator() = default;
 		iterator(const std::vector<std::shared_ptr<CPoint>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
-		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
+		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const { return m_it == other.m_it; }
 		std::shared_ptr<CPoint> operator*() const { return *m_it; }
@@ -105,8 +108,11 @@ public:
 	//默认构造函数
 	CPolyGon();
 
-	//复制构造函数,副本
-	CPolyGon(const CPolyGon& poly) {};
+	//复制构造函数
+	CPolyGon(const CPolyGon& poly);
+
+	//赋值运算符重载
+	CPolyGon& operator=(const CPolyGon& poly);
 
 	//析构函数
 	~CPolyGon();
@@ -132,9 +138,9 @@ public:
 	//转换为geojson
 	const char* ToGeojson()const override;
 	//获取周长
-	float Circum()const override;
+	double Circum()const override;
 	//获取面积
-	float Area()const override;
+	double Area()const override;
 
 	//重载[]运算符
 	std::shared_ptr<CRing> operator[](int pos);
@@ -144,7 +150,7 @@ public:
 		iterator() = default;
 		iterator(const std::vector<std::shared_ptr<CRing>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
-		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
+		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const { return m_it == other.m_it; }
 		std::shared_ptr<CRing> operator*() const { return *m_it; }

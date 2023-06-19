@@ -32,7 +32,10 @@ public:
 		m_PenStyle = boundaryStyle.m_PenStyle;
 		return *this;
 	}
-
+	std::string ToDBText()
+	{
+		return std::to_string(m_Width) + "," + QString::number(m_PenStyle).toStdString();
+	}
 	//宽度
 	int m_Width;
 	Qt::PenStyle m_PenStyle;

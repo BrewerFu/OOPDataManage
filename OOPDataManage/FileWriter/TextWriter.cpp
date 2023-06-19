@@ -122,7 +122,6 @@ bool TextWriter::WriterAttribute(const std::shared_ptr<CGeometry> geo)
 	qts << "\tFill\n";
 	qts << "\t\t" << "Color" << " " << geo->FillColor.red() << " " << geo->FillColor.green() << " " << geo->FillColor.blue() << " " << geo->FillColor.alpha() << "\n";
 	qts << "\t\t" << "Style" << " " << QString::number(geo->FillStyle.m_BrushStyle) << "\n";
-	qts << "\n";
 	return true;
 }
 
@@ -188,7 +187,7 @@ bool TextWriter::WriteCircle(const std::shared_ptr<CCircle> circle)
 	qts << "Circle" << "\n";
 	//写圆心和半径
 	qts << "\tPoint" << " " << circle->GetC()->x() << " " << circle->GetC()->y() << "\n";
-	qts << "\tFloat" << " " << circle->GetR() << "\n";
+	qts << "\tdouble" << " " << circle->GetR() << "\n";
 
 	WriterAttribute(circle);
 	return true;
@@ -200,7 +199,7 @@ bool TextWriter::WriteSection(const std::shared_ptr<CSection> section)
 	qts << "Section" << "\n";
 	//写圆心和半径
 	qts << "\tPoint" << " " << section->GetC()->x() << " " << section->GetC()->y() << "\n";
-	qts << "\tFloat" << " " << section->GetR() << "\n";
+	qts << "\tdouble" << " " << section->GetR() << "\n";
 	//写起始角和终止角
 	qts << "\tPoint" << " " << section->GetSAngle() << "\n";
 	qts << "\tPoint" << " " << section->GetEAngle() << "\n";

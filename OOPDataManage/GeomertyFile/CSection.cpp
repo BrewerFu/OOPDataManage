@@ -1,8 +1,40 @@
 ﻿#include "CSection.h"
 
-CSection::CSection(std::shared_ptr<CPoint> c, float r, float startangle, float endangle):m_C(nullptr),m_R(1), StartAngle(startangle), EndAngle(endangle)
+CSection::CSection() :m_C(nullptr), m_R(1), StartAngle(0), EndAngle(360)
 {
+    ID = GetNewID(this);
+}
 
+
+CSection::CSection(std::shared_ptr<CPoint> c, double r, double startangle, double endangle):m_R(1), StartAngle(startangle), EndAngle(endangle)
+{
+    ID = GetNewID(this);
+    m_C = c -> shared_from_this();
+}
+
+CSection::CSection(const CSection& c) :m_R(c.m_R), StartAngle(c.StartAngle), EndAngle(c.EndAngle)
+{
+	ID = GetNewID(this);
+	m_C = std::make_shared<CPoint>(*(c.m_C));
+}
+
+CSection CSection::operator=(const CSection& c)
+{
+    if (this != &c)
+    {
+        ID = GetNewID(this);
+        m_C = std::make_shared<CPoint>(*(c.m_C));
+        m_R = c.m_R;
+        StartAngle = c.StartAngle;
+        EndAngle = c.EndAngle;
+    }
+    return *this;
+}
+
+
+CSection::~CSection()
+{
+	ReleaseID(ID);
 }
 
 GeometryType CSection::GetType()const
@@ -20,14 +52,14 @@ const char* CSection::ToGeojson()const
     return ToPolyGon(100)->ToGeojson();
 }
 
-float CSection::Circum()const
+double CSection::Circum()const
 {
-    return (float) (2 * std::acos(-1) * m_R * (double)fabs(EndAngle - StartAngle) / (360));
+    return (double) (2 * std::acos(-1) * m_R * (double)fabs(EndAngle - StartAngle) / (360));
 }
 
-float CSection::Area()const
+double CSection::Area()const
 {
-    return  (float)(std::acos(-1) * m_R * m_R * (double)fabs(EndAngle - StartAngle) / (360));
+    return  (double)(std::acos(-1) * m_R * m_R * (double)fabs(EndAngle - StartAngle) / (360));
 }
 
 //获取圆心
@@ -37,7 +69,7 @@ std::shared_ptr<CPoint> CSection::GetC()const
 }
 
 //获取半径
-float CSection::GetR()const
+double CSection::GetR()const
 {
     return m_R;
 }
@@ -49,31 +81,31 @@ void CSection::SetC(std::shared_ptr<CPoint> c)
 }
 
 //设置半径
-void CSection::SetR(float r)
+void CSection::SetR(double r)
 {
     m_R = r;
 }
 
 
 
-void CSection::SetSAngle(float startangle)
+void CSection::SetSAngle(double startangle)
 {
     StartAngle = startangle;
     CheckAngle();
 }
 
-void CSection::SetEAngle(float endangle)
+void CSection::SetEAngle(double endangle)
 {
     EndAngle = endangle;
     CheckAngle();
 }
 
-float CSection::GetSAngle()const
+double CSection::GetSAngle()const
 {
     return StartAngle;
 }
 
-float CSection::GetEAngle()const
+double CSection::GetEAngle()const
 {
     return EndAngle;
 }
@@ -112,7 +144,7 @@ std::shared_ptr<CPolyGon> CSection::ToPolyGon(int n)const
     std::shared_ptr<CPolyGon> polygon = std::make_shared<CPolyGon>();
 
     //计算微分角度
-    float dangle = (EndAngle - StartAngle) / n;
+    double dangle = (EndAngle - StartAngle) / n;
     //计算微分点
     for (int i = 0; i < n; i++)
     {

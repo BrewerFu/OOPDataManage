@@ -1,20 +1,51 @@
 ﻿#include "CRectAngle.h"
 
-//通过两个点构造
-CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, std::shared_ptr<CPoint> rightbottom):m_LT(lefttop),m_RB(rightbottom)
+CRectAngle::CRectAngle()
 {
+	ID = GetNewID(this);
+}
+
+CRectAngle::CRectAngle(const CRectAngle& rect)
+{
+	ID = GetNewID(this);
+	m_LT = std::make_shared<CPoint>(*(rect.m_LT));
+	m_RB = std::make_shared<CPoint>(*(rect.m_RB));
+}
+
+CRectAngle& CRectAngle::operator=(const CRectAngle& rect)
+{
+	if (this != &rect)
+	{
+		ID = GetNewID(this);
+		m_LT = std::make_shared<CPoint>(*(rect.m_LT));
+		m_RB = std::make_shared<CPoint>(*(rect.m_RB));
+	}
+	return *this;
+}
+
+CRectAngle::~CRectAngle()
+{
+	ReleaseID(ID);
+}
+
+
+//通过两个点构造
+CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, std::shared_ptr<CPoint> rightbottom)
+{
+	m_LT = lefttop->shared_from_this();
+	m_RB = rightbottom->shared_from_this();
 	if (CheckReverse())
 		throw std::logic_error("顶点不符合规范");
 }
 
 
 //通过一个点和长宽构造
-CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, float width, float height):m_LT(lefttop),m_RB(std::shared_ptr<CPoint> (new CPoint(lefttop->x() + width, lefttop->y() - height)))
+CRectAngle::CRectAngle(std::shared_ptr<CPoint> lefttop, double width, double height)
 {
-	;
-
-
+	m_LT = lefttop->shared_from_this();
+	m_RB = std::make_shared<CPoint>(lefttop->x() + width, lefttop->y() - height);
 }
+
 
 //获取几何类型
 GeometryType CRectAngle::GetType()const
@@ -53,25 +84,25 @@ const char* CRectAngle::ToGeojson() const
 
 
 //计算周长
-float CRectAngle::Circum()const
+double CRectAngle::Circum()const
 {
 	return CPoint_Distance(*m_LT, CPoint(m_LT->x(), m_RB->y())) * 2 + CPoint_Distance(*m_LT, CPoint(m_RB->x(), m_LT->y())) * 2;
 }
 
 //计算面积
-float CRectAngle::Area()const
+double CRectAngle::Area()const
 {
 	return CPoint_Distance(*m_LT, CPoint(m_LT->x(), m_RB->y())) * CPoint_Distance(*m_LT, CPoint(m_RB->x(), m_LT->y()));
 }
 
 //获取宽度
-float CRectAngle::GetWidth()const
+double CRectAngle::GetWidth()const
 {
 	return m_RB->x() - m_LT->x();
 }
 
 //获取高度
-float CRectAngle::GetHeight()const
+double CRectAngle::GetHeight()const
 {
 	return m_LT->y() - m_RB->y();
 }

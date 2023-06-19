@@ -1,29 +1,24 @@
 #pragma once
 #include"DBDriver.h"
 
-
-
 class SQLiteDriver : public DBDriver
 {
 public:
 	SQLiteDriver();
 	~SQLiteDriver();
 
-	bool Connect(QString host, QString user, QString password, QString dbname) override;
+	bool Connect(QString dbname,QString host, QString user, QString password) override;
 
-	bool DisConnect() override;
+	void DisConnect() override;
 
 	bool IsConnect() override;
 
-	bool SaveFeature(CFeature* feature) override;
+	bool InsertFeature(CFeature* feature) override;
 
-	CFeature ReadFeature() override;
+	CFeature* ReadFeature(int DBID) override;
 
 	bool DeleteFeature(CFeature* feature) override;
 
-	bool AlterFeature(CFeature* feature, CFeature* newfeature) override;
-
-	bool IsExist(CFeature* feature) override;
-
+	QVector<int> ReadFeatureID() override;
 };
 

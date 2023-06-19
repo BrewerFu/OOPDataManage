@@ -5,6 +5,31 @@ CPath::CPath()
 	ID = GetNewID(this);
 }
 
+CPath::CPath(const CPath& c)
+{
+	ID = GetNewID(this);
+	m_Pois = c.m_Pois;
+	for (auto& poi :m_Pois )
+	{
+		poi = std::make_shared<CPoint>(*poi);
+	}
+}
+
+CPath& CPath::operator=(const CPath& c)
+{
+	
+	if (this != &c)
+	{
+		ID = GetNewID(this);
+		m_Pois = c.m_Pois;
+		for (auto& poi : m_Pois)
+		{
+			poi = std::make_shared<CPoint>(*poi);
+		}
+	}
+	return *this;
+}
+
 CPath::~CPath()
 {
 	ReleaseID(ID);
@@ -65,9 +90,9 @@ const char* CPath::ToDBIDText()const
 	return dbid.c_str();
 }
 
-float CPath::Circum()const
+double CPath::Circum()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (std::vector<std::shared_ptr<CPoint>>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
 	{
 		sum += CPoint_Distance(**iter, **(iter + 1));
@@ -217,6 +242,30 @@ CPolyLine::CPolyLine()
 	ID = GetNewID(this);
 }
 
+CPolyLine::CPolyLine(const CPolyLine& c)
+{
+	ID = GetNewID(this);
+	m_Paths = c.m_Paths;
+	for (auto& path : m_Paths)
+	{
+		path = std::make_shared<CPath>(*path);
+	}
+}
+
+CPolyLine& CPolyLine::operator=(const CPolyLine& c)
+{
+	if (this != &c)
+	{
+		ID = GetNewID(this);
+		m_Paths = c.m_Paths;
+		for (auto& path : m_Paths)
+		{
+			path = std::make_shared<CPath>(*path);
+		}
+	}
+	return *this;
+}
+
 CPolyLine::~CPolyLine()
 {
 	ReleaseID(ID);
@@ -276,9 +325,9 @@ const char* CPolyLine::ToGeojson() const
 }
 
 
-float CPolyLine::Circum()const
+double CPolyLine::Circum()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (std::vector<std::shared_ptr<CPath>>::const_iterator iter = m_Paths.begin(); iter != m_Paths.end(); iter++)
 	{
 		sum += (*iter)->Circum();

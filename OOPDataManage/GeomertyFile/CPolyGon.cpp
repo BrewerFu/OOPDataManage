@@ -5,6 +5,30 @@ CRing::CRing()
 	ID = GetNewID(this);
 }
 
+CRing::CRing(const CRing& ring)
+{
+	ID = GetNewID(this);
+	m_Pois = ring.m_Pois;
+	for (auto& poi : m_Pois)
+	{
+		poi = std::make_shared<CPoint>(*poi);
+	}
+}
+
+CRing& CRing::operator=(const CRing& ring)
+{
+	if (this != &ring)
+	{
+		ID = GetNewID(this);
+		m_Pois = ring.m_Pois;
+		for (auto& poi : m_Pois)
+		{
+			poi = std::make_shared<CPoint>(*poi);
+		}
+	}
+	return *this;
+}
+
 CRing::~CRing()
 {
 
@@ -49,20 +73,20 @@ const char* CRing::ToGeojson() const
 	return geojson.c_str();
 }
 
-float CRing::Area()const
+double CRing::Area()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (int i = 0; i < m_Pois.size()-1; i++)
 	{
-		sum += *m_Pois[i] ^ *m_Pois[i + 1];
+		sum += *m_Pois[i] ^ (*m_Pois[i + 1]);
 	}
-	sum += *m_Pois[m_Pois.size() - 1] ^ *m_Pois[0];
+	sum += *m_Pois[m_Pois.size() - 1] ^ (*m_Pois[0]);
 	return sum / 2;
 }
 
-float CRing::Circum()const
+double CRing::Circum()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (std::vector<std::shared_ptr<CPoint>>::const_iterator iter = m_Pois.begin(); iter != m_Pois.end() - 1; iter++)
 	{
 		sum += CPoint_Distance(**iter, **(iter + 1));
@@ -213,6 +237,32 @@ CPolyGon::CPolyGon()
 	ID = GetNewID(this);
 }
 
+CPolyGon::CPolyGon(const CPolyGon& poly)
+{
+	ID = GetNewID(this);
+	m_Rings = poly.m_Rings;
+	for (auto& ring : m_Rings)
+	{
+		ring = std::make_shared<CRing>(*ring);
+	}
+
+}
+
+CPolyGon& CPolyGon::operator=(const CPolyGon& poly)
+{
+
+	if (this != &poly)
+	{
+		ID = GetNewID(this);
+		m_Rings = poly.m_Rings;
+		for (auto& ring : m_Rings)
+		{
+			ring = std::make_shared<CRing>(*ring);
+		}
+	}
+	return *this;
+}
+
 CPolyGon::~CPolyGon()
 {
 	ReleaseID(ID);
@@ -339,9 +389,9 @@ bool CPolyGon::CheckDuplicate(std::shared_ptr<CRing> pRing)
 	return true;
 }
 
-float CPolyGon::Area()const
+double CPolyGon::Area()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (int i = 0; i < m_Rings.size(); i++)
 	{
 		sum += m_Rings[i]->Area();
@@ -349,9 +399,9 @@ float CPolyGon::Area()const
 	return sum;
 }
 
-float CPolyGon::Circum()const
+double CPolyGon::Circum()const
 {
-	float sum = 0;
+	double sum = 0;
 	for (int i = 0; i < m_Rings.size(); i++)
 	{
 		sum += m_Rings[i]->Circum();

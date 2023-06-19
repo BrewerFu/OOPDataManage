@@ -82,7 +82,7 @@ CBoundaryStyle TextReader::ReadBoundaryStyle()
 	CBoundaryStyle boundary;
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	boundary.m_Width = qsl[1].toFloat();
+	boundary.m_Width = qsl[1].toInt();
 	boundary.m_PenStyle = (Qt::PenStyle)qsl[2].toInt();
 	return boundary;
 }
@@ -127,8 +127,8 @@ std::shared_ptr<CPoint> TextReader::ReadPoint()
 	qsl = qstr.split(" ");
 	if (qsl[0] == "Point")
 	{
-		point->x(qsl[1].toFloat());
-		point->y(qsl[2].toFloat());
+		point->x(qsl[1].toDouble());
+		point->y(qsl[2].toDouble());
 		return point;
 	}
 	else
@@ -146,13 +146,14 @@ int TextReader::GetGeometry(CPoint& point)
 		if (qts.atEnd())
 			return 0;
 		qstr = qts.readLine().trimmed();
-	} while (qstr == "Point");
+
+	} while (qstr != "Point");
 
 	//读取Point坐标
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	point.x(qsl[0].toFloat());
-	point.y(qsl[1].toFloat());
+	point.x(qsl[0].toDouble());
+	point.y(qsl[1].toDouble());
 
 	ReadAttribute(point);
 	return 1;
@@ -280,7 +281,7 @@ int TextReader::GetGeometry(CCircle& Cir)
 	//读取Circle半径
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Cir.SetR(qsl[1].toFloat());
+	Cir.SetR(qsl[1].toDouble());
 
 	ReadAttribute(Cir);
 	return 1;
@@ -306,15 +307,15 @@ int TextReader::GetGeometry(CSection& Sec)
 	//读取Section半径
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.SetR(qsl[1].toFloat());
+	Sec.SetR(qsl[1].toDouble());
 	//读取Section起始角度
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.SetSAngle(qsl[1].toFloat());
+	Sec.SetSAngle(qsl[1].toDouble());
 	//读取Section终止角度
 	qstr = qts.readLine().trimmed();
 	qsl = qstr.split(" ");
-	Sec.SetEAngle(qsl[1].toFloat());
+	Sec.SetEAngle(qsl[1].toDouble());
 
 	ReadAttribute(Sec);
 	return 1;

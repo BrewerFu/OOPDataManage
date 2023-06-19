@@ -15,10 +15,10 @@ class CPath :public CGeometry,public IDManager<CPath>
 public:
 	//默认构造函数
 	CPath();
-	//复制构造函数,副本
-	CPath(const CPath& c) {};
+	//复制构造函数
+	CPath(const CPath& c);
 	//赋值运算符重载，副本
-	CPath& operator=(const CPath& c) {};
+	CPath& operator=(const CPath& c);
 	//析构函数
 	~CPath();
 
@@ -27,7 +27,7 @@ public:
 	const char* ToWKT()const override;
 	const char* ToGeojson()const override;
 	const char* ToDBIDText()const override;
-	float Circum()const override;
+	double Circum()const override;
 
 	//获取单折线点数
 	int GetCount()const { return m_Pois.size(); };
@@ -63,7 +63,7 @@ public:
 		iterator() = default;
 		iterator(const std::vector<std::shared_ptr<CPoint>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
-		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
+		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const{return m_it == other.m_it;}
 		std::shared_ptr<CPoint> operator*() const { return *m_it; }
@@ -104,16 +104,16 @@ class CPolyLine:public CGeometry,public IDManager<CPolyLine>
 public:
 	CPolyLine();
 	//复制构造函数，副本
-	CPolyLine(const CPolyLine& c) {};
+	CPolyLine(const CPolyLine& c);
 	//析构函数
 	~CPolyLine();
 	//赋值构造函数,副本
-	CPolyLine& operator=(const CPolyLine& c) {};
+	CPolyLine& operator=(const CPolyLine& c);
 
 	GeometryType GetType()const override;
 	const char* ToWKT()const override;
 	const char* ToGeojson()const override;
-	float Circum()const override;
+	double Circum()const override;
 
 	//获取折线段数
 	int GetCount()const { return m_Paths.size(); };
@@ -138,7 +138,7 @@ public:
 		iterator() = default;
 		iterator(const std::vector<std::shared_ptr<CPath>>::iterator& it) : m_it(it) {}
 		iterator& operator++() { ++m_it; return *this; }
-		iterator& operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
+		iterator operator++(int) { iterator tmp = *this; ++m_it; return tmp; }
 		bool operator!=(const iterator& other) const { return m_it != other.m_it; }
 		bool operator==(const iterator& other) const { return m_it == other.m_it; }
 		std::shared_ptr<CPath> operator*() const { return *m_it; }

@@ -1,13 +1,15 @@
-#pragma once
-#include"../GeomertyFile/CFeature.h"
+﻿#pragma once
 #include<qstring.h>
 #include<qsqldatabase.h>
 #include<qsqlquery.h>
 #include<qsqlerror.h>
+#include<qsqlrecord.h>
+#include"../GeomertyFile/CFeature.h"
 #include"../GeomertyFile/CPolyGon.h"
 #include"../GeomertyFile/CRectAngle.h"
 #include"../GeomertyFile/CSection.h"
 
+class DBSql;
 
 enum DBType
 {
@@ -27,83 +29,121 @@ class DBDriver
 {
 
 public:
-    DBDriver();
-    ~DBDriver();
+    DBDriver():m_sql(nullptr){};
+    virtual~DBDriver() {};
 
-    virtual bool Connect(QString host,QString user,QString password,QString dbname) = 0;
+    virtual bool Connect(QString dbname,QString host,QString user,QString password) = 0;
 
-    virtual bool DisConnect() = 0;
+    virtual void DisConnect() = 0;
 
     virtual bool IsConnect() = 0;
 
-    virtual bool SaveFeature(CFeature* feature) = 0;
+    virtual bool InsertFeature(CFeature* feature) = 0;
 
-    virtual CFeature ReadFeature() = 0;
+    virtual CFeature* ReadFeature(int DBID) = 0;
 
     virtual bool DeleteFeature(CFeature* feature) = 0;
 
-    virtual bool AlterFeature(CFeature* feature, CFeature* newfeature) = 0;
-
-    virtual bool IsExist(CFeature* feature) = 0;
-
-private:
-    QSqlDatabase m_database;
-};
-
-class DBSql
-{
-    bool exec();
-    bool setDataBase(QSqlDatabase database);
+    virtual QVector<int> ReadFeatureID() = 0;
 
 protected:
-    QSqlQuery m_Sql;
+    QSqlDatabase m_database;
+    DBSql* m_sql;
 };
 
 class DBSqlCoder
 {
 public:
     DBSqlCoder() {};
-	~DBSqlCoder() {};
+    ~DBSqlCoder() {};
 
-    void setText(QString text) { m_text = text; };
-    void setText(QStringList list) { m_list = list; };
+    virtual QStringList Decode(QString& text,QString delimiter)const;
 
-    virtual QStringList DecodeStyle(CGeometry* geo);
+    virtual QString Encode(QStringList& list,QString delimiter)const;
 
-    virtual bool EncodeStyle(CGeometry* geo);
-
-    virtual QStringList Decode();
-
-    virtual QString Encode();
-
-protected:
-    QString m_text;
-    QStringList m_list;
 };
 
-class DBSqlAdd:public DBSql
+class DBSql
 {
 public:
-    DBSqlAdd() {};
-    ~DBSqlAdd() {};
+    bool exec();
+    bool setDataBase(QSqlDatabase database);
+    bool prepare(QString sql);
+    void bindValue(QString name, QVariant value);
+    void bindValue(int pos, QVariant value);
+    QVariant value(int pos);
+    QVariant value(QString name);
+    QSqlError lastError();
+    bool next();
 
-    virtual bool AddPoint(std::shared_ptr<CPoint> point,int ID,int featureID);
+    virtual int InsertFeature(CFeature* feature);
 
-    virtual bool AddPath(std::shared_ptr<CPath> path,int featureID);
+    virtual int ExistFeature(CFeature* feature);
 
-    virtual bool AddPolyLine(std::shared_ptr<CPolyLine> polyline,int featureID);
+    virtual int SaveFeature(CFeature* feature);
 
-    virtual bool AddRing(std::shared_ptr<CRing> ring,int featureID);
+    virtual CFeature* ReadFeature(int DBID);
 
-    virtual bool AddPolyGon(std::shared_ptr<CPolyGon> polygon,int featureID);
-
-    virtual bool AddRectAngle(std::shared_ptr<CRectAngle> rectangle,int featureID);
-
-    virtual bool AddCircle(std::shared_ptr<CCircle> circle,int featureID);
-
-    virtual bool AddSection(std::shared_ptr<CSection> section,int featureID);
+    virtual bool DeleteFeature(CFeature* feature);
 
 protected:
-    virtual bool BindAttribute(std::shared_ptr<CGeometry> geo);
+    bool AddReference(std::shared_ptr<CGeometry> geo);
+
+    virtual int InsertFeature(CFeature* feature,int ID);
+
+    virtual void BindAttribute(std::shared_ptr<CGeometry> geo);
+
+    virtual void PhraseAttribute(std::shared_ptr<CGeometry> geo);
+
+    virtual int InsertPoint(std::shared_ptr<CPoint> point);
+
+    virtual int InsertPath(std::shared_ptr<CPath> path);
+
+    virtual int InsertPolyLine(std::shared_ptr<CPolyLine> polyline);
+
+    virtual int InsertRing(std::shared_ptr<CRing> ring);
+
+    virtual int InsertPolyGon(std::shared_ptr<CPolyGon> polygon);
+
+    virtual int InsertRectAngle(std::shared_ptr<CRectAngle> rectangle);
+
+    virtual int InsertCircle(std::shared_ptr<CCircle> circle);
+
+    virtual int InsertSection(std::shared_ptr<CSection> section);
+
+    virtual bool ReadPoint(std::shared_ptr<CPoint>& point, int DBID);
+
+    virtual bool ReadPath(std::shared_ptr<CPath>& path, int DBID);
+
+    virtual bool ReadPolyLine(std::shared_ptr<CPolyLine>& line, int DBID);
+
+    virtual bool ReadRing(std::shared_ptr<CRing>& ring, int DBID);
+
+    virtual bool ReadPolyGon(std::shared_ptr<CPolyGon>& Gon, int DBID);
+
+    virtual bool ReadRectAngle(std::shared_ptr<CRectAngle>& rect, int DBID);
+
+    virtual bool ReadCircle(std::shared_ptr<CCircle>& circle, int DBID);
+
+    virtual bool ReadSection(std::shared_ptr<CSection>& section, int DBID);
+
+    virtual int ExistPoint(std::shared_ptr<CPoint> point);
+
+    virtual int ExistPath(std::shared_ptr<CPath> path);
+
+    virtual int ExistRing(std::shared_ptr<CRing> ring);
+
+    virtual int ExistPolyLine(std::shared_ptr<CPolyLine> polyline);
+
+    virtual int ExistPolyGon(std::shared_ptr<CPolyGon> polygon);
+
+    virtual int ExistRectAngle(std::shared_ptr<CRectAngle> rectangle);
+
+    virtual int ExistCircle(std::shared_ptr<CCircle> circle);
+
+    virtual int ExistSection(std::shared_ptr<CSection> section);
+
     DBSqlCoder m_coder;
+    QSqlQuery m_Sql;
 };
+

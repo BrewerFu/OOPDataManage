@@ -27,9 +27,9 @@ class CBitMap;
 struct BBox
 {
 	//左上
-	float LT;
+	double LT;
 	//右下
-	float RB;
+	double RB;
 };
 
 enum class GeometryType:int
@@ -46,6 +46,64 @@ enum class GeometryType:int
 	Text,
 	BitMap
 };
+
+static std::string GeometryTypeToString(GeometryType type)
+{
+	switch (type)
+	{
+	case GeometryType::Undefined:
+		return "Undefined";
+	case GeometryType::Point:
+		return "Point";
+	case GeometryType::Path:
+		return "Path";
+	case GeometryType::PolyLine:
+		return "PolyLine";
+	case GeometryType::Ring:
+		return "Ring";
+	case GeometryType::PolyGon:
+		return "PolyGon";
+	case GeometryType::RectAngle:
+		return "RectAngle";
+	case GeometryType::Circle:
+		return "Circle";
+	case GeometryType::Section:
+		return "Section";
+	case GeometryType::Text:
+		return "Text";
+	case GeometryType::BitMap:
+		return "BitMap";
+	default:
+		return "Undefined";
+	}
+
+}
+
+static GeometryType StringToGemetryType(std::string type)
+{
+	if(type=="Point")
+		return GeometryType::Point;
+	else if (type == "Path")
+		return GeometryType::Path;
+	else if (type == "PolyLine")
+		return GeometryType::PolyLine;
+	else if (type == "Ring")
+		return GeometryType::Ring;
+	else if (type == "PolyGon")
+		return GeometryType::PolyGon;
+	else if (type == "RectAngle")
+		return GeometryType::RectAngle;
+	else if (type == "Circle")
+		return GeometryType::Circle;
+	else if (type == "Section")
+		return GeometryType::Section;
+	else if (type == "Text")
+		return GeometryType::Text;
+	else if (type == "BitMap")
+		return GeometryType::BitMap;
+	else
+		return GeometryType::Undefined;
+}
 
 //抽象几何
 class CGeometry
@@ -85,9 +143,9 @@ public:
 	virtual const char* ToGeojson()const = 0;
 
 	//获取周长
-	virtual float Circum()const { return 0; };
+	virtual double Circum()const { return 0; };
 	//获取面积
-	virtual float Area()const { return 0; };
+	virtual double Area()const { return 0; };
 
 	virtual const char* ToDBIDText()const { return NULL; };
 

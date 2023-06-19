@@ -1,37 +1,40 @@
-#pragma once
+﻿#pragma once
 #include"GeomertyFile/CFeature.h"
-#include"DBDriver/DBDriver.h"
+#include"DBDriver/SQLiteDriver.h"
 
-
-struct FeatureSet
+struct FeatureIDSet
 {
-	std::vector<CFeature> S;
+	std::vector<int> id;
 };
 
 class DBManager
 {
 public:
-	DBManager();
-	~DBManager();
+	//单例模式
+	static DBManager& GetInstance()
+	{
+		static DBManager instance;
+		return instance;
+	}
 
-	bool Connect(DBType type,QString dbname,QString host,QString user,QString password);
+	bool Connect(DBType type,QString dbname,QString host=NULL,QString user=NULL,QString password=NULL);
 
-	bool DisConnect();
+	void DisConnect();
 
 	bool IsConnect();
 
 	bool SaveFeature(CFeature* feature);
 
-	CFeature ReadAllFeature();
-
 	bool DeleteFeature(CFeature* feature);
 
-	bool AlterFeature(CFeature* feature, CFeature* newfeature);
+	QVector<int> ReadFeatureID();
 
-	DBType Drivers();
+	CFeature* ReadFeature(int DBID);
 
 private:
-
+	DBDriver *driver;
+	DBManager();
+	~DBManager();
 };
 
 

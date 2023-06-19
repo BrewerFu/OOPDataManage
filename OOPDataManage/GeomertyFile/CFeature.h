@@ -83,7 +83,10 @@ public:
 
 	//获取要对象素的ID
 	int GetID() { return m_ID; }
-
+	void SetID(int id) { m_ID = id; }
+	const char* GetName() { return Name.c_str(); }
+	void SetName(const char* name) { Name = std::string(name);}
+	void SetName(std::string name) { Name = name; }
 	//迭代器对象
 	class iterator
 	{
@@ -112,10 +115,11 @@ private:
 	};
 	//检查几何对象的类型是否正确
 	bool CheckCorrectType(GeometryType type);
-	void SetID(int id) { m_ID = id; }
-
-
+	
 	int m_ID,m_DBID;
+
+	std::string Name = "Default";
+
 	GeometryType m_Type;
 	std::vector<std::shared_ptr<CGeometry>> m_vector;
 	/*std::vector<Observer*> m_observers;*/

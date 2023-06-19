@@ -66,6 +66,7 @@ bool FileManager::Close()
 	delete Writer;
 	Reader = nullptr;
 	Writer = nullptr;
+
 	return true;
 }
 

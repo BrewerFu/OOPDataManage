@@ -29,6 +29,12 @@ class FileWriter:public GeoWriterFormat
 {
 public:
 	//打开文件
+	~FileWriter()
+	{ 
+		qfs.setFileName(m_FilePath + "/~" + m_FileName); 
+		if (qfs.exists())
+			qfs.remove();
+	}
 
 	virtual bool Open(QString FileName) = 0;
 

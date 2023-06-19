@@ -39,6 +39,7 @@ bld/
 #wwwroot/
 
 .vscode/
+*.db
 
 .editorconfig
 # Visual Studio 2017 auto generated files
